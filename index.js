@@ -382,7 +382,6 @@ function setMessages(day, specifyMsg) {
     const msgObj = document.querySelector('#msg');
     const mainImage = document.querySelector('#main-img');
     const divsToHide = document.getElementsByClassName('dth');
-    debugger;
     const sunset = day.sunset();
     const date = new Date();
     // if (month == 11 && dayInMonth == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
@@ -711,61 +710,64 @@ function isStartBorechOlenu() {
 }
 
 function calculateMoiladAndGetMoiladText() {
-    switch (month) {
-        case 1: 
-            return "המולד יהיה ביום רביעי 4:34 ו- 13 חלקים";
-        case 2:
-            return "המולד יהיה ביום שישי 5:18 ו- 14 חלקים";
-        case 3:
-            return "המולד יהיה היום 6:02 ו- 15 חלקים";
-        case 4:
-            return "המולד יהיה ביום שני 6:46 ו- 16 חלקים";
-        case 5:
-            return "המולד יהיה בליל רביעי 7:30 ו- 17 חלקים";
-        case 6:
-            return "המולד יהיה ביום חמישי 8:15 ";
-        case 7:
-            return "המולד יהיה בליל שב״ק 8:59 ו- 1 חלק";
-        case 8:
-            return "המולד יהיה ביום ראשון 9:43 ו- 2 חלקים";
-        case 9:
-            return "המולד יהיה בליל שלישי 10:27 ו- 3 חלקים";
-        case 10:
-            return "המולד יהיה ביום ראשון 03:06 ו- 11 חלקים";
-        case 11:
-            return "המולד יהיה בליל שלישי 03:50 ו- 12 חלקים";
-        default:
-            break;
-    }
+    // switch (month) {
+    //     case 1: 
+    //         return "המולד יהיה ביום רביעי בשעה 4:34 ו- 13 חלקים";
+    //     case 2:
+    //         return "המולד יהיה בליל שישי בשעה 5:18 ו- 14 חלקים";
+    //     case 3:
+    //         return "המולד יהיה היום בשעה 6:02 ו- 15 חלקים";
+    //     case 4:
+    //         return "המולד יהיה ביום שני בשעה 6:46 ו- 16 חלקים";
+    //     case 5:
+    //         return "המולד יהיה בליל רביעי בשעה 7:30 ו- 17 חלקים";
+    //     case 6:
+    //         return "המולד יהיה ביום חמישי בשעה 8:15 ";
+    //     case 7:
+    //         return "המולד יהיה בליל שב״ק בשעה 8:59 ו- 1 חלק";
+    //     case 8:
+    //         return "המולד יהיה ביום ראשון בשעה 9:43 ו- 2 חלקים";
+    //     case 9:
+    //         return "המולד יהיה בליל שלישי בשעה 10:27 ו- 3 חלקים";
+    //     case 10:
+    //         return "המולד יהיה ביום ראשון בשעה 03:06 ו- 11 חלקים";
+    //     case 11:
+    //         return "המולד יהיה בליל שלישי בשעה 03:50 ו- 12 חלקים";
+    //     default:
+    //         break;
+    // }
     const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
     const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
     const timeOfToday = new Date().getTime();
     const amount = Math.round((timeOfToday - BRACK_TIME) / ROUND_OF_MOON);
-    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount + 2));
+    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount + 1));
     hebrewMoiladDay = new Hebcal.HDate(moiladDay);
     if (hebrewMoiladDay.sunset() < moiladDay.getTime()) {
         moiladDay.setDate(moiladDay.getDate() + 1);
     }
     const moiladDayInWords = days[moiladDay.getDay()];
-    const dayOrNight = moiladDay.getUTCHours() >= 6 && moiladDay.getUTCHours() < 18 ? 'ביום ' : 'בליל ';
+    console.log("moiladDay:", moiladDay.getUTCHours(), moiladDay.getHours());
+    
+    const dayOrNight = moiladDay.getHours() >= 6 && moiladDay.getHours() < 18 ? 'ביום ' : 'בליל ';
     const moladHours = moiladDay.getUTCHours();
     const moladMinutes = moiladDay.getUTCMinutes();
     const moladSeconds = moiladDay.getUTCSeconds();
     const totalChalakim = (moladHours * 1080) + (moladMinutes * 18) + Math.floor(moladSeconds / 3);
     const chalakim = totalChalakim % 18;   
     moiladDay.setHours(moiladDay.getUTCHours() + 2);
-    const moiladTime = format_time(moiladDay)
     let chalakimText;
     if (chalakim == 0) {
         chalakimText = '';
+        moiladDay.setMinutes(moiladDay.getMinutes() + 1);
     }
     else if (chalakim == 1) {
         chalakimText = ' וחלק אחד';
     } else {
         chalakimText = ' ו-' + chalakim + ' חלקים';
     }
+    const moiladTime = format_time(moiladDay)
     const moiladText = (' המולד יהיה ' + dayOrNight + moiladDayInWords + ' בשעה ' + moiladTime + chalakimText);
-    console.log("moiladText:", moiladText );
+    // console.log("moiladText:", moiladText );
     return moiladText;
 
 }
