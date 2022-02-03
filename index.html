@@ -16,6 +16,12 @@
         <img alt="יש שגיאה במערכת" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0;">
     </div>
     <script type="text/javascript">
+        let isShowTimes = true;
+
+        window.addEventListener("click", function () {
+            isShowTimes = !isShowTimes;
+        });
+
         function refresh() {
             let date = new Date();
             document.querySelector('#time').innerText = format_time(date);
@@ -27,12 +33,18 @@
             var omerDay = day.omer();
             let daf = day.dafyomi();
             document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
-            document.querySelector('#sunset').innerText = 'שקיעה:  ' + format_time(day.sunset());
-            document.querySelector('#shma').innerText = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
-            document.querySelector('#daf_yomi').innerText = 'דף היומי בבלי:  ' + day.dafyomi('h');
+            if (isShowTimes == true) {
+                document.querySelector('#sunset').innerText = 'שקיעה:  ' + format_time(day.sunset());
+                document.querySelector('#shma').innerText = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
+                document.querySelector('#daf_yomi').innerText = 'דף היומי בבלי:  ' + day.dafyomi('h');
+            }
+            else {
+                document.querySelector('#sunset').innerText = '';
+                document.querySelector('#shma').innerText = '';
+                document.querySelector('#daf_yomi').innerText = '';
+                document.querySelector('#time').innerText = '';
+            }
             setTimeout('refresh()', 1000);
-
-
 
         }
 
@@ -44,6 +56,9 @@
             return (n < 10) ? ("0" + n) : n;
         }
         Hebcal.events.on('ready', refresh());
+
+
+
     </script>
 </body>
 
