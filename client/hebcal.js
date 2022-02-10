@@ -2230,8 +2230,10 @@
             chatzot_night: function(hdate) {
                 return new Date(hdate.sunrise()[getTime]() - (hdate.nightHour() * 6));
             },
-            alot_hashachar: function(hdate) {
-                return suntime(hdate).alot_hashachar;
+            alot_hashachar_90: function(hdate) {  //90 minuts
+                const beinAlotLeneitz = (hdate.sunrise().getTime()  - suntime(hdate).alot_hashachar.getTime()) * 1.25;
+                return new Date(hdate.sunrise().getTime() - beinAlotLeneitz);
+               
             },
             alot_hashacher: function(hdate) {
                 return suntime(hdate).alot_hashachar;
@@ -2241,6 +2243,13 @@
             },
             misheyakir_machmir: function(hdate) {
                 return suntime(hdate).misheyakir_machmir;
+            },
+            sof_zman_shma_A: function(hdate) { // Magen Avraham
+                const beinAlotLeneitz = (hdate.sunrise().getTime()  - suntime(hdate).alot_hashachar.getTime()) * 1.25;
+                const alot90 = hdate.sunrise().getTime() - beinAlotLeneitz;
+                const timeOfDay = hdate.sunset().getTime() - hdate.sunrise().getTime();
+                const timeSofZman = ((timeOfDay + (beinAlotLeneitz * 2)) / 12) * 3;
+                return new Date(alot90 + timeSofZman) ; 
             },
             sof_zman_shma: function(hdate) { // Gra
                 return hourOffset(hdate, 3);
