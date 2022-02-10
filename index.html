@@ -25,6 +25,7 @@
         function refresh() {
             let date = new Date();
             document.querySelector('#time').innerText = format_time(date);
+            insertIn('#time', format_time(date), isShowTimes);
             date = date.setMinutes(date.getMinutes() - 18);
             var day = new Hebcal.HDate();
             if (day.sunset() < date) {
@@ -33,19 +34,38 @@
             var omerDay = day.omer();
             let daf = day.dafyomi();
             document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
-            if (isShowTimes == true) {
-                document.querySelector('#sunset').innerText = 'שקיעה:  ' + format_time(day.sunset());
-                document.querySelector('#shma').innerText = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
-                document.querySelector('#daf_yomi').innerText = 'דף היומי בבלי:  ' + day.dafyomi('h');
-            }
-            else {
-                document.querySelector('#sunset').innerText = '';
-                document.querySelector('#shma').innerText = '';
-                document.querySelector('#daf_yomi').innerText = '';
-                document.querySelector('#time').innerText = '';
-            }
+            replaceSofShma(day);
+            insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
+            insertIn('#daf_yomi', 'דף היומי בבלי:  ' + day.dafyomi('h'), isShowTimes);
             setTimeout('refresh()', 1000);
 
+        }
+
+        function insertIn(divId, text, isAvailable) {
+            document.querySelector(divId).innerText = isAvailable ? text : '';
+        }
+
+        function replaceSofShma(day) {
+            let date = new Date();
+            let seconds = date.getSeconds();
+            let time = 0;
+            if (seconds / 10 % 2 == 0) {
+                insertIn('#shma', 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma), isShowTimes);
+                time = day.getZemanim().sof_zman_shma.getTime();
+            }
+            else {
+                insertIn('#shma', 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A), isShowTimes);
+                time = day.getZemanim().sof_zman_shma_A.getTime();
+            }
+            if (date.getTime() - time > (1000 * 60 * 20)) {
+                document.querySelector('#shma').style.fontSize = '2.3em';
+                document.querySelector('#shma').style.color = 'red';
+
+            }
+            else {
+                document.querySelector('#shma').style.fontSize = '2em';
+                document.querySelector('#shma').style.color = 'black';
+            }
         }
 
         function format_time(date) {
