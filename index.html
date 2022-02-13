@@ -25,7 +25,7 @@
         function refresh() {
             let date = new Date();
             document.querySelector('#time').innerText = format_time(date);
-            insertIn('#time', format_time(date), isShowTimes);
+            insertIn('#time', formatTimeWithSeconds(date), isShowTimes);
             date = date.setMinutes(date.getMinutes() - 18);
             var day = new Hebcal.HDate();
             if (day.sunset() < date) {
@@ -69,7 +69,11 @@
         }
 
         function format_time(date) {
-            return pad(date.getHours()) + ':' + pad(date.getMinutes()) + ':' + pad(date.getSeconds());
+            return date.getHours() + ':' + pad(date.getMinutes());
+        }
+
+        function formatTimeWithSeconds(date) {
+            return format_time(date) + ':' + pad(date.getSeconds());
         }
 
         function pad(n) {
