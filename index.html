@@ -36,20 +36,20 @@
             document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
             replaceSofShma(day);
             insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
-            insertIn('#daf_yomi', 'דף היומי בבלי:  ' + day.dafyomi('h'), isShowTimes);
+            insertIn('#daf_yomi',fixSlash('דף היומי בבלי:  ' + day.dafyomi('h')), isShowTimes);
             setTimeout('refresh()', 1000);
 
         }
 
         function insertIn(divId, text, isAvailable) {
-            document.querySelector(divId).innerText = isAvailable ? text : '';
+            document.querySelector(divId).innerHTML = isAvailable ? text : '';
         }
 
         function replaceSofShma(day) {
             let date = new Date();
             let seconds = date.getSeconds();
             let time = 0;
-            if (seconds / 10 % 2 == 0) {
+            if (Math.floor(seconds / 10) % 2 == 0) {
                 insertIn('#shma', 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma), isShowTimes);
                 time = day.getZemanim().sof_zman_shma.getTime();
             }
@@ -57,7 +57,7 @@
                 insertIn('#shma', 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A), isShowTimes);
                 time = day.getZemanim().sof_zman_shma_A.getTime();
             }
-            if (date.getTime() - time > (1000 * 60 * 20)) {
+            if (date.getTime() - time < (1000 * 60 * 20)) {
                 document.querySelector('#shma').style.fontSize = '2.3em';
                 document.querySelector('#shma').style.color = 'red';
 
@@ -78,6 +78,14 @@
 
         function pad(n) {
             return (n < 10) ? ("0" + n) : n;
+        }
+
+        function fixSlash(str) {
+            if (str[str.length -1] == "\'") {
+                return "\'" + str.slice(0, -1);
+            }
+            return str;
+            
         }
         Hebcal.events.on('ready', refresh());
 
