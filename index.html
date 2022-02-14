@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 
 <head style="margin: 0;">
     <script type="text/javascript" src="client/hebcal.js"></script>
@@ -36,7 +36,7 @@
             document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
             replaceSofShma(day);
             insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
-            insertIn('#daf_yomi',fixSlash('דף היומי בבלי:  ' + day.dafyomi('h')), isShowTimes);
+            insertIn('#daf_yomi','דף היומי בבלי:  ' + day.dafyomi('h'), isShowTimes);
             setTimeout('refresh()', 1000);
 
         }
@@ -80,13 +80,6 @@
             return (n < 10) ? ("0" + n) : n;
         }
 
-        function fixSlash(str) {
-            if (str[str.length -1] == "\'") {
-                return "\'" + str.slice(0, -1);
-            }
-            return str;
-            
-        }
         Hebcal.events.on('ready', refresh());
 
 
