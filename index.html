@@ -4,87 +4,19 @@
 <head style="margin: 0;">
     <script type="text/javascript" src="client/hebcal.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="index.css">
     <title>ספירת העומר</title>
 </head>
 
 <body>
-    <div id="omer" style="width: 100%; height: 100%; display: flex;">
-        <h1 id="time" style="position: fixed; top: -10px; left: 904px; z-index: 10;"></h1>
-        <h1 id="shma" style="position: fixed; top: 150px; right: 184px; z-index: 9;"></h1>
-        <h1 id="daf_yomi" style="position: fixed; bottom: 9px; left: 811px; z-index: 9;"></h1>
-        <h1 id="sunset" style="position: fixed; top: 150px; left: 185px; z-index: 10;"></h1>
-        <img alt="יש שגיאה במערכת" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0;">
+    <div id="omer" class="container">
+        <h1 id="time" class="inner time"></h1>
+        <h1 id="shma" class="inner shma"></h1>
+        <h1 id="daf_yomi" class="inner daf_yomi"></h1>
+        <h1 id="sunset" class="inner sunset"></h1>
+        <img alt="יש שגיאה במערכת" class="inner image">
     </div>
-    <script type="text/javascript">
-        let isShowTimes = true;
-
-        window.addEventListener("click", function () {
-            isShowTimes = !isShowTimes;
-        });
-
-        function refresh() {
-            let date = new Date();
-            document.querySelector('#time').innerText = format_time(date);
-            insertIn('#time', formatTimeWithSeconds(date), isShowTimes);
-            date = date.setMinutes(date.getMinutes() - 18);
-            var day = new Hebcal.HDate();
-            if (day.sunset() < date) {
-                day = day.next();
-            }
-            var omerDay = day.omer();
-            let daf = day.dafyomi();
-            document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
-            replaceSofShma(day);
-            insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
-            insertIn('#daf_yomi','דף היומי בבלי:  ' + day.dafyomi('h'), isShowTimes);
-            setTimeout('refresh()', 1000);
-
-        }
-
-        function insertIn(divId, text, isAvailable) {
-            document.querySelector(divId).innerHTML = isAvailable ? text : '';
-        }
-
-        function replaceSofShma(day) {
-            let date = new Date();
-            let seconds = date.getSeconds();
-            let time = 0;
-            if (Math.floor(seconds / 10) % 2 == 0) {
-                insertIn('#shma', 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma), isShowTimes);
-                time = day.getZemanim().sof_zman_shma.getTime();
-            }
-            else {
-                insertIn('#shma', 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A), isShowTimes);
-                time = day.getZemanim().sof_zman_shma_A.getTime();
-            }
-            if (date.getTime() - time < (1000 * 60 * 20)) {
-                document.querySelector('#shma').style.fontSize = '2.3em';
-                document.querySelector('#shma').style.color = 'red';
-
-            }
-            else {
-                document.querySelector('#shma').style.fontSize = '2em';
-                document.querySelector('#shma').style.color = 'black';
-            }
-        }
-
-        function format_time(date) {
-            return date.getHours() + ':' + pad(date.getMinutes());
-        }
-
-        function formatTimeWithSeconds(date) {
-            return format_time(date) + ':' + pad(date.getSeconds());
-        }
-
-        function pad(n) {
-            return (n < 10) ? ("0" + n) : n;
-        }
-
-        Hebcal.events.on('ready', refresh());
-
-
-
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
