@@ -15,11 +15,13 @@ function refresh() {
     }
 
     var omerDay = day.omer();
-    let daf = day.dafyomi();
+    let daf = day.dafyomi('h');
     document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
     replaceSofShma(day);
     insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
-    insertIn('#daf_yomi','דף היומי בבלי:  ' + day.dafyomi('h'), isShowTimes);
+    insertIn('#daf_yomi','דף היומי בבלי:  ' + daf, isShowTimes);
+    // console.log((day.sunset() - date.getTime()) / (1000 * 60 * 15));
+    warningWhenNear(day.sunset(),new Date().getTime(), '#sunset');
     setTimeout('refresh()', 1000);
 
 }
@@ -40,15 +42,19 @@ function replaceSofShma(day) {
         insertIn('#shma', 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A), isShowTimes);
         time = day.getZemanim().sof_zman_shma_A.getTime();
     }
-   
-    if (date.getTime() +  - time < (1000 * 60 * 20)  && date.getTime() +  - time > 0) {
     
-        document.querySelector('#shma').classList.add('red');
-        document.querySelector('#shma').classList.remove('black');
+    warningWhenNear(time, date.getTime(), '#shma')
+}
+
+function warningWhenNear(time, now, div) {
+    if (time - now  < (1000 * 60 * 15)  && time - now > 0) {
+    
+        document.querySelector(div).classList.add('red');
+        document.querySelector(div).classList.remove('black');
     }
     else {
-        document.querySelector('#shma').classList.add('black');
-        document.querySelector('#shma').classList.remove('red');
+        document.querySelector(div).classList.add('black');
+        document.querySelector(div).classList.remove('red');
     }
 }
 
