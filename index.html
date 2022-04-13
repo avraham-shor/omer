@@ -5,14 +5,33 @@
     <script type="text/javascript" src="client/hebcal.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>ספירת העומר</title>
+    <style>
+        .time {
+            margin-top: 0;
+            width: 100vw;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .zmanim-box {
+            margin-top: 15vh;
+            z-index: 10;
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
 </head>
 
 <body>
     <div id="omer" style="width: 100%; height: 100%; display: flex;">
-        <h1 id="time" style="position: fixed; top: -10px; left: 904px; z-index: 10;"></h1>
-        <h1 id="shma" style="position: fixed; top: 150px; right: 184px; z-index: 9;"></h1>
-        <h1 id="daf_yomi" style="position: fixed; bottom: 9px; left: 811px; z-index: 9;"></h1>
-        <h1 id="sunset" style="position: fixed; top: 150px; left: 185px; z-index: 10;"></h1>
+        <h1 id="time" class="time" ></h1>
+        <div class="zmanim-box">
+            <h1 id="shma" style="text-align: inherit;width: 50vw;"></h1>
+            <h1 id="sunset" style="text-align: -webkit-center; width: 50vw;"  ></h1>
+        </div>
+        <h1 id="daf_yomi" ></h1>
+        
+        
         <img alt="יש שגיאה במערכת" style="width: 100%; height: 100%; position: fixed; top: 0; left: 0;">
     </div>
     <script type="text/javascript">
