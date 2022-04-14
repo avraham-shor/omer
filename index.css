@@ -9,14 +9,16 @@
 }
 
 .time {
-    top: -10px; 
-    left: 904px; 
+    top: 2vh;
+    left: 48vw;
     z-index: 10;
+    align-items: center;
+    text-align: center;
 }
 
 .shma {
-    top: 150px; 
-    right: 184px; 
+    top: 15vh; 
+    right: 6vw; 
     z-index: 9;
 }
 
@@ -29,14 +31,14 @@
 }
 
 .daf_yomi {
-    bottom: 
-    9px; left: 
-    811px; z-index: 9;
+    bottom: 3vh; 
+    left: 42vw;
+    z-index: 9;
 }
 
 .sunset {
-    top: 150px; 
-    left: 185px; 
+    top: 15vh; 
+    left: 9vw; 
     z-index: 10;
 }
 
