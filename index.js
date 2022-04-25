@@ -1,18 +1,28 @@
 let isShowTimes = true;
 
+const days = ['ראשון','שני','שלישי','רביעי','חמישי','ששי','שבת'];
+let dayOrNight = 'יום ';
+
 window.addEventListener("click", function () {
     isShowTimes = !isShowTimes;
 });
 
 function refresh() {
     let date = new Date();
-    document.querySelector('#time').innerText = format_time(date);
-    insertIn('#time', formatTimeWithSeconds(date), isShowTimes);
-    date = date.setMinutes(date.getMinutes() - 18);
+    let date2 = new Date();
+    dateLater = date.setMinutes(date.getMinutes() - 18);
     var day = new Hebcal.HDate();
-    if (day.sunset() < date) {
+    // let shkiah = day.sunset();
+    // // shkiah = shkiah.setMinutes(20);
+    // console.log(shkiah);
+    
+    if (day.sunset() < dateLater) {
         day = day.next();
+        dayOrNight = 'ליל ';
     }
+    else dayOrNight = 'יום ';
+    // console.log(day.getParsha('h')[0], day.getDay(), days[day.getDay()], day.toString('h'));
+    insertIn('#time',dayOrNight + days[day.getDay()] + " פ' " + (day.getParsha('h')[0] || '') + ' - ' + formatTimeWithSeconds(date2), isShowTimes);
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
@@ -59,7 +69,7 @@ function warningWhenNear(time, now, div) {
 }
 
 function format_time(date) {
-    return date.getHours() + ':' + pad(date.getMinutes());
+    return date.getHours() % 12 + ':' + pad(date.getMinutes());
 }
 
 function formatTimeWithSeconds(date) {

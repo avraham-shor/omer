@@ -2,6 +2,7 @@
     width: 100%; 
     height: 100%; 
     display: flex;
+    font-size: 1.1em;
 }
 
 .inner {
@@ -10,15 +11,16 @@
 
 .time {
     top: 2vh;
-    left: 48vw;
+    /* left: 48vw; */
     z-index: 10;
     align-items: center;
     text-align: center;
+    width: 100vw;
 }
 
 .shma {
     top: 15vh; 
-    right: 6vw; 
+    right: 9vw; 
     z-index: 9;
 }
 
@@ -31,14 +33,16 @@
 }
 
 .daf_yomi {
-    bottom: 3vh; 
-    left: 39vw;
+    bottom: -3vh; 
+    /* left: 39vw; */
     z-index: 9;
+    text-align: center;
+    width: 100vw;
 }
 
 .sunset {
     top: 15vh; 
-    left: 9vw; 
+    left: 10vw; 
     z-index: 10;
 }
 

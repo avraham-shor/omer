@@ -2198,6 +2198,7 @@
         };
 
         prototype.sunset = function() {
+            // console.log(suntime(this));
             return suntime(this).sunset;
         };
 
@@ -2273,7 +2274,7 @@
                 return hdate.sunrise();
             },
             shkiah: function(hdate) {
-                return hdate.sunset();
+                return hdate.sunset().setMinutes(20);
             }
         };
 
@@ -4075,15 +4076,15 @@
             ['Shmini', 0, 'שמיני'],
             ['Tazria', 0, 'תזריע'],
             ['Metzora', 0, 'מצורע'],
-            ['Achrei Mot', 'Achrei Mos', 'אחרי מות'],
-            ['Kedoshim', 0, 'קדשים'],
+            ['Achrei Mot', 'Achrei Mos', 'אחרי'],
+            ['Kedoshim', 0, 'קדושים'],
             ['Emor', 0, 'אמור'], // 30
             ['Behar', 0, 'בהר'],
-            ['Bechukotai', 'Bechukosai', 'בחקתי'],
+            ['Bechukotai', 'Bechukosai', 'בחוקותי'],
             ['Bamidbar', 0, 'במדבר'],
             ['Nasso', 0, 'נשא'],
-            ['Beha\'alotcha', 'Beha\'aloscha', 'בהעלתך'],
-            ['Sh\'lach', 0, 'שלח לך'],
+            ['Beha\'alotcha', 'Beha\'aloscha', 'בהעלותך'],
+            ['Sh\'lach', 0, 'שלח'],
             ['Korach', 0, 'קורח'],
             ['Chukat', 'Chukas', 'חקת'],
             ['Balak', 0, 'בלק'],
