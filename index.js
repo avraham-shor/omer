@@ -12,23 +12,20 @@ function refresh() {
     let date2 = new Date();
     dateLater = date.setMinutes(date.getMinutes() - 18);
     var day = new Hebcal.HDate();
-    // let shkiah = day.sunset();
-    // // shkiah = shkiah.setMinutes(20);
-    // console.log(shkiah);
+
     
     if (day.sunset() < dateLater) {
         day = day.next();
         dayOrNight = 'ליל ';
     }
-    else dayOrNight = 'יום ';
-    // console.log(day.getParsha('h')[0], day.getDay(), days[day.getDay()], day.toString('h'));
+    else dayOrNight = 'יום '; 
     insertIn('#time',dayOrNight + days[day.getDay()] + " פ' " + (day.getParsha('h')[0] || '') + ' - ' + formatTimeWithSeconds(date2), isShowTimes);
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
     document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
     replaceSofShma(day);
-    insertIn('#sunset', 'שקיעה:  ' + format_time(day.sunset()), isShowTimes);
+    insertIn('#sunset', 'שקיעה:  ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 2))), isShowTimes);
     insertIn('#daf_yomi','דף היומי בבלי:  ' + daf, isShowTimes);
     // console.log((day.sunset() - date.getTime()) / (1000 * 60 * 15));
     warningWhenNear(day.sunset(),new Date().getTime(), '#sunset');
