@@ -10,7 +10,7 @@
 }
 
 .time {
-    top: 2vh;
+    top: 0vh;
     /* left: 48vw; */
     z-index: 10;
     align-items: center;
@@ -33,7 +33,7 @@
 }
 
 .daf_yomi {
-    bottom: -3vh; 
+    bottom: 0vh; 
     /* left: 39vw; */
     z-index: 9;
     text-align: center;
