@@ -18,8 +18,8 @@ function refresh() {
         day = day.next();
         dayOrNight = 'ליל ';
     }
-    else dayOrNight = 'יום '; 
-    insertIn('#time',dayOrNight + days[day.getDay()] + " פ' " + (day.getParsha('h')[0] || '') + ' - ' + formatTimeWithSeconds(date2), isShowTimes);
+    else dayOrNight = 'יום ';
+    insertIn('#time',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פ' " + (day.getParsha('h')[0] || '') + ' - ' + formatTimeWithSeconds(date2), isShowTimes);
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
