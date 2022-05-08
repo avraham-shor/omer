@@ -12,7 +12,7 @@
 }
 
 .time {
-    top: 0vh;
+    top: -1vh;
     /* left: 48vw; */
     z-index: 10;
     align-items: center;
