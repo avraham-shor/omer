@@ -66,7 +66,7 @@ function warningWhenNear(time, now, div) {
 }
 
 function format_time(date) {
-    return ((date.getHours() -1) % 12 || 12) + ':' + pad(date.getMinutes());
+    return (date.getHours() % 12 || 12) + ':' + pad(date.getMinutes());
 }
 
 function formatTimeWithSeconds(date) {
