@@ -2,6 +2,9 @@ let isShowTimes = true;
 
 const days = ['ראשון','שני','שלישי','רביעי','חמישי','ששי','שבת'];
 let dayOrNight = 'יום ';
+const MIN_FONT_SIZE = 3.5;
+const MAX_FONT_SIZE = 5.5;
+let fontSize = 3.5;
 
 window.addEventListener("click", function () {
     isShowTimes = !isShowTimes;
@@ -50,7 +53,11 @@ function replaceSofShma(day) {
         time = day.getZemanim().sof_zman_shma_A.getTime();
     }
     
-    warningWhenNear(time, date.getTime(), '#shma')
+    warningWhenNear(time, date.getTime(), '#shma');
+}
+
+function setFontSize() {
+    document.querySelector('#shma').style.fontSize = fontSize + 'rem'; 
 }
 
 function warningWhenNear(time, now, div) {
@@ -58,11 +65,18 @@ function warningWhenNear(time, now, div) {
     
         document.querySelector(div).classList.add('red');
         document.querySelector(div).classList.remove('black');
+        if (fontSize < MAX_FONT_SIZE) {
+            fontSize += 0.005;
+        }
     }
     else {
         document.querySelector(div).classList.add('black');
         document.querySelector(div).classList.remove('red');
+        if (fontSize > MIN_FONT_SIZE) {
+            fontSize -= 0.005;
+        }
     }
+    setFontSize();
 }
 
 function format_time(date) {
