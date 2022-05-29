@@ -44,16 +44,21 @@ function replaceSofShma(day) {
     let date = new Date();
     let seconds = date.getSeconds();
     let time = 0;
+    let shma1 = day.getZemanim().sof_zman_shma_A.getTime();
+    let shma2 = day.getZemanim().sof_zman_shma.getTime();
+
     if (Math.floor(seconds / 10) % 2 == 0) {
         insertIn('#shma', 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma), isShowTimes);
-        time = day.getZemanim().sof_zman_shma.getTime();
+        time = shma2;
     }
     else {
         insertIn('#shma', 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A), isShowTimes);
-        time = day.getZemanim().sof_zman_shma_A.getTime();
+        time = shma1;
     }
     
+    
     warningWhenNear(time, date.getTime(), '#shma');
+    enlargeFontSizeOfShmaWhenNear(shma1, shma2, date.getTime());
 }
 
 function setFontSize() {
@@ -65,16 +70,22 @@ function warningWhenNear(time, now, div) {
     
         document.querySelector(div).classList.add('red');
         document.querySelector(div).classList.remove('black');
-        if (fontSize < MAX_FONT_SIZE) {
-            fontSize += 0.005;
-        }
     }
     else {
         document.querySelector(div).classList.add('black');
         document.querySelector(div).classList.remove('red');
-        if (fontSize > MIN_FONT_SIZE) {
-            fontSize -= 0.005;
+    }
+}
+
+function enlargeFontSizeOfShmaWhenNear(shma1, shma2, now) {
+    if (shma1 - now  < (1000 * 60 * 20)  && shma2 > now) {
+        if (fontSize < MAX_FONT_SIZE) {
+            fontSize += 0.002;
+            
         }
+    }
+    else if (fontSize > MIN_FONT_SIZE) {
+        fontSize -= 0.002;
     }
     setFontSize();
 }
