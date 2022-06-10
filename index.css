@@ -21,7 +21,7 @@
 }
 
 .shma {
-    top: 6vh; 
+    bottom: 3vh; 
     right: 9vw; 
     z-index: 9;
     font-size: 3.5rem;
@@ -44,7 +44,7 @@
 }
 
 .sunset {
-    top: 6vh; 
+    bottom: 3vh; 
     left: 10vw; 
     z-index: 10;
     font-size: 3.5rem;
