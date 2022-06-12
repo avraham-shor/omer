@@ -26,7 +26,11 @@ function refresh() {
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
-    document.querySelector('#omer img').src = 'images/SfiratHaomer' + omerDay + '.jpg';
+    let src = 'images/SfiratHaomer' + omerDay + '.jpg';
+    if (omerDay == 0) {
+        src = setMainImage(date2);
+    }
+    document.querySelector('#omer img').src = src;
     replaceSofShma(day);
     insertIn('#sunset', 'שקיעה:  ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 2))), isShowTimes);
     insertIn('#daf_yomi','דף היומי בבלי:  ' + daf, isShowTimes);
@@ -96,6 +100,19 @@ function format_time(date) {
 
 function formatTimeWithSeconds(date) {
     return format_time(date) + ':' + pad(date.getSeconds());
+}
+
+function setMainImage(date) {
+    let srcParams = 'speakingForbidden';
+    const hours = date.getHours;
+    const minutes = date.getMinutes;
+    if (hours > 6 && hours < 9 && minutes / 10 % 2 == 0) {
+        srcParams = 'kadishAtBima';
+    }
+    if (minutes / 10 % 3 == 0) {
+        srcParams = 'phoneForbidden';
+    }
+    return 'images/' + srcParams + '.jpeg'
 }
 
 function pad(n) {
