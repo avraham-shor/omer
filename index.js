@@ -104,8 +104,8 @@ function formatTimeWithSeconds(date) {
 
 function setMainImage(date) {
     let srcParams = 'speakingForbidden';
-    const hours = date.getHours;
-    const minutes = date.getMinutes;
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
     if (hours > 6 && hours < 9 && minutes / 10 % 2 == 0) {
         srcParams = 'kadishAtBima';
     }
