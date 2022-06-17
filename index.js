@@ -28,7 +28,7 @@ function refresh() {
     let daf = day.dafyomi('h');
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
-        src = setMainImage(date2, day.getDay() == 6);
+        src = setMainImage(date2, day.getDay());
     }
     document.querySelector('#omer img').src = src;
     replaceSofShma(day);
@@ -62,7 +62,7 @@ function replaceSofShma(day) {
     
     
     warningWhenNear(time, date.getTime(), '#shma');
-    enlargeFontSizeOfShmaWhenNear(shma1, shma2, date.getTime());
+    // enlargeFontSizeOfShmaWhenNear(shma1, shma2, date.getTime());
 }
 
 function setFontSize() {
@@ -102,14 +102,17 @@ function formatTimeWithSeconds(date) {
     return format_time(date) + ':' + pad(date.getSeconds());
 }
 
-function setMainImage(date, isShabat) {
+function setMainImage(date, day) {
     let srcParams = 'speakingForbidden';
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    if (!isShabat && minutes / 10 % 3 == 0) {
+    const isShabat = (day == 6);
+    const shabatNight = (day == 5 && hours >= 18 && hours <= 21);
+    const shabatMornning = isShabat && hours >= 8 && hours <= 11;
+    if (!isShabat && !shabatNight && minutes / 10 % 3 == 0) {
         srcParams = 'phoneForbidden';
     }
-    if (hours >= 6 && hours <= 9 && minutes / 10 % 2 == 0) {
+    if ((!isShabat && hours >= 6 && hours <= 9 && minutes / 10 % 2 == 0) || shabatNight || shabatMornning) {
         srcParams = 'kadishAtBima';
     }
     return 'images/' + srcParams + '.jpeg'
