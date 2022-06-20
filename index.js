@@ -106,13 +106,14 @@ function setMainImage(date, day) {
     let srcParams = 'speakingForbidden';
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const isShabat = (day == 6);
-    const shabatNight = (day == 5 && hours >= 18 && hours <= 21);
+    const isShabat = day == 6;
+    const shabatNight = isShabat && hours >= 18 && hours <= 23;
+    const shabatNightByTefila = shabatNight && hours <= 20;
     const shabatMornning = isShabat && hours >= 8 && hours <= 11;
-    if (!isShabat && !shabatNight && minutes / 10 % 3 == 0) {
+    if (!isShabat && !shabatNight && minutes % 30 == 0) {
         srcParams = 'phoneForbidden';
     }
-    if ((!isShabat && hours >= 6 && hours <= 9 && minutes / 10 % 2 == 0) || shabatNight || shabatMornning) {
+    if ((!isShabat && hours >= 6 && hours <= 9  || shabatNightByTefila || shabatMornning) && minutes % 20 == 0) {
         srcParams = 'kadishAtBima';
     }
     return 'images/' + srcParams + '.jpeg'
