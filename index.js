@@ -28,7 +28,7 @@ function refresh() {
     let daf = day.dafyomi('h');
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
-        src = setMainImage(date2, day.getDay());
+        src = setMainImage(date2, day.getDay() == 6);
     }
     document.querySelector('#omer img').src = src;
     replaceSofShma(day);
@@ -102,15 +102,14 @@ function formatTimeWithSeconds(date) {
     return format_time(date) + ':' + pad(date.getSeconds());
 }
 
-function setMainImage(date, day) {
+function setMainImage(date, isShabat) {
     let srcParams = 'speakingForbidden';
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const isShabat = day == 6;
     const shabatNight = isShabat && hours >= 18 && hours <= 23;
     const shabatNightByTefila = shabatNight && hours <= 20;
     const shabatMornning = isShabat && hours >= 8 && hours <= 11;
-    if (!isShabat && !shabatNight && minutes % 30 == 0) {
+    if (!isShabat && minutes % 30 == 0) {
         srcParams = 'phoneForbidden';
     }
     if ((!isShabat && hours >= 6 && hours <= 9  || shabatNightByTefila || shabatMornning) && minutes % 20 == 0) {
