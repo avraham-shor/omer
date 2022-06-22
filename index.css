@@ -63,3 +63,17 @@
     left: 0;
 }
 
+.msg {
+    display: none;
+    font-size: 6rem;
+    text-align: center;
+    align-items: center;
+    z-index: 100;
+    background: none;
+    top: 35vh;
+    left: 20vw;
+    width: 60vw;
+    color: brown;
+}
+
+
