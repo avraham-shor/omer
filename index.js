@@ -28,7 +28,7 @@ function refresh() {
     let daf = day.dafyomi('h');
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
-        src = setMainImage(date2, day.getDay() == 6);
+        src = setMainImage(date2, day.getDay() == 6, day);
     }
     document.querySelector('#omer img').src = src;
     replaceSofShma(day);
@@ -102,7 +102,13 @@ function formatTimeWithSeconds(date) {
     return format_time(date) + ':' + pad(date.getSeconds());
 }
 
-function setMainImage(date, isShabat) {
+function setMainImage(date, isShabat, day) {
+    // let srcParams = 'empty';
+    // let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
+    // let msgShma =  'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
+    // const msgObj = document.querySelector('#msg');
+    // msgObj.innerHTML = msgText;
+    // msgObj.style.fontSize = 6.5 - msgText.length / 30 + 'rem';
     let srcParams = 'speakingForbidden';
     const hours = date.getHours();
     const minutes = date.getMinutes();

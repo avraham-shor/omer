@@ -64,16 +64,19 @@
 }
 
 .msg {
-    display: none;
-    font-size: 6rem;
+    /* display: none; */
+    font-size: 4rem;
     text-align: center;
     align-items: center;
     z-index: 100;
-    background: none;
-    top: 35vh;
+    /* background-color: aqua; */
+    top: 28vh;
     left: 20vw;
     width: 60vw;
+    height: 43vh;
     color: brown;
+    display: inline-flex;
+    justify-content: space-around;
 }
 
 
