@@ -10,6 +10,14 @@ const MESSAGES = ['נא לשמור על ניקיון וקדושת בית הכנ�
 'אמירת "קדיש יתום" אך ורק ליד הבימה'
 ];
 
+const MESSAGES_SHABAT = ['נא לשמור על ניקיון וקדושת בית הכנסת!', 
+'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
+'נא להחזיר את הספרים למקום',
+'אמירת "קדיש יתום" אך ורק ליד הבימה'
+];
+
+
+
 let specifyMsg = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
 
 // const MIN_FONT_SIZE = 3.5;
@@ -50,7 +58,7 @@ function refresh() {
         // src = setMainImage(date2, day.getDay() == 6);
         //TODO
         src = 'images/empty.jpeg';
-        setMessages(date, day, SHMA1, SHMA2, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR);
+        setMessages(date, day.getDay() == 6, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR);
         
 
     }
@@ -146,14 +154,16 @@ function setMainImage(date, isShabat) {
     return 'images/' + srcParams + '.jpeg'
 }
 
-function setMessages(date, day, shma1, shma2, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
+function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
     
     let positionInArray = 0;
-    const regularMsg = MESSAGES[positionInArray];
+    let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
+    
+    const regularMsg = msgs[positionInArray];
 
     let msgZman1 = SHMA_STR1;
     let msgZman2 = SHMA_STR2;
@@ -163,11 +173,11 @@ function setMessages(date, day, shma1, shma2, SHMA_STR1, SHMA_STR2, DAF_STR, SHK
         msgZman2 = DAF_STR;
     }
     
-console.log(seconds, Math.floor(seconds / 10));
+// console.log(seconds, Math.floor(seconds / 10));
     switch (Math.floor(seconds / 10)) {
         case 0:
             if (positionInArray == 0) {
-                positionInArray = Math.floor(Math.random() * (MESSAGES.length));
+                positionInArray = Math.floor(Math.random() * (msgs.length));
             }
             msgText = regularMsg;
             break;
