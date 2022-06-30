@@ -4,19 +4,15 @@ const days = ['ראשון','שני','שלישי','רביעי','חמישי','שש
 let dayOrNight = 'יום ';
 
 const MESSAGES = ['נא לשמור על ניקיון וקדושת בית הכנסת!', 
+'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
+'נא להחזיר את הספרים למקום',
+'אמירת "קדיש יתום" אך ורק ליד הבימה',
 ' אין להשתמש בשום סלולארי בתוך הבימ"ד אלא לדברים נחוצים', 
-'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
-'נא להחזיר את הספרים למקום',
-'אמירת "קדיש יתום" אך ורק ליד הבימה'
 ];
 
-const MESSAGES_SHABAT = ['נא לשמור על ניקיון וקדושת בית הכנסת!', 
-'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
-'נא להחזיר את הספרים למקום',
-'אמירת "קדיש יתום" אך ורק ליד הבימה'
-];
+const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
 
-
+let positionInArray = 0;
 
 let specifyMsg = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
 
@@ -160,9 +156,12 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
     const seconds = date.getSeconds();
     let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
     
-    let positionInArray = 0;
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
     
+    if (seconds % 10 === 0) {
+        positionInArray = Math.floor(Math.random() * (msgs.length)); 
+    }
+
     const regularMsg = msgs[positionInArray];
 
     let msgZman1 = SHMA_STR1;
@@ -176,34 +175,26 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
 // console.log(seconds, Math.floor(seconds / 10));
     switch (Math.floor(seconds / 10)) {
         case 0:
-            if (positionInArray == 0) {
-                positionInArray = Math.floor(Math.random() * (msgs.length));
-            }
             msgText = regularMsg;
             break;
 
         case 1:
-            positionInArray = 0
             msgText = msgZman1;
-                break;
+            break;
 
         case 2:
             msgText = specifyMsg;
-                break;
+            break;
   
         case 3:
-            if (positionInArray == 0) {
-                positionInArray = Math.floor(Math.random() * (MESSAGES.length));
-            }
             msgText = regularMsg;
             break;
 
         case 4:
-            positionInArray = 0
             msgText = msgZman2;
                 break;
  
-        case 4:
+        case 5:
             msgText = specifyMsg;
                 break;
                                           
@@ -213,7 +204,7 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
 
     const msgObj = document.querySelector('#msg');
     msgObj.innerHTML = msgText;
-    msgObj.style.fontSize = 9.5 - msgText.length / 20 + 'rem';  
+    msgObj.style.fontSize = 9.5 - msgText.length / 17 + 'rem';  
 
     
 }
