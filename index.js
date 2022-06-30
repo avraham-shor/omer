@@ -204,7 +204,7 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
 
     const msgObj = document.querySelector('#msg');
     msgObj.innerHTML = msgText;
-    msgObj.style.fontSize = 9.5 - msgText.length / 17 + 'rem';  
+    msgObj.style.fontSize = 9.5 - msgText.length / 16 + 'rem';
 
     
 }
