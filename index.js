@@ -7,12 +7,14 @@ const MESSAGES = ['נא לשמור על ניקיון וקדושת בית הכנ�
 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
 'נא להחזיר את הספרים למקום',
 'אמירת "קדיש יתום" אך ורק ליד הבימה',
-' אין להשתמש בשום סלולארי בתוך הבימ"ד אלא לדברים נחוצים', 
+' אין להשתמש בשום סלולארי בתוך ביהמ"ד אלא לדברים נחוצים', 
 ];
 
 const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
 
 let positionInArray = 0;
+
+const zmanObj = {};
 
 let specifyMsg = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
 
@@ -46,6 +48,23 @@ function refresh() {
     const SHMA2 = day.getZemanim().sof_zman_shma.getTime();
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
+    const netz = 'נץ החמה:' + format_time(day.getZemanim().neitz_hachama);
+    const mincha = 'מנחה:' + format_time(day.getZemanim().mincha_gedola);
+    const nerot = 'הדלקת נרות:' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28)));
+    
+    zmanObj["shkiah"] = SHKIAH_STR;
+    zmanObj["daf"] = DAF_STR;
+    zmanObj["shma1"] = SHMA_STR1;
+    zmanObj["shma2"] = SHMA_STR2;
+    zmanObj["netz"] = netz;
+    zmanObj["mincha"] = mincha;
+    zmanObj["nerot"] = nerot;
+
+
+
+
+
+
     if (day.day == 30 || day.day == 1) {
         specifyMsg = 'יעלה ויבוא'; 
     }
@@ -54,7 +73,7 @@ function refresh() {
         // src = setMainImage(date2, day.getDay() == 6);
         //TODO
         src = 'images/empty.jpeg';
-        setMessages(date, day.getDay() == 6, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR);
+        setMessages(date, day.getDay(), SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR);
         
 
     }
@@ -128,29 +147,30 @@ function formatTimeWithSeconds(date) {
     return format_time(date) + ':' + pad(date.getSeconds());
 }
 
-function setMainImage(date, isShabat) {
-    // let srcParams = 'empty';
-    // let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
-    // let msgShma =  'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
-    // const msgObj = document.querySelector('#msg');
-    // msgObj.innerHTML = msgText;
-    // msgObj.style.fontSize = 6.5 - msgText.length / 30 + 'rem';
-    let srcParams = 'speakingForbidden';
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const shabatNight = isShabat && hours >= 18 && hours <= 23;
-    const shabatNightByTefila = shabatNight && hours <= 20;
-    const shabatMornning = isShabat && hours >= 8 && hours <= 11;
-    if (!isShabat && minutes % 30 == 0) {
-        srcParams = 'phoneForbidden';
-    }
-    if ((!isShabat && hours >= 6 && hours <= 9  || shabatNightByTefila || shabatMornning) && minutes % 20 == 0) {
-        srcParams = 'kadishAtBima';
-    }
-    return 'images/' + srcParams + '.jpeg'
-}
+// function setMainImage(date, isShabat) {
+//     // let srcParams = 'empty';
+//     // let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
+//     // let msgShma =  'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
+//     // const msgObj = document.querySelector('#msg');
+//     // msgObj.innerHTML = msgText;
+//     // msgObj.style.fontSize = 6.5 - msgText.length / 30 + 'rem';
+//     let srcParams = 'speakingForbidden';
+//     const hours = date.getHours();
+//     const minutes = date.getMinutes();
+//     const shabatNight = isShabat && hours >= 18 && hours <= 23;
+//     const shabatNightByTefila = shabatNight && hours <= 20;
+//     const shabatMornning = isShabat && hours >= 8 && hours <= 11;
+//     if (!isShabat && minutes % 30 == 0) {
+//         srcParams = 'phoneForbidden';
+//     }
+//     if ((!isShabat && hours >= 6 && hours <= 9  || shabatNightByTefila || shabatMornning) && minutes % 20 == 0) {
+//         srcParams = 'kadishAtBima';
+//     }
+//     return 'images/' + srcParams + '.jpeg'
+// }
 
-function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
+function setMessages(date, day, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
+    const isShabat = day == 6;
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
@@ -158,19 +178,18 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
     
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
     
-    if (seconds % 10 === 0) {
-        positionInArray = Math.floor(Math.random() * (msgs.length)); 
+    if (seconds % 20 === 0) {
+        positionInArray = Math.floor(Math.random() * (20)); 
     }
 
-    const regularMsg = msgs[positionInArray];
+    const regularMsg = msgs[positionInArray % msgs.length];
 
-    let msgZman1 = SHMA_STR1;
-    let msgZman2 = SHMA_STR2;
+    const zmanList = setZmanList();
 
-    if (hours > 10) {
-        msgZman1 = SHKIAH_STR;
-        msgZman2 = DAF_STR;
-    }
+    const zman = zmanList[positionInArray % zmanList.length];
+    // const zmanMsg = 3;
+
+   
     
 // console.log(seconds, Math.floor(seconds / 10));
     switch (Math.floor(seconds / 10)) {
@@ -179,7 +198,7 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
             break;
 
         case 1:
-            msgText = msgZman1;
+            msgText = zman;
             break;
 
         case 2:
@@ -191,7 +210,7 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
             break;
 
         case 4:
-            msgText = msgZman2;
+            msgText = zman;
                 break;
  
         case 5:
@@ -211,6 +230,22 @@ function setMessages(date, isShabat, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) 
 
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
+}
+
+function setZmanList(date, day, hours, minutes, seconds) {
+    let zmanList = [];
+    if (hours < 12) {
+        zmanList = [zmanObj["netz"], zmanObj["shma1"], zmanObj["shma2"], zmanObj["mincha"]];
+    }
+    else {
+         zmanList = [zmanObj["daf"], zmanObj["mincha"], zmanObj["shkiah"]];
+    }
+    if (day == 5) {
+       zmanList.push(zmanObj["nerot"]) 
+    }
+    return zmanList;
+
+
 }
 
 Hebcal.events.on('ready', refresh());
