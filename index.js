@@ -68,6 +68,12 @@ function refresh() {
     if (day.day == 30 || day.day == 1) {
         specifyMsg = 'יעלה ויבוא'; 
     }
+
+    const weeksPrayingEarlier = ['בהעלותך', 'שלח', 'קורח', 'חקת', 'בלק', 'פינחס', 'מטות'];  //includes
+
+    if (day.getDay() == 5 && weeksPrayingEarlier.includes(day.getParsha('h')[0])) {
+        specifyMsg = 'השבוע זמן מנחה ער"ש 10 דקות לפני הדלקת נרות.';
+    }
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
         // src = setMainImage(date2, day.getDay() == 6);
@@ -177,6 +183,7 @@ function setMessages(date, day, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
     let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
     
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
+
     
     if (seconds % 20 === 0) {
         positionInArray = Math.floor(Math.random() * (20)); 
