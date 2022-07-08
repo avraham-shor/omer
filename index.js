@@ -50,7 +50,7 @@ function refresh() {
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הד"נ: ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28)));
+    const nerot = 'הדלקת נרות: ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28)));
     
     zmanObj["shkiah"] = SHKIAH_STR;
     zmanObj["daf"] = DAF_STR;
