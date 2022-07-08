@@ -1,4 +1,4 @@
-let isShowTimes = true;
+let isShowTimes = false;
 
 const days = ['ראשון','שני','שלישי','רביעי','חמישי','ששי','שבת'];
 let dayOrNight = 'יום ';
@@ -48,9 +48,9 @@ function refresh() {
     const SHMA2 = day.getZemanim().sof_zman_shma.getTime();
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
-    const netz = 'נץ החמה:' + format_time(day.getZemanim().neitz_hachama);
-    const mincha = 'מנחה:' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות:' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28)));
+    const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
+    const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
+    const nerot = 'הד"נ: ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28)));
     
     zmanObj["shkiah"] = SHKIAH_STR;
     zmanObj["daf"] = DAF_STR;
@@ -69,11 +69,11 @@ function refresh() {
         specifyMsg = 'יעלה ויבוא'; 
     }
 
-    const weeksPrayingEarlier = ['בהעלותך', 'שלח', 'קורח', 'חקת', 'בלק', 'פינחס', 'מטות'];  //includes
+    // const weeksPrayingEarlier = ['בהעלותך', 'שלח', 'קורח', 'חקת', 'בלק', 'פינחס', 'מטות'];  //includes
 
-    if (day.getDay() == 5 && weeksPrayingEarlier.includes(day.getParsha('h')[0])) {
-        specifyMsg = 'השבוע זמן מנחה ער"ש 10 דקות לפני הדלקת נרות.';
-    }
+    // if (day.getDay() == 5 && weeksPrayingEarlier.includes(day.getParsha('h')[0])) {
+    //     specifyMsg = 'השבוע זמן מנחה ער"ש 10 דקות לפני הדלקת נרות.';
+    // }
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
         // src = setMainImage(date2, day.getDay() == 6);
@@ -175,7 +175,7 @@ function formatTimeWithSeconds(date) {
 //     return 'images/' + srcParams + '.jpeg'
 // }
 
-function setMessages(date, day, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
+function setMessages(date, day) {
     const isShabat = day == 6;
     const hours = date.getHours();
     const minutes = date.getMinutes();
@@ -191,7 +191,7 @@ function setMessages(date, day, SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR) {
 
     const regularMsg = msgs[positionInArray % msgs.length];
 
-    const zmanList = setZmanList();
+    const zmanList = setZmanList(day, hours);
 
     const zman = zmanList[positionInArray % zmanList.length];
     // const zmanMsg = 3;
@@ -239,16 +239,20 @@ function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
 
-function setZmanList(date, day, hours, minutes, seconds) {
+function setZmanList(day, hours) {
     let zmanList = [];
     if (hours < 12) {
-        zmanList = [zmanObj["netz"], zmanObj["shma1"], zmanObj["shma2"], zmanObj["mincha"]];
+        zmanList = [zmanObj["netz"], zmanObj["shma1"], zmanObj["shma2"]];
     }
     else {
-         zmanList = [zmanObj["daf"], zmanObj["mincha"], zmanObj["shkiah"]];
+         zmanList = [zmanObj["daf"], zmanObj["shkiah"]];
     }
+    if (day != 5 && day != 6) {
+        zmanList.push(zmanObj["mincha"]);  
+    }
+
     if (day == 5) {
-       zmanList.push(zmanObj["nerot"]) 
+       zmanList.push(zmanObj["nerot"]);
     }
     return zmanList;
 
