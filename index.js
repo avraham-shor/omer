@@ -31,6 +31,7 @@ function refresh() {
     let date2 = new Date();
     dateLater = date.setMinutes(date.getMinutes() - 18);
     var day = new Hebcal.HDate();
+    
 
     
     if (day.sunset() < dateLater) {
@@ -79,7 +80,7 @@ function refresh() {
         // src = setMainImage(date2, day.getDay() == 6);
         //TODO
         src = 'images/empty.jpeg';
-        setMessages(date, day.getDay(), SHMA_STR1, SHMA_STR2, DAF_STR, SHKIAH_STR);
+        setMessages(date, day);
         
 
     }
@@ -176,7 +177,8 @@ function formatTimeWithSeconds(date) {
 // }
 
 function setMessages(date, day) {
-    const isShabat = day == 6;
+    const dayInWeek = day.day;
+    const isShabat = dayInWeek == 6;
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
@@ -191,7 +193,7 @@ function setMessages(date, day) {
 
     const regularMsg = msgs[positionInArray % msgs.length];
 
-    const zmanList = setZmanList(day, hours);
+    const zmanList = setZmanList(dayInWeek, hours);
 
     const zman = zmanList[positionInArray % zmanList.length];
     // const zmanMsg = 3;
@@ -228,6 +230,11 @@ function setMessages(date, day) {
             break;
     };
 
+    const moiladTxt = showZmanMoilad(day, hours, minutes);
+    if (moiladTxt) {
+        msgText = moiladTxt;
+    }
+    
     const msgObj = document.querySelector('#msg');
     msgObj.innerHTML = msgText;
     msgObj.style.fontSize = 9.5 - msgText.length / 16 + 'rem';
@@ -239,7 +246,7 @@ function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
 
-function setZmanList(day, hours) {
+function setZmanList(dayInWeek, hours) {
     let zmanList = [];
     if (hours < 12) {
         zmanList = [zmanObj["netz"], zmanObj["shma1"], zmanObj["shma2"]];
@@ -247,16 +254,30 @@ function setZmanList(day, hours) {
     else {
          zmanList = [zmanObj["daf"], zmanObj["shkiah"]];
     }
-    // if (day != 5 && day != 6) {
+    // if (dayInWeek != 5 && dayInWeek != 6) {
     //     zmanList.push(zmanObj["mincha"]);  
     // }
 
-    if (day == 5) {
+    if (dayInWeek == 5) {
        zmanList.push(zmanObj["nerot"]);
     }
     return zmanList;
 
 
+}
+
+function showZmanMoilad(day, hours, minutes) {
+    let currentMonth = new Hebcal.Month(day.month, day.year);
+    if (currentMonth.find('shabbat_mevarchim')[0].day == day.say && hours == 10 && minutes > 32) {
+        const moilad = currentMonth.molad();
+        const moiladDay = days[moilad.doy];
+        const dayOrNight = moilad.hour >= 6 && moilad.hour < 18? 'ביום ' : 'בליל ';
+        const moiladTime = moilad.hour % 12 || 12 + ':' + moilad.minutes;
+        const moiladChalakim = moilad.chalakim;
+         const moiladTxt = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים').replace('ביום שבת', 'היום');
+         return moiladTxt;
+    }
+   
 }
 
 Hebcal.events.on('ready', refresh());
