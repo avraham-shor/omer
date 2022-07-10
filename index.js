@@ -4,10 +4,10 @@ const days = ['ראשון','שני','שלישי','רביעי','חמישי','שש
 let dayOrNight = 'יום ';
 
 const MESSAGES = ['נא לשמור על ניקיון וקדושת בית הכנסת!', 
-'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.',
+'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה',
 'נא להחזיר את הספרים למקום',
-'אמירת "קדיש יתום" אך ורק ליד הבימה',
-' אין להשתמש בשום סלולארי בתוך ביהמ"ד אלא לדברים נחוצים', 
+'אמירת "קדיש יתום" ליד הבימה',
+' אין להשתמש בסלולארי בתוך ביהמ"ד אלא לדברים נחוצים', 
 ];
 
 const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
@@ -16,7 +16,7 @@ let positionInArray = 0;
 
 const zmanObj = {};
 
-let specifyMsg = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
+let specifyMsg = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
 
 // const MIN_FONT_SIZE = 3.5;
 // const MAX_FONT_SIZE = 5.5;
@@ -43,7 +43,7 @@ function refresh() {
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
     const SHKIAH_STR = 'שקיעה:  ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 2)));
-    const DAF_STR = 'דף היומי בבלי:  ' + daf;
+    const DAF_STR = 'דף היומי:  ' + daf;
     const SHMA1 = day.getZemanim().sof_zman_shma_A.getTime();
     const SHMA2 = day.getZemanim().sof_zman_shma.getTime();
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
@@ -180,7 +180,7 @@ function setMessages(date, day) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה.';
+    let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
 
@@ -247,9 +247,9 @@ function setZmanList(day, hours) {
     else {
          zmanList = [zmanObj["daf"], zmanObj["shkiah"]];
     }
-    if (day != 5 && day != 6) {
-        zmanList.push(zmanObj["mincha"]);  
-    }
+    // if (day != 5 && day != 6) {
+    //     zmanList.push(zmanObj["mincha"]);  
+    // }
 
     if (day == 5) {
        zmanList.push(zmanObj["nerot"]);
