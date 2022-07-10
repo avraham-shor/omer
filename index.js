@@ -234,7 +234,7 @@ function setMessages(date, day) {
     if (moiladTxt) {
         msgText = moiladTxt;
     }
-    
+
     const msgObj = document.querySelector('#msg');
     msgObj.innerHTML = msgText;
     msgObj.style.fontSize = 9.5 - msgText.length / 16 + 'rem';
@@ -268,7 +268,7 @@ function setZmanList(dayInWeek, hours) {
 
 function showZmanMoilad(day, hours, minutes) {
     let currentMonth = new Hebcal.Month(day.month, day.year);
-    if (currentMonth.find('shabbat_mevarchim')[0].day == day.say && hours == 10 && minutes > 32) {
+    if (currentMonth.find('shabbat_mevarchim')[0].day == day.day && hours == 10 && minutes < 32) {
         const moilad = currentMonth.molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18? 'ביום ' : 'בליל ';
