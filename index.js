@@ -22,7 +22,7 @@ function refresh() {
     let specifyMsg =  []; 
     let date = new Date();
     dateLater = date.setMinutes(date.getMinutes() - 18);
-    var day = new Hebcal.HDate("יח תמוז");
+    var day = new Hebcal.HDate();
     
     if (day.sunset() < dateLater) {
         day = day.next();
@@ -78,11 +78,6 @@ function refresh() {
     if (!specifyMsg.length) {
         specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
     }
-    console.log(specifyMsg);
-            
-
-    
-
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
@@ -238,7 +233,6 @@ function isHoliday(day) {
     const roshHashana = day.month == 7 && (day.day == 2 || day.day == 3);
     const cipur = day.month == 7 && day.day == 11;
     const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 23);
-    console.log('day:', day.day, 'month:', day.month, 'dayInWeek:', day.getDay());
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
