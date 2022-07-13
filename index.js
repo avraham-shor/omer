@@ -201,6 +201,7 @@ function showZmanMoilad(day, hours, minutes) {
 }
 
 function getTaniyot(date, day) {
+    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const dayInWeek = day.getDay();
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
@@ -209,7 +210,8 @@ function getTaniyot(date, day) {
     let avZom = day.month == 5 && ((dayInWeek == 0 && day.day == 10) || (dayInWeek != 6 && day.day == 9)); 
     let tishreiZom = day.month == 7 &&( (dayInWeek == 0 && day.day == 4) || (dayInWeek != 6 && day.day == 3));
     let tevetZom = day.month == 10 && day.day == 10;
-    let adarZom = day.month == 13 && ((dayInWeek == 4 && day.day == 11) || (dayInWeek != 6 && day.day == 13));
+    let adar = isLeapYear? 13 : 12;
+    let adarZom = day.month == adar && ((dayInWeek == 4 && day.day == 11) || (dayInWeek != 6 && day.day == 13));
     return tamuzZom || avZom || tishreiZom || tevetZom || adarZom;
 }
 
