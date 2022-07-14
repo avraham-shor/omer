@@ -34,7 +34,7 @@ function refresh() {
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
     const SHKIAH_STR = 'שקיעה:  ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 2)));
-    const DAF_STR = 'דף היומי:  ' + daf;
+    const DAF_STR = '  דף היומי:   ' + daf;
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
@@ -72,6 +72,10 @@ function refresh() {
 
     if (isStartBorechOlenu(day)) {
         specifyMsg.push('ברך עלינו')
+    }
+
+    if (isAlHanisim(day)) {
+        specifyMsg.push('על הניסים')
     }
     
 
@@ -219,7 +223,7 @@ function isZom(date, day) {
     const avZom = day.month == 5 && ((dayInWeek == 0 && day.day == 10) || (dayInWeek != 6 && day.day == 9)); 
     const tishreiZom = day.month == 7 &&( (dayInWeek == 0 && day.day == 5) || (dayInWeek != 6 && day.day == 4));
     const tevetZom = day.month == 10 && day.day == 11;
-    const adar = isLeapYear? 14 : 13;
+    const adar = isLeapYear? 13 : 12;
     const adarZom = day.month == adar && ((dayInWeek == 4 && day.day == 12) || (dayInWeek != 6 && day.day == 14));
     return tamuzZom || avZom || tishreiZom || tevetZom || adarZom;
 }
@@ -236,10 +240,20 @@ function isHoliday(day) {
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
+function isAlHanisim(day) {
+    const chanucaDays = [25, 26, 27, 28, 29, 30];
+    const cislevSmall = new Hebcal.HDate("כו בסלו").daysInMonth() == 29;
+    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
+    const chanucaCislev = day.month == 9 && chanucaDays.includes(day.day);
+    const chanucaTevet = day.month == 10 && (day.day == 1 || day.day == 2 || day.day == 3 || cislevSmall && day.day == 4);
+    const purim = day.day == 15 && (day.month == isLeapYear? 13 : 12);
+    return chanucaCislev || chanucaTevet || purim;
+}
+
 function isStartMoridHatal(day, date) {
     const hours = date.getHours();
     if (day.month == 1) {
-        if (day.day == 16 || (day.day == 16 && hours > 10 && hours < 20)) {
+        if (day.day == 16 || (day.day == 16 && hours > 10 && hours < 19)) {
           return true;  
         }
     }
@@ -254,7 +268,7 @@ function isStartBorchenu(day) {
 function isStartMoridHageshem(day, date) {
     const hours = date.getHours();
     if (day.month == 7) {
-        if (day.day == 24 || (day.day == 23 && hours > 10 && hours < 20)) {
+        if (day.day == 24 || (day.day == 23 && hours > 10 && hours < 19)) {
           return true;  
         }
     }
