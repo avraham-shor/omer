@@ -242,11 +242,12 @@ function isHoliday(day) {
 
 function isAlHanisim(day) {
     const chanucaDays = [25, 26, 27, 28, 29, 30];
-    const cislevSmall = new Hebcal.HDate("כו בסלו").daysInMonth() == 29;
+    const cislevSmall = new Hebcal.HDate("כו כסלו").daysInMonth() == 29;
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const chanucaCislev = day.month == 9 && chanucaDays.includes(day.day);
     const chanucaTevet = day.month == 10 && (day.day == 1 || day.day == 2 || day.day == 3 || cislevSmall && day.day == 4);
-    const purim = day.day == 15 && (day.month == isLeapYear? 13 : 12);
+    const adar = isLeapYear? 13 : 12;
+    const purim = day.day == 15 && day.month == adar;
     return chanucaCislev || chanucaTevet || purim;
 }
 
