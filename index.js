@@ -194,6 +194,7 @@ function setZmanList(dayInWeek, hours) {
     if (dayInWeek == 5) {
        zmanList.push(zmanObj["nerot"]);
     }
+    consol.log('zmanList', zmanList);
     return zmanList;
 
 
