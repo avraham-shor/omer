@@ -17,43 +17,12 @@
     position: fixed;
 }
 
-.time {
-    top: -1vh;
-    /* left: 48vw; */
-    z-index: 10;
-    align-items: center;
-    text-align: center;
-    width: 100vw;
-}
-
-.shma {
-    bottom: 3vh; 
-    right: 9vw; 
-    z-index: 9;
-    font-size: 3.5rem;
-}
-
 .black {
     color: black;
 }
 
 .red {
     color: red;
-}
-
-.daf_yomi {
-    bottom: 0vh; 
-    /* left: 39vw; */
-    z-index: 9;
-    text-align: center;
-    width: 100vw;
-}
-
-.sunset {
-    bottom: 3vh; 
-    left: 10vw; 
-    z-index: 10;
-    font-size: 3.5rem;
 }
 
 .image {
