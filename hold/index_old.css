@@ -1,0 +1,82 @@
+@font-face {
+    font-family: Guttman;
+    src: url(fonts/Guttman\ Drogolin-Bold.ttf);
+}
+
+
+.container {
+    /* font-family :'Times New Roman', Times, serif; */
+    font-family: Guttman;
+    width: 100%; 
+    height: 100%; 
+    display: flex;
+    font-size: 1.1rem;
+}
+
+.inner {
+    position: fixed;
+}
+
+.time {
+    top: -1vh;
+    /* left: 48vw; */
+    z-index: 10;
+    align-items: center;
+    text-align: center;
+    width: 100vw;
+}
+
+.shma {
+    bottom: 3vh; 
+    right: 9vw; 
+    z-index: 9;
+    font-size: 3.5rem;
+}
+
+.black {
+    color: black;
+}
+
+.red {
+    color: red;
+}
+
+.daf_yomi {
+    bottom: 0vh; 
+    /* left: 39vw; */
+    z-index: 9;
+    text-align: center;
+    width: 100vw;
+}
+
+.sunset {
+    bottom: 3vh; 
+    left: 10vw; 
+    z-index: 10;
+    font-size: 3.5rem;
+}
+
+.image {
+    width: 100%; 
+    height: 100%; 
+    top: 0; 
+    left: 0;
+}
+
+.msg {
+    /* display: none; */
+    font-size: 4rem;
+    text-align: center;
+    align-items: center;
+    z-index: 100;
+    /* background-color: aqua; */
+    top: 28vh;
+    left: 20vw;
+    width: 60vw;
+    height: 43vh;
+    color: brown;
+    display: inline-flex;
+    justify-content: space-around;
+}
+
+
