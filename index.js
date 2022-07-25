@@ -203,10 +203,10 @@ function setZmanList(dayInWeek, hours) {
 
 function showZmanMoilad(day, hours, minutes) {
     const currentMonth = new Hebcal.Month(day.month, day.year);
-    const nextMonth = new Hebcal.Month(day.month +1, day.year) || new Hebcal.Month(1, day.year +1 );
+    
    
-    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day.day && hours == 10 && minutes < 32) {
-        const moilad = nextMonth.molad();
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day.day && (hours == 9 && minutes > 50) || (hours == 10 && minutes < 32)) {
+        const moilad = nextMonth.next().molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18? 'ביום ' : 'בליל ';
         const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
