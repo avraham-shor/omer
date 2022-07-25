@@ -21,7 +21,8 @@ const zmanObj = {};
 function refresh() {
     let specifyMsg =  []; 
     let date = new Date();
-    dateLater = date.setMinutes(date.getMinutes() - 18);
+    let dateLater = new Date();
+    dateLater = dateLater.setMinutes(dateLater.getMinutes() - 18);
     var day = new Hebcal.HDate();
     
     if (day.sunset() < dateLater) {
@@ -48,7 +49,6 @@ function refresh() {
     zmanObj["netz"] = netz;
     zmanObj["mincha"] = mincha;
     zmanObj["nerot"] = nerot;
-
 
     if (isHoliday(day)) {
         specifyMsg.push('יעלה ויבוא'); 
@@ -82,6 +82,7 @@ function refresh() {
     if (!specifyMsg.length) {
         specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
     }
+    // console.log(specifyMsg);
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
@@ -201,10 +202,11 @@ function setZmanList(dayInWeek, hours) {
 }
 
 function showZmanMoilad(day, hours, minutes) {
-    let currentMonth = new Hebcal.Month(day.month, day.year);
+    const currentMonth = new Hebcal.Month(day.month, day.year);
+    const nextMonth = new Hebcal.Month(day.month +1, day.year) || new Hebcal.Month(1, day.year +1 );
    
     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day.day && hours == 10 && minutes < 32) {
-        const moilad = currentMonth.molad();
+        const moilad = nextMonth.molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18? 'ביום ' : 'בליל ';
         const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
@@ -239,6 +241,19 @@ function isHoliday(day) {
     const cipur = day.month == 7 && day.day == 11;
     const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 23);
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
+}
+
+// function isHoliday(day) {
+//     const holidayDates = ["טו ניסן","טז ניסן","יז ניסן","יח ניסן","יט ניסן","כ ניסן","כא ניסן",
+//                         "ו סיון","א תשרי","ב תשרי","י תשרי","טו תשרי","טז תשרי","יז תשרי","יח תשרי","יט תשרי","כ תשרי","כא תשרי","כב תשרי"];
+//     const holidayObjects = holidayDates.map(date => getHebObj(date));
+//     console.log(holidayObjects.map(d=> d.day),"day: ", day.day);
+//     return holidayObjects.filter(holiday=> day.isSameDate(holiday)).length > 0;
+
+// }
+
+function getHebObj(date) {
+    return new Hebcal.HDate(date);
 }
 
 function isAlHanisim(day) {
