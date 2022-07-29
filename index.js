@@ -206,7 +206,7 @@ function showZmanMoilad(day, hours, minutes) {
     
    
     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day.day && (hours == 9 && minutes > 50) || (hours == 10 && minutes < 32)) {
-        const moilad = nextMonth.next().molad();
+        const moilad = currentMonth.next().molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18? 'ביום ' : 'בליל ';
         const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
