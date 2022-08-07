@@ -58,7 +58,7 @@ function refresh() {
         specifyMsg.push('עננו')
     }
     
-    if(day.month == 5 && ((dayInWeek == 0 && day.day == 10) || (dayInWeek != 6 && day.day == 9))) {
+    if(day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
          specifyMsg.push('נחם \n עננו')
     }
 
