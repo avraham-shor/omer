@@ -59,7 +59,7 @@ function refresh() {
     }
     
     if(day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
-         specifyMsg.push('נחם \n עננו')
+         specifyMsg.push('נחם | עננו')
     }
 
     if (isStartMoridHatal(day, date)) {
