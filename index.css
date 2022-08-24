@@ -46,6 +46,7 @@
     color: brown;
     display: inline-flex;
     justify-content: space-around;
+    flex-direction: column;
 }
 
 
