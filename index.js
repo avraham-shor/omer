@@ -34,13 +34,14 @@ function refresh() {
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
-    const SHKIAH_STR = 'שקיעה:<div>' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 2))) + '</div>';
-    const DAF_STR = '  דף היומי:<div>' + daf + '</div>';
+    const SHKIAH_STR = 'שקיעה:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1))) + '@';
+    // console.log(SHKIAH_STR);
+    const DAF_STR = '  דף היומי:%' + daf + '@';
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות:<div>' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '</div>';
+    const nerot = 'הדלקת נרות:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
     
     zmanObj["shkiah"] = SHKIAH_STR;
     zmanObj["daf"] = DAF_STR;
@@ -59,7 +60,7 @@ function refresh() {
     }
     
     if(day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
-         specifyMsg.push('נחם<div>עננו</div>')
+         specifyMsg.push('נחם%עננו@')
     }
 
     if (isStartMoridHatal(day, date)) {
@@ -176,9 +177,8 @@ function setMessages(date, day, specifyMsg) {
     }
 
     const msgObj = document.querySelector('#msg');
-    msgObj.innerHTML = msgText;
     msgObj.style.fontSize = 9.5 - msgText.length / 16 + 'rem';
-
+    msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
     
 }
 
