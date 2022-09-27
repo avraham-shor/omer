@@ -241,7 +241,7 @@ function isHoliday(day) {
     const cholHamoedDays = [16, 16, 17, 18, 19, 20, 22];
     const pesach = day.month == 1 && cholHamoedDays.includes(day.day);
     const shavuot = day.month == 3 && day.day == 7;
-    const roshHashana = day.month == 7 && (day.day == 2 || day.day == 3);
+    const roshHashana = day.month == 7 && day.day == 2;
     const cipur = day.month == 7 && day.day == 11;
     const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 23);
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
