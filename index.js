@@ -228,7 +228,7 @@ function isZom(date, day) {
     }
     const tamuzZom = day.month == 4 && ((dayInWeek == 0 && day.day == 18) || (dayInWeek != 6 && day.day == 17));
 //     const avZom = day.month == 5 && ((dayInWeek == 0 && day.day == 10) || (dayInWeek != 6 && day.day == 9)); 
-    const tishreiZom = day.month == 7 &&( (dayInWeek == 0 && day.day == 5) || (dayInWeek != 6 && day.day == 4));
+    const tishreiZom = day.month == 7 &&( (dayInWeek == 0 && day.day == 4) || (dayInWeek != 6 && day.day == 3));
     const tevetZom = day.month == 10 && day.day == 11;
     const adar = isLeapYear? 13 : 12;
     const adarZom = day.month == adar && ((dayInWeek == 4 && day.day == 12) || (dayInWeek != 6 && day.day == 14));
@@ -238,11 +238,11 @@ function isZom(date, day) {
 function isHoliday(day) {
     const roshChodesh = day.day == 30 || day.day == 1;
     const roshChodeshBug = day.month != 5 && day.month != 6 && day.day == 2;
-    const cholHamoedDays = [16, 16, 17, 18, 19, 20, 22];
+    const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
     const pesach = day.month == 1 && cholHamoedDays.includes(day.day);
     const shavuot = day.month == 3 && day.day == 7;
     const roshHashana = day.month == 7 && day.day == 2;
-    const cipur = day.month == 7 && day.day == 11;
+    const cipur = day.month == 7 && day.day == 10;
     const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 23);
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
 }
