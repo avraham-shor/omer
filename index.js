@@ -127,7 +127,11 @@ function setMessages(date, day, specifyMsg) {
 
     
     if (seconds % 20 === 0) {
-        positionInArray = Math.floor(Math.random() * (20)); 
+        // positionInArray = Math.floor(Math.random() * (20));
+        positionInArray++;
+        if (positionInArray > 100) {
+            positionInArray = 0;
+        } 
     }
 
     const regularMsg = msgs[positionInArray % msgs.length];
@@ -289,7 +293,7 @@ function isStartBorchenu(day) {
 function isStartMoridHageshem(day, date) {
     const hours = date.getHours();
     if (day.month == 7) {
-        if (day.day == 24 || (day.day == 23 && hours > 10 && hours < 19)) {
+        if (day.day == 24 || day.day == 23 || (day.day == 22 && hours > 10 && hours < 19)) {
           return true;  
         }
     }
