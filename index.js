@@ -247,7 +247,7 @@ function isHoliday(day) {
     const shavuot = day.month == 3 && day.day == 7;
     const roshHashana = day.month == 7 && day.day == 2;
     const cipur = day.month == 7 && day.day == 10;
-    const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 23);
+    const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 22);
     return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
