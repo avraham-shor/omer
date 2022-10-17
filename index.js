@@ -72,7 +72,7 @@ function refresh() {
     }
 
     if (isStartMoridHageshem(day, date)) {
-        specifyMsg.push('משיב הרוח ומוריד הגשם')
+        specifyMsg.push('משיב הרוח%ומוריד הגשם@')
     }
 
     if (isStartBorechOlenu(day)) {
