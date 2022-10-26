@@ -241,14 +241,14 @@ function isZom(date, day) {
 
 function isHoliday(day) {
     const roshChodesh = day.day == 30 || day.day == 1;
-    const roshChodeshBug = day.month != 5 && day.month != 6 && day.day == 2;
+    // const roshChodeshBug = day.month != 5 && day.month != 6 && day.day == 2;
     const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
     const pesach = day.month == 1 && cholHamoedDays.includes(day.day);
     const shavuot = day.month == 3 && day.day == 7;
     const roshHashana = day.month == 7 && day.day == 2;
     const cipur = day.month == 7 && day.day == 10;
     const sucot  = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 22);
-    return roshChodesh || roshChodeshBug || pesach || shavuot || roshHashana || cipur || sucot;
+    return roshChodesh || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
 // function isHoliday(day) {
@@ -300,7 +300,7 @@ function isStartMoridHageshem(day, date) {
 }
 
 function isStartBorechOlenu(day) {
-    if (day.month == 8 && (day.day == 8 || day.day == 9) && day.getDay() != 6) {
+    if (day.month == 8 && (day.day == 7 || day.day == 8 || day.day == 9) && day.getDay() != 6) {
        return true;
     }
 }
