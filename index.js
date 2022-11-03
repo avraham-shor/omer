@@ -50,6 +50,7 @@ function refresh() {
     zmanObj["netz"] = netz;
     zmanObj["mincha"] = mincha;
     zmanObj["nerot"] = nerot;
+    
 
     if (isHoliday(day)) {
         specifyMsg.push('יעלה ויבוא'); 
@@ -84,9 +85,9 @@ function refresh() {
     }
    // "<div></div>"
 
-    if (!specifyMsg.length) {
-        specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
-    }
+    // if (!specifyMsg.length) {
+    //     specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
+    // }
     // console.log(specifyMsg);
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
@@ -126,7 +127,7 @@ function setMessages(date, day, specifyMsg) {
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
 
     
-    if (seconds % 20 === 0) {
+    if (seconds % 10 === 0) {
         // positionInArray = Math.floor(Math.random() * (20));
         positionInArray++;
         if (positionInArray > 100) {
@@ -148,7 +149,7 @@ function setMessages(date, day, specifyMsg) {
 
     switch (Math.floor(seconds / 10)) {
         case 0:
-            msgText = regularMsg;
+            msgText = zman;
             break;
 
         case 1:
@@ -156,7 +157,13 @@ function setMessages(date, day, specifyMsg) {
             break;
 
         case 2:
-            msgText = specifyMessage;
+            if (specifyMsg.length) {
+                 msgText = specifyMessage;
+            }
+            else {
+                msgText = zman; 
+            }
+           
             break;
   
         case 3:
@@ -168,7 +175,12 @@ function setMessages(date, day, specifyMsg) {
                 break;
  
         case 5:
-            msgText = specifyMessage;
+            if (specifyMsg.length) {
+                msgText = specifyMessage;
+           }
+           else {
+               msgText = zman; 
+           }
                 break;
                                           
         default:
