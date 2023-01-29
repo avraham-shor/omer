@@ -53,4 +53,20 @@
     line-height: 100%;
 }
 
+.top {
+    font-size: 4rem;
+    color: brown;
+    position: absolute;
+    top: 2vh;
+    /* left: 30vw; */
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
+
+
 

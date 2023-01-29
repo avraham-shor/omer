@@ -84,15 +84,15 @@ function refresh() {
     }
    // "<div></div>"
 
-    if (!specifyMsg.length) {
-        specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
-    }
+    // if (!specifyMsg.length) {
+    //     specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
+    // }
     // console.log(specifyMsg);
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
     if (omerDay == 0) {
 
-        src = 'images/empty.jpeg';
+        src = 'images/empty.jpg';
         setMessages(date, day, specifyMsg);
         
     }
@@ -140,7 +140,12 @@ function setMessages(date, day, specifyMsg) {
 
     const zman = zmanList[positionInArray % zmanList.length];
 
-    const specifyMessage = specifyMsg[positionInArray % specifyMsg.length]
+    let specifyMessage = "";
+
+    if (specifyMsg.length) {
+        specifyMessage = specifyMsg[positionInArray % specifyMsg.length];
+    }
+    
 
 
    
@@ -148,7 +153,7 @@ function setMessages(date, day, specifyMsg) {
 
     switch (Math.floor(seconds / 10)) {
         case 0:
-            msgText = regularMsg;
+            msgText = zman;
             break;
 
         case 1:
@@ -156,11 +161,18 @@ function setMessages(date, day, specifyMsg) {
             break;
 
         case 2:
-            msgText = specifyMessage;
+            if (specifyMsg.length) {
+                msgText = specifyMessage;
+                positionInArray--;
+            }
+            else {
+                msgText = zman;           
+            }
             break;
   
         case 3:
             msgText = regularMsg;
+            positionInArray--;
             break;
 
         case 4:
@@ -168,8 +180,14 @@ function setMessages(date, day, specifyMsg) {
                 break;
  
         case 5:
-            msgText = specifyMessage;
-                break;
+            if (specifyMsg.length) {
+                msgText = specifyMessage;
+                positionInArray--;
+            }
+            else {
+                msgText = zman;           
+            }
+            break;
                                           
         default:
             break;
