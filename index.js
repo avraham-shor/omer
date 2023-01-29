@@ -50,6 +50,7 @@ function refresh() {
     zmanObj["netz"] = netz;
     zmanObj["mincha"] = mincha;
     zmanObj["nerot"] = nerot;
+    
 
     if (isHoliday(day)) {
         specifyMsg.push('יעלה ויבוא'); 
@@ -126,7 +127,7 @@ function setMessages(date, day, specifyMsg) {
     let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
 
     
-    if (seconds % 20 === 0) {
+    if (seconds % 10 === 0) {
         // positionInArray = Math.floor(Math.random() * (20));
         positionInArray++;
         if (positionInArray > 100) {
