@@ -110,14 +110,14 @@
     font-size: 3.8rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 44vh;
-    width: 80%;
-    right: 10vw;
+    top: 49vh;
+    width: 81vw;
+    right: 10.5vw;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
     justify-content: space-between;
-    flex-direction: revert;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
 }
 
