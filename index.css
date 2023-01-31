@@ -53,11 +53,11 @@
     line-height: 100%;
 }
 
-.top {
-    font-size: 4rem;
-    color: brown;
+.day {
+    font-size: 4.5rem;
+    color: black;
     position: absolute;
-    top: 2vh;
+    top: 6vh;
     /* left: 30vw; */
     width: 100%;
     text-align: center;
@@ -65,8 +65,74 @@
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
-
 }
 
+.shkiah {
+    font-size: 4.5rem;
+    color: rgba(155,74,9,255);
+    position: absolute;
+    top: 14vh;
+    /* left: 30vw; */
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.box-shma {
+    font-size: 4.5rem;
+    color: rgba(155,74,9,255);
+    position: absolute;
+    bottom: 3vh;
+    /* left: 30vw; */
+    width: 100%;
+    text-align: center;
+    align-items: stretch;
+    display: inline-flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.shma2 {
+    width: 44%;
+    text-align: initial;
+}
+
+.shma1 {
+    width: 44%;
+    text-align: left;
+}
+
+.middle-box {
+    font-size: 3.8rem;
+    color: rgba(155,74,9,255);
+    position: absolute;
+    top: 44vh;
+    width: 80%;
+    right: 10vw;
+    text-align: center;
+    align-items: stretch;
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: revert;
+    flex-wrap: wrap;
+}
+
+.daf {
+    width: 44%;
+    width: 13%;
+    text-align: center;
+    position: relative;
+    font-size: 3.6rem;
+}
+
+.date {
+    width: 11%;
+    text-align: center;
+    position: relative;
+}
 
 
