@@ -43,7 +43,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
-    //debugger;
+    
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     // console.log(SHKIAH_STR);
     const DAF_STR = 'דף היומי ' + daf;
