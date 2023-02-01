@@ -33,19 +33,17 @@
 }
 
 .msg {
-    /* display: none; */
-    font-size: 4rem;
     text-align: center;
     align-items: center;
     z-index: 100;
-    /* background-color: aqua; */
-    top: 28vh;
-    left: 20vw;
-    width: 60vw;
+    top: 32vh;
+    left: 27vw;
+    width: 47vw;
     height: 43vh;
-    color: brown;
+    color: black;
     display: inline-flex;
     justify-content: space-around;
+    flex-direction: column;
     flex-direction: column;
 }
 
@@ -53,12 +51,24 @@
     line-height: 100%;
 }
 
-.day {
-    font-size: 4.5rem;
+.time {
+    font-size: 10rem;
     color: black;
     position: absolute;
-    top: 6vh;
-    /* left: 30vw; */
+    top: 1vh;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    display: inline-flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.day {
+    font-size: 10rem;
+    color: black;
+    position: absolute;
+    top: 8vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -68,11 +78,10 @@
 }
 
 .shkiah {
-    font-size: 4.5rem;
+    font-size: 10rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 14vh;
-    /* left: 30vw; */
+    top: 16vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -81,37 +90,12 @@
     flex-direction: column;
 }
 
-.box-shma {
-    font-size: 4.5rem;
-    color: rgba(155,74,9,255);
-    position: absolute;
-    bottom: 3vh;
-    /* left: 30vw; */
-    width: 100%;
-    text-align: center;
-    align-items: stretch;
-    display: inline-flex;
-    justify-content: space-evenly;
-    flex-direction: row-reverse;
-    flex-wrap: wrap;
-}
-
-.shma2 {
-    width: 44%;
-    text-align: initial;
-}
-
-.shma1 {
-    width: 44%;
-    text-align: left;
-}
-
 .middle-box {
     font-size: 3.8rem;
     color: rgba(155,74,9,255);
     position: absolute;
     top: 49vh;
-    width: 81vw;
+    width: 80.5vw;
     right: 10.5vw;
     text-align: center;
     align-items: stretch;
@@ -126,13 +110,38 @@
     width: 13%;
     text-align: center;
     position: relative;
-    font-size: 3.6rem;
+    font-size: 8.5rem;
 }
 
 .date {
     width: 11%;
     text-align: center;
     position: relative;
+    font-size: 9rem;
 }
 
+
+.box-shma {
+    color: rgba(155,74,9,255);
+    position: absolute;
+    bottom: 3vh;
+    width: 100%;
+    text-align: center;
+    align-items: stretch;
+    display: inline-flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    font-size: 10rem;
+}
+
+.shma2 {
+    width: 44%;
+    text-align: initial;
+}
+
+.shma1 {
+    width: 44%;
+    text-align: left;
+}
 

@@ -2,14 +2,9 @@
 const days = ['ראשון','שני','שלישי','רביעי','חמישי','ששי','שבת'];
 let dayOrNight = 'יום ';
 
-const MESSAGES = ['נא לשמור על ניקיון וקדושת בית הכנסת!', 
-'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה',
-'נא להחזיר את הספרים למקום',
-'אמירת "קדיש יתום" ליד הבימה',
-' אין להשתמש בסלולארי בתוך ביהמ"ד אלא לדברים נחוצים', 
-];
+const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
 
-const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
+//const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
 
 let positionInArray = 0;
 
@@ -21,6 +16,7 @@ const zmanObj = {};
 function refresh() {
     let specifyMsg =  []; 
     let date = new Date();
+    let date2 = new Date();
     let dateLater = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 18);
     var day = new Hebcal.HDate();
@@ -30,11 +26,14 @@ function refresh() {
         dayOrNight = 'ליל ';
     }
     else dayOrNight = 'יום ';
+    insertIn('#time',(formatTimeWithSeconds(date2)));
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
     
+
 
     var omerDay = day.omer();
     let daf = day.dafyomi('h');
-    const SHKIAH_STR = 'שקיעה:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1))) + '@';
+    const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     // console.log(SHKIAH_STR);
     const DAF_STR = '  דף היומי:%' + daf + '@';
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
@@ -50,7 +49,7 @@ function refresh() {
     zmanObj["netz"] = netz;
     zmanObj["mincha"] = mincha;
     zmanObj["nerot"] = nerot;
-    
+    insertIn('#shkiah',(SHKIAH_STR));
 
     if (isHoliday(day)) {
         specifyMsg.push('יעלה ויבוא'); 
@@ -103,8 +102,8 @@ function refresh() {
 
 }
 
-function insertIn(divId, text, isAvailable) {
-    document.querySelector(divId).innerHTML = isAvailable ? text : '';
+function insertIn(divId, text) {
+    document.querySelector(divId).innerHTML = text;
 }
 
 function format_time(date) {
@@ -124,75 +123,75 @@ function setMessages(date, day, specifyMsg) {
     const seconds = date.getSeconds();
     let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     
-    let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
+    //let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
 
     
-    if (seconds % 10 === 0) {
-        // positionInArray = Math.floor(Math.random() * (20));
-        positionInArray++;
-        if (positionInArray > 100) {
-            positionInArray = 0;
-        } 
-    }
+    // if (seconds % 10 === 0) {
+    //     // positionInArray = Math.floor(Math.random() * (20));
+    //     positionInArray++;
+    //     if (positionInArray > 100) {
+    //         positionInArray = 0;
+    //     } 
+    // }
 
-    const regularMsg = msgs[positionInArray % msgs.length];
+    // const regularMsg = msgs[positionInArray % msgs.length];
 
-    const zmanList = setZmanList(dayInWeek, hours);
+    // const zmanList = setZmanList(dayInWeek, hours);
 
-    const zman = zmanList[positionInArray % zmanList.length];
+    // const zman = zmanList[positionInArray % zmanList.length];
 
-    let specifyMessage = "";
+    // let specifyMessage = "";
 
-    if (specifyMsg.length) {
-        specifyMessage = specifyMsg[positionInArray % specifyMsg.length];
-    }
+    // if (specifyMsg.length) {
+    //     specifyMessage = specifyMsg[positionInArray % specifyMsg.length];
+    // }
     
 
 
    
     
 
-    switch (Math.floor(seconds / 10)) {
-        case 0:
-            msgText = zman;
-            break;
+    // switch (Math.floor(seconds / 10)) {
+    //     case 0:
+    //         msgText = zman;
+    //         break;
 
-        case 1:
-            msgText = zman;
-            break;
+    //     case 1:
+    //         msgText = zman;
+    //         break;
 
-        case 2:
-            if (specifyMsg.length) {
-                msgText = specifyMessage;
-                positionInArray--;
-            }
-            else {
-                msgText = zman;           
-            }
-            break;
+    //     case 2:
+    //         if (specifyMsg.length) {
+    //             msgText = specifyMessage;
+    //             positionInArray--;
+    //         }
+    //         else {
+    //             msgText = zman;           
+    //         }
+    //         break;
   
-        case 3:
-            msgText = regularMsg;
-            positionInArray--;
-            break;
+    //     case 3:
+    //         msgText = regularMsg;
+    //         positionInArray--;
+    //         break;
 
-        case 4:
-            msgText = zman;
-                break;
+    //     case 4:
+    //         msgText = zman;
+    //             break;
  
-        case 5:
-            if (specifyMsg.length) {
-                msgText = specifyMessage;
-                positionInArray--;
-            }
-            else {
-                msgText = zman;           
-            }
-            break;
+    //     case 5:
+    //         if (specifyMsg.length) {
+    //             msgText = specifyMessage;
+    //             positionInArray--;
+    //         }
+    //         else {
+    //             msgText = zman;           
+    //         }
+    //         break;
                                           
-        default:
-            break;
-    };
+    //     default:
+    //         break;
+    // };
 
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
@@ -200,7 +199,7 @@ function setMessages(date, day, specifyMsg) {
     }
 
     const msgObj = document.querySelector('#msg');
-    msgObj.style.fontSize = 9.5 - msgText.length / 16 + 'rem';
+    msgObj.style.fontSize = 14 - msgText.length / 16 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
     
 }
