@@ -26,8 +26,7 @@ function refresh() {
         dayOrNight = 'ליל ';
     }
     else dayOrNight = 'יום ';
-    insertIn('#time',(formatTimeWithSeconds(date2)));
-    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
+    
     
 
 
@@ -35,21 +34,31 @@ function refresh() {
     let daf = day.dafyomi('h');
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     // console.log(SHKIAH_STR);
-    const DAF_STR = '  דף היומי:%' + daf + '@';
+    const DAF_STR = 'דף היומי ' + daf;
+    // const DAF_STR = 'דף היומי ' + daf.split(' ')[0] + ' דף ' + daf.split(' ')[1];
     const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
     
-    zmanObj["shkiah"] = SHKIAH_STR;
-    zmanObj["daf"] = DAF_STR;
-    zmanObj["shma1"] = SHMA_STR1;
-    zmanObj["shma2"] = SHMA_STR2;
-    zmanObj["netz"] = netz;
-    zmanObj["mincha"] = mincha;
-    zmanObj["nerot"] = nerot;
+    // zmanObj["shkiah"] = SHKIAH_STR;
+    // zmanObj["daf"] = DAF_STR;
+    // zmanObj["shma1"] = SHMA_STR1;
+    // zmanObj["shma2"] = SHMA_STR2;
+    // zmanObj["netz"] = netz;
+    // zmanObj["mincha"] = mincha;
+    // zmanObj["nerot"] = nerot;
+
+    insertIn('#time',(formatTimeWithSeconds(date2)));
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
     insertIn('#shkiah',(SHKIAH_STR));
+    insertIn('#daf',(DAF_STR));
+
+
+
+
+
 
     if (isHoliday(day)) {
         specifyMsg.push('יעלה ויבוא'); 
