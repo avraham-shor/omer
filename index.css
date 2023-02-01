@@ -62,13 +62,14 @@
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
+    display: none;
 }
 
 .day {
     font-size: 10rem;
     color: black;
     position: absolute;
-    top: 8vh;
+    top: 6vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -81,7 +82,7 @@
     font-size: 10rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 16vh;
+    top: 14vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -94,9 +95,9 @@
     font-size: 3.8rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 49vh;
-    width: 80.5vw;
-    right: 10.5vw;
+    top: 47vh;
+    width: 80.7vw;
+    right: 10vw;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
@@ -111,6 +112,7 @@
     text-align: center;
     position: relative;
     font-size: 8.5rem;
+    padding-top: 4vh;
 }
 
 .date {

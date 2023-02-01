@@ -1,5 +1,10 @@
 
 const days = ['ראשון','שני','שלישי','רביעי','חמישי','ששי','שבת'];
+
+const daysInMonth = ['','א','ב','ג','ד','ה','ו','ז','ח','ט','י','יא','יב','יג','יד','טו','טז','יז','יח','יט','כ','כא','כב','כג','כד','כה','כו','כז','כח','כט','ל'];
+
+const VAL = {0: '', 1: 'א', 2: 'ב', 3: 'ג', 4: 'ד', 5: 'ה', 6: 'ו', 7: 'ז', 8: 'ח', 9: 'ט', 10: 'י', 20: 'כ', 30: 'ל', 40: 'מ', 50: 'נ', 60: 'ס', 70: 'ע', 80: 'פ', 90: 'צ', 100: 'ק', 200: 'ר', 300: 'ש', 400: 'ת'};
+
 let dayOrNight = 'יום ';
 
 const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
@@ -19,7 +24,7 @@ function refresh() {
     let date2 = new Date();
     let dateLater = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 18);
-    var day = new Hebcal.HDate();
+    let day = new Hebcal.HDate();
     
     if (day.sunset() < dateLater) {
         day = day.next();
@@ -30,14 +35,22 @@ function refresh() {
     
 
 
-    var omerDay = day.omer();
-    let daf = day.dafyomi('h');
+    const omerDay = day.omer();
+    const daf = day.dafyomi('h');
+    const dayOfMonth = daysInMonth[day.day];
+    const month = day.getMonthName('h');
+    const yearNumber = day.getFullYear() - 5700;
+    const units = yearNumber % 10;
+    const tens = yearNumber - units;
+    const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
+    //debugger;
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     // console.log(SHKIAH_STR);
     const DAF_STR = 'דף היומי ' + daf;
     // const DAF_STR = 'דף היומי ' + daf.split(' ')[0] + ' דף ' + daf.split(' ')[1];
-    const SHMA_STR1 = 'סו"ז קר"ש א:  ' + format_time(day.getZemanim().sof_zman_shma_A);
-    const SHMA_STR2 = 'סו"ז קר"ש ב:  ' + format_time(day.getZemanim().sof_zman_shma);
+    const SHMA_STR1 = "זמן א'  " + format_time(day.getZemanim().sof_zman_shma_A);
+    const SHMA_STR2 = "זמן ב'  " + format_time(day.getZemanim().sof_zman_shma);
+    const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
@@ -52,8 +65,12 @@ function refresh() {
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
     insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
-    insertIn('#shkiah',(SHKIAH_STR));
-    insertIn('#daf',(DAF_STR));
+    insertIn('#shkiah', SHKIAH_STR);
+    insertIn('#daf', DAF_STR);
+    insertIn('#shma2', SHMA_STR2);
+    insertIn('#shma1', SHMA_STR1);
+    insertIn('#date', DATE_STR);
+
 
 
 
