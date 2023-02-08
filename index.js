@@ -225,7 +225,7 @@ function setMessages(date, day, specifyMsg) {
     }
 
     const msgObj = document.querySelector('#msg');
-    msgObj.style.fontSize = 14 - msgText.length / 16 + 'rem';
+    msgObj.style.fontSize = 10 - msgText.length / 12 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
     
 }
