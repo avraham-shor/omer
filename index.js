@@ -147,7 +147,7 @@ function setMessages(date, day, specifyMsg) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
+    let msgText = specifyMsg[(specifyMsg.length - 1) % minutes] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     
     //let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
 
@@ -227,7 +227,13 @@ function setMessages(date, day, specifyMsg) {
     const msgObj = document.querySelector('#msg');
     msgObj.style.fontSize = 9.6 - msgText.length / 12 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
-    
+    //debugger
+    if (specifyMsg.length) {
+        msgObj.classList.add('red');
+    }
+    else {
+        msgObj.classList.remove('red');
+    }
 }
 
 function pad(n) {

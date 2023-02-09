@@ -40,7 +40,6 @@
     left: 27vw;
     width: 47vw;
     height: 43vh;
-    color: black;
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
@@ -52,8 +51,8 @@
 }
 
 .time {
-    font-size: 4rem;
-    color: black;
+    font-size: 4.5rem;
+    color: rgba(155,74,9,255);
     position: absolute;
     top: 1vh;
     width: 100%;
@@ -62,14 +61,14 @@
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
-    display: none;
+    /* display: none; */
 }
 
 .day {
-    font-size: 4rem;
+    font-size: 4.5rem;
     color: black;
     position: absolute;
-    top: 6vh;
+    top: 8vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -79,10 +78,10 @@
 }
 
 .shkiah {
-    font-size: 4rem;
+    font-size: 4.5rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 14vh;
+    top: 16vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -92,10 +91,10 @@
 }
 
 .middle-box {
-    font-size: 3.3rem;
+    font-size: 3.8rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 50vh;
+    top: 44vh;
     width: 80.7vw;
     right: 10vw;
     text-align: center;
@@ -134,7 +133,7 @@
     justify-content: space-evenly;
     flex-direction: row-reverse;
     flex-wrap: wrap;
-    font-size: 4rem;
+    font-size: 4.5rem;
 }
 
 .shma2 {
