@@ -91,12 +91,12 @@
 }
 
 .middle-box {
-    font-size: 3.8rem;
+    font-size: 3.4rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 44vh;
-    width: 80.7vw;
-    right: 10vw;
+    top: 50vh;
+    width: 82.3vw;
+    right: 9vw;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
@@ -107,7 +107,7 @@
 
 .daf {
     width: 44%;
-    width: 13%;
+    width: 14%;
     text-align: center;
     position: relative;
     /* font-size: 2.9rem; */
@@ -115,7 +115,7 @@
 }
 
 .date {
-    width: 11%;
+    width: 14%;
     text-align: center;
     position: relative;
     /* font-size: 2.9rem; */
