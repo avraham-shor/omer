@@ -158,7 +158,7 @@ function setMessages(date, day, specifyMsg) {
     msgObj.style.fontSize = 9.6 - msgText.length / 12 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
     //debugger
-    if (specifyMsg.length) {
+    if (specifyMsg.length || moiladTxt) {
         msgObj.classList.add('red');
     }
     else {
