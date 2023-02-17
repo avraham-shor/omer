@@ -24,7 +24,7 @@ function refresh() {
     let date2 = new Date();
     let dateLater = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 18);
-    let day = new Hebcal.HDate();
+    let day = new Hebcal.HDate();//d
     
     if (day.sunset() < dateLater) {
         day = day.next();
@@ -147,87 +147,23 @@ function setMessages(date, day, specifyMsg) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    let msgText = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
+    let msgText = specifyMsg[(specifyMsg.length - 1) % minutes] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     
-    //let msgs = !isShabat? MESSAGES : MESSAGES_SHABAT;
-
-    
-    // if (seconds % 10 === 0) {
-    //     // positionInArray = Math.floor(Math.random() * (20));
-    //     positionInArray++;
-    //     if (positionInArray > 100) {
-    //         positionInArray = 0;
-    //     } 
-    // }
-
-    // const regularMsg = msgs[positionInArray % msgs.length];
-
-    // const zmanList = setZmanList(dayInWeek, hours);
-
-    // const zman = zmanList[positionInArray % zmanList.length];
-
-    // let specifyMessage = "";
-
-    // if (specifyMsg.length) {
-    //     specifyMessage = specifyMsg[positionInArray % specifyMsg.length];
-    // }
-    
-
-
-   
-    
-
-    // switch (Math.floor(seconds / 10)) {
-    //     case 0:
-    //         msgText = zman;
-    //         break;
-
-    //     case 1:
-    //         msgText = zman;
-    //         break;
-
-    //     case 2:
-    //         if (specifyMsg.length) {
-    //             msgText = specifyMessage;
-    //             positionInArray--;
-    //         }
-    //         else {
-    //             msgText = zman;           
-    //         }
-    //         break;
-  
-    //     case 3:
-    //         msgText = regularMsg;
-    //         positionInArray--;
-    //         break;
-
-    //     case 4:
-    //         msgText = zman;
-    //             break;
- 
-    //     case 5:
-    //         if (specifyMsg.length) {
-    //             msgText = specifyMessage;
-    //             positionInArray--;
-    //         }
-    //         else {
-    //             msgText = zman;           
-    //         }
-    //         break;
-                                          
-    //     default:
-    //         break;
-    // };
-
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
         msgText = moiladTxt;
     }
 
     const msgObj = document.querySelector('#msg');
-    msgObj.style.fontSize = 14 - msgText.length / 16 + 'rem';
+    msgObj.style.fontSize = 9.6 - msgText.length / 12 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
-    
+    //debugger
+    if (specifyMsg.length) {
+        msgObj.classList.add('red');
+    }
+    else {
+        msgObj.classList.remove('red');
+    }
 }
 
 function pad(n) {
