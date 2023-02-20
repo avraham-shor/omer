@@ -45,9 +45,7 @@ function refresh() {
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
     
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
-    // console.log(SHKIAH_STR);
     const DAF_STR = 'דף היומי ' + daf;
-    // const DAF_STR = 'דף היומי ' + daf.split(' ')[0] + ' דף ' + daf.split(' ')[1];
     const SHMA_STR1 = "זמן א'  " + format_time(day.getZemanim().sof_zman_shma_A);
     const SHMA_STR2 = "זמן ב'  " + format_time(day.getZemanim().sof_zman_shma);
     const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
@@ -116,13 +114,28 @@ function refresh() {
     // console.log(specifyMsg);
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
+
+    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
+    const adar = isLeapYear? 13 : 12;
+    const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
     if (omerDay == 0) {
 
         src = 'images/empty.jpg';
-        setMessages(date, day, specifyMsg);
+        setMessages(date, day, specifyMsg, adarDays);
         
     }
+    
+    // debugger
+    if (day.month == adar || (day.month == 11 && day.day == 30)) {
+        // src = 'images/purimBG.pdf'
+
+        const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 10) % 2 + '.jpg';
+        document.getElementById('purim').src = purimSrc;
+
+    }
     document.querySelector('#omer img').src = src;
+
+
 
     setTimeout('refresh()', 1000);
 
@@ -141,7 +154,7 @@ function formatTimeWithSeconds(date) {
 }
 
 
-function setMessages(date, day, specifyMsg) {
+function setMessages(date, day, specifyMsg, isAdar) {
     const dayInWeek = day.getDay();
     const isShabat = dayInWeek == 6;
     const hours = date.getHours();
@@ -163,6 +176,10 @@ function setMessages(date, day, specifyMsg) {
     }
     else {
         msgObj.classList.remove('red');
+    }
+
+    if (isAdar) {
+        msgObj.classList.add('hide')
     }
 }
 

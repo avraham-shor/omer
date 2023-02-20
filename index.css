@@ -32,6 +32,14 @@
     left: 0;
 }
 
+.purim {
+    top: 26vh;
+    left: 22vw;
+    width: 56.2vw;
+    height: 54vh;
+    transition: margin-right 12s 15s;
+}
+
 .msg {
     text-align: center;
     align-items: center;
@@ -144,5 +152,9 @@
 .shma1 {
     width: 44%;
     text-align: left;
+}
+
+.hide {
+   visibility: hidden; 
 }
 
