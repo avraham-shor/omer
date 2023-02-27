@@ -15,6 +15,9 @@ let positionInArray = 0;
 
 const zmanObj = {};
 
+let opacity = 1;
+let changeOpacity = 1;
+
 
 
 
@@ -121,7 +124,7 @@ function refresh() {
     if (omerDay == 0) {
 
         src = 'images/empty.jpg';
-        setMessages(date, day, specifyMsg, adarDays);
+        setMessages(date, day, specifyMsg);
         
     }
     
@@ -129,9 +132,20 @@ function refresh() {
     if (day.month == adar || (day.month == 11 && day.day == 30)) {
         // src = 'images/purimBG.pdf'
 
-        const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 10) % 2 + '.jpg';
-        document.getElementById('purim').src = purimSrc;
-
+        const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 2 + '.jpg';
+        const purim = document.getElementById('purim');
+        purim.src = purimSrc;
+        opacity = opacity + 1*changeOpacity;
+        purim.style.opacity = opacity > -1? (opacity / 100) : 0;
+        
+        if (opacity >= 600) {
+            changeOpacity *= -1;
+        }
+       if (opacity < -600) {
+        changeOpacity *= -1;
+       }
+        
+        // console.log(purim.style.opacity);
     }
     document.querySelector('#omer img').src = src;
 
@@ -154,7 +168,7 @@ function formatTimeWithSeconds(date) {
 }
 
 
-function setMessages(date, day, specifyMsg, isAdar) {
+function setMessages(date, day, specifyMsg) {
     const dayInWeek = day.getDay();
     const isShabat = dayInWeek == 6;
     const hours = date.getHours();
@@ -178,9 +192,9 @@ function setMessages(date, day, specifyMsg, isAdar) {
         msgObj.classList.remove('red');
     }
 
-    if (isAdar) {
-        msgObj.classList.add('hide')
-    }
+    // if (isAdar) {
+    //     msgObj.classList.add('hide')
+    // }
 }
 
 function pad(n) {

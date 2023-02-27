@@ -33,11 +33,8 @@
 }
 
 .purim {
-    top: 26vh;
-    left: 22vw;
-    width: 56.2vw;
-    height: 54vh;
     transition: margin-right 12s 15s;
+    z-index: 100;
 }
 
 .msg {
