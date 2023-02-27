@@ -120,7 +120,7 @@ function refresh() {
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const adar = isLeapYear? 13 : 12;
-    const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
+    // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
     if (omerDay == 0) {
 
         src = 'images/empty.jpg';
@@ -132,7 +132,9 @@ function refresh() {
     if (day.month == adar || (day.month == 11 && day.day == 30)) {
         // src = 'images/purimBG.pdf'
 
-        const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 2 + '.jpg';
+        const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
+        // console.log(Math.round(date.getMinutes() / 3) % 10);
+        // console.log(Math.round(date.getMinutes() / 3));
         const purim = document.getElementById('purim');
         purim.src = purimSrc;
         opacity = opacity + 1*changeOpacity;
