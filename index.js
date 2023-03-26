@@ -128,7 +128,7 @@ function refresh() {
         
     }
     
-    // debugger
+    
     if (day.month == adar || (day.month == 11 && day.day == 30)) {
         // src = 'images/purimBG.pdf'
 
