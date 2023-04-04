@@ -155,3 +155,7 @@
    visibility: hidden; 
 }
 
+.up {
+    z-index: 99999;
+}
+

@@ -122,10 +122,15 @@ function refresh() {
     const adar = isLeapYear? 13 : 12;
     // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
     if (omerDay == 0) {
-
         src = 'images/empty.jpg';
-        setMessages(date, day, specifyMsg);
-        
+        setMessages(date, day, specifyMsg);        
+    }
+
+    if (omerDay > 0) {
+        document.querySelector('#omer img').classList.add("up");
+    }
+    else {
+        document.querySelector('#omer img').classList.remove("up");
     }
     
     
