@@ -26,7 +26,7 @@ function refresh() {
     let date = new Date();
     let date2 = new Date();
     let dateLater = new Date();
-    dateLater = dateLater.setMinutes(dateLater.getMinutes() + 10);
+    dateLater = dateLater.setMinutes(dateLater.getMinutes() - 13);
     let day = new Hebcal.HDate();//d
     
     if (day.sunset() < dateLater) {
