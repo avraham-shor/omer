@@ -26,7 +26,10 @@ function refresh() {
     let date = new Date();
     let date2 = new Date();
     let dateLater = new Date();
+    let dateEarlier = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 13);
+    dateEarlier = dateEarlier.setMinutes(dateEarlier.getMinutes() + 29);
+   
     let day = new Hebcal.HDate();
     
     if (day.sunset() < dateLater) {
@@ -35,6 +38,7 @@ function refresh() {
     }
     else dayOrNight = 'יום ';
     
+
     
 
 
@@ -128,6 +132,8 @@ function refresh() {
 
     if (omerDay > 0) {
         document.querySelector('#omer img').classList.add("up");
+        setCandles(day, dateEarlier);
+        
     }
     else {
         document.querySelector('#omer img').classList.remove("up");
@@ -160,6 +166,22 @@ function refresh() {
 
     setTimeout('refresh()', 1000);
 
+    
+
+}
+
+function setCandles(day, dateEarlier) {
+    const candlesImages = document.querySelectorAll('.candles');
+    if (day.getDay() == 6 || (day.getDay() == 5 && day.sunset() < dateEarlier)) {
+        candlesImages.forEach(img => {
+            img.classList.remove("hide");
+        });
+    }
+    else {
+        candlesImages.forEach(img => {
+            img.classList.add("hide");
+        });
+    }
 }
 
 function insertIn(divId, text) {

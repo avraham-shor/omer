@@ -155,7 +155,25 @@
    visibility: hidden; 
 }
 
+.candles {
+    width: 10%; 
+    height: 20%; 
+    top: 16vh; 
+    z-index: 999999;
+    -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+    filter: blur(5px);
+    opacity: 0.2;
+}
+
+.candles-right {
+    right: 10vw;
+}
+
+.candles-left {
+    left: 10vw;
+}
+
 .up {
-    z-index: 99999;
+    z-index: 999;
 }
 
