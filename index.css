@@ -46,13 +46,17 @@
     width: 47vw;
     height: 43vh;
     display: inline-flex;
-    justify-content: space-around;
     flex-direction: column;
-    flex-direction: column;
+    justify-content: center;
+    line-height: 110%;
 }
 
+
 .in-div {
-    line-height: 100%;
+    /* line-height: 100%; */
+    /* padding: 100px;
+    margin: 100px;
+    color: aqua; */
 }
 
 .time {

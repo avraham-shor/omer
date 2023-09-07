@@ -47,14 +47,16 @@ function refresh() {
     const dayOfMonth = daysInMonth[day.day];
     const month = day.getMonthName('h');
     const yearNumber = day.getFullYear() - 5700;
+    const sofZman1 = day.getZemanim().sof_zman_shma_A;
+    const sofZman2 = day.getZemanim().sof_zman_shma;
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
     
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     const DAF_STR = 'דף היומי ' + daf;
-    const SHMA_STR1 = "זמן א'  " + format_time(day.getZemanim().sof_zman_shma_A);
-    const SHMA_STR2 = "זמן ב'  " + format_time(day.getZemanim().sof_zman_shma);
+    const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
+    const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
@@ -91,7 +93,7 @@ function refresh() {
     }
     
     if(day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
-         specifyMsg.push('נחם%עננו@')
+         specifyMsg.push('%נחם%@עננו@')
     }
 
     if (isStartMoridHatal(day, date)) {
@@ -103,7 +105,7 @@ function refresh() {
     }
 
     if (isStartMoridHageshem(day, date)) {
-        specifyMsg.push('משיב הרוח%ומוריד הגשם@')
+        specifyMsg.push('%משיב הרוח%@ומוריד הגשם@')
     }
 
     if (isStartBorechOlenu(day)) {
@@ -113,13 +115,15 @@ function refresh() {
     if (isAlHanisim(day)) {
         specifyMsg.push('על הניסים')
     }
-   // "<div></div>"
 
-    // if (!specifyMsg.length) {
-    //     specifyMsg.push('כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה');
-    // }
-    // console.log(specifyMsg);
+    if (isNearToSofZman(sofZman1 , date)) {
+        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1))
+    }
 
+    if (isNearToSofZman(sofZman2 , date)) {
+        specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
+    }
+ 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
@@ -144,8 +148,6 @@ function refresh() {
         // src = 'images/purimBG.pdf'
 
         const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
-        // console.log(Math.round(date.getMinutes() / 3) % 10);
-        // console.log(Math.round(date.getMinutes() / 3));
         const purim = document.getElementById('purim');
         purim.src = purimSrc;
         opacity = opacity + 1*changeOpacity;
@@ -212,8 +214,7 @@ function setMessages(date, day, specifyMsg) {
 
     const msgObj = document.querySelector('#msg');
     msgObj.style.fontSize = 9.6 - msgText.length / 12 + 'rem';
-    msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>');
-    //debugger
+    msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
     if (specifyMsg.length || moiladTxt) {
         msgObj.classList.add('red');
     }
@@ -291,14 +292,12 @@ function isHoliday(day) {
     return roshChodesh || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
-// function isHoliday(day) {
-//     const holidayDates = ["טו ניסן","טז ניסן","יז ניסן","יח ניסן","יט ניסן","כ ניסן","כא ניסן",
-//                         "ו סיון","א תשרי","ב תשרי","י תשרי","טו תשרי","טז תשרי","יז תשרי","יח תשרי","יט תשרי","כ תשרי","כא תשרי","כב תשרי"];
-//     const holidayObjects = holidayDates.map(date => getHebObj(date));
-//     console.log(holidayObjects.map(d=> d.day),"day: ", day.day);
-//     return holidayObjects.filter(holiday=> day.isSameDate(holiday)).length > 0;
-
-// }
+function isNearToSofZman(time , now) {
+    if (time - now  < (1000 * 60 * 15)  && time - now > -(1000 * 60)) {
+        return true;
+    }
+    return false;
+}
 
 function getHebObj(date) {
     return new Hebcal.HDate(date);
