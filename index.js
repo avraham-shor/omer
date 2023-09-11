@@ -43,7 +43,7 @@ function refresh() {
 
 
     const omerDay = day.omer();
-    const daf = day.dafyomi('h');
+    const masechtaAndDafArr = day.dafyomi('h').split(" ");
     const dayOfMonth = daysInMonth[day.day];
     const month = day.getMonthName('h');
     const yearNumber = day.getFullYear() - 5700;
@@ -54,10 +54,12 @@ function refresh() {
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
     
     const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
-    const DAF_STR = 'דף היומי ' + daf;
+    const MASECHTA_STR = masechtaAndDafArr[0];
+    const DAF_STR = masechtaAndDafArr[1];
+
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
-    const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
+    //const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
@@ -73,10 +75,14 @@ function refresh() {
     insertIn('#time',(formatTimeWithSeconds(date2)));
     insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
     insertIn('#shkiah', SHKIAH_STR);
+    insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
     insertIn('#shma2', SHMA_STR2);
     insertIn('#shma1', SHMA_STR1);
-    insertIn('#date', DATE_STR);
+    //insertIn('#date', DATE_STR);
+    insertIn('#day-of-month', dayOfMonth);
+    insertIn('#month', month);
+    insertIn('#year', yearHebrew);
 
 
 
@@ -213,8 +219,8 @@ function setMessages(date, day, specifyMsg) {
     }
 
     const msgObj = document.querySelector('#msg');
-    msgObj.style.fontSize = 9.6 - msgText.length / 12 + 'rem';
-    msgObj.innerHTML = msgText.replace('%', '<div class="in-div">').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
+    msgObj.style.fontSize = 10 - msgText.length / 12 + 'rem';
+    msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
     if (specifyMsg.length || moiladTxt) {
         msgObj.classList.add('red');
     }

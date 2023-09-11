@@ -52,13 +52,6 @@
 }
 
 
-.in-div {
-    /* line-height: 100%; */
-    /* padding: 100px;
-    margin: 100px;
-    color: aqua; */
-}
-
 .time {
     font-size: 4.5rem;
     color: rgba(155,74,9,255);
@@ -119,15 +112,23 @@
     width: 14%;
     text-align: center;
     position: relative;
-    /* font-size: 2.9rem; */
-    /* padding-top: 4vh; */
+    flex-direction: column;
+    justify-content: center;
+    line-height: 99%;
+    font-size: 4.3rem;
+    margin-top: -38px;
 }
 
 .date {
     width: 14%;
     text-align: center;
     position: relative;
-    /* font-size: 2.9rem; */
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 120%;
+    font-size: 3.9rem;
+    margin-top: -44px;
 }
 
 
@@ -179,5 +180,9 @@
 
 .up {
     z-index: 999;
+}
+
+.daf-title {
+    font-size: 3rem;
 }
 
