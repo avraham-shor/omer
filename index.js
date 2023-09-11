@@ -212,13 +212,13 @@ function setMessages(date, day, specifyMsg) {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     let msgText = specifyMsg[(specifyMsg.length - 1) % minutes] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
-    
+    const msgObj = document.querySelector('#msg');
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
+        msgObj.style.lineHeight = '100%';
         msgText = moiladTxt;
     }
-
-    const msgObj = document.querySelector('#msg');
+    
     msgObj.style.fontSize = 10 - msgText.length / 12 + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
     if (specifyMsg.length || moiladTxt) {
