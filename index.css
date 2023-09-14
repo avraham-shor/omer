@@ -57,7 +57,7 @@
     color: black;
     position: absolute;
     top: 6vh;
-    width: 100%;
+    width: 100vw;
     text-align: center;
     align-items: center;
     display: inline-flex;
@@ -70,7 +70,7 @@
     color: rgba(155,74,9,255);
     position: absolute;
     top: 1vh;
-    width: 100%;
+    width: 100vw;
     text-align: center;
     align-items: center;
     display: inline-flex;
@@ -102,7 +102,7 @@
     justify-content: center;
     line-height: 99%;
     font-size: 4.3rem;
-    margin-top: -3vh;
+    margin-top: -1vh;
 }
 
 .date {
@@ -120,7 +120,6 @@
     color: rgba(155,74,9,255);
     position: absolute;
     bottom: 9vh;
-    width: 100%;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
@@ -131,11 +130,11 @@
 }
 
 .title-shma {
-    left: 21vw;
+    right: 13vw;
 }
 
 .title-shkiah {
-    right: 25vw;
+    left: 14vw;
 }
 
 
@@ -143,8 +142,8 @@
     color: rgba(155,74,9,255);
     position: absolute;
     bottom: 1vh;
-    left: 22vw;
-    width: 100%;
+    right: 3vw;
+    width: 50%;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
@@ -158,8 +157,7 @@
     color: rgba(155,74,9,255);
     position: absolute;
     bottom: 1vh;
-    right: 25vw;
-    width: 100%;
+    left: 20vw;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
