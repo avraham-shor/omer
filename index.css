@@ -53,37 +53,23 @@
 
 
 .time {
-    font-size: 4.5rem;
-    color: rgba(155,74,9,255);
+    font-size: 8.5rem;
+    color: black;
     position: absolute;
-    top: 1vh;
+    top: 6vh;
     width: 100%;
     text-align: center;
     align-items: center;
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
-    /* display: none; */
 }
 
 .day {
     font-size: 4.5rem;
-    color: black;
-    position: absolute;
-    top: 8vh;
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    display: inline-flex;
-    justify-content: space-around;
-    flex-direction: column;
-}
-
-.shkiah {
-    font-size: 4.5rem;
     color: rgba(155,74,9,255);
     position: absolute;
-    top: 16vh;
+    top: 1vh;
     width: 100%;
     text-align: center;
     align-items: center;
@@ -116,7 +102,7 @@
     justify-content: center;
     line-height: 99%;
     font-size: 4.3rem;
-    margin-top: -38px;
+    margin-top: -3vh;
 }
 
 .date {
@@ -128,14 +114,12 @@
     justify-content: center;
     line-height: 120%;
     font-size: 3.9rem;
-    margin-top: -44px;
+    margin-top: -4vh;
 }
-
-
-.box-shma {
+.title {
     color: rgba(155,74,9,255);
     position: absolute;
-    bottom: 3vh;
+    bottom: 9vh;
     width: 100%;
     text-align: center;
     align-items: stretch;
@@ -143,7 +127,46 @@
     justify-content: space-evenly;
     flex-direction: row-reverse;
     flex-wrap: wrap;
-    font-size: 4.5rem;
+    font-size: 4.6rem;
+}
+
+.title-shma {
+    left: 21vw;
+}
+
+.title-shkiah {
+    right: 25vw;
+}
+
+
+.box-shma {
+    color: rgba(155,74,9,255);
+    position: absolute;
+    bottom: 1vh;
+    left: 22vw;
+    width: 100%;
+    text-align: center;
+    align-items: stretch;
+    display: inline-flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    font-size: 4.6rem;
+}
+
+.shkiah {
+    color: rgba(155,74,9,255);
+    position: absolute;
+    bottom: 1vh;
+    right: 25vw;
+    width: 100%;
+    text-align: center;
+    align-items: stretch;
+    display: inline-flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    font-size: 4.6rem;
 }
 
 .shma2 {

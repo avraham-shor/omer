@@ -53,7 +53,7 @@ function refresh() {
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
     
-    const SHKIAH_STR = 'שקיעת החמה ' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
+    const SHKIAH_STR = format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     const MASECHTA_STR = masechtaAndDafArr[0];
     const DAF_STR = masechtaAndDafArr[1];
 
@@ -136,7 +136,7 @@ function refresh() {
     const adar = isLeapYear? 13 : 12;
     // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
     if (omerDay == 0) {
-        src = 'images/empty.jpg';
+        src = 'images/empty2.jpg';
         setMessages(date, day, specifyMsg);        
     }
 
