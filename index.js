@@ -73,7 +73,7 @@ function refresh() {
     // zmanObj["nerot"] = nerot;
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
-    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
+    insertIn('#day',(dayOrNight + (days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || '')).replace('פרשת שמיני עצרת','סוכות'));
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
