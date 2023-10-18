@@ -18,6 +18,9 @@ const zmanObj = {};
 let opacity = 1;
 let changeOpacity = 1;
 
+let showTehilim = false;
+
+
 
 
 
@@ -73,7 +76,7 @@ function refresh() {
     // zmanObj["nerot"] = nerot;
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
-    insertIn('#day',(dayOrNight + (days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || '')).replace('פרשת שמיני עצרת','סוכות'));
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -122,12 +125,23 @@ function refresh() {
         specifyMsg.push('על הניסים')
     }
 
-    if (isNearToSofZman(sofZman1 , date)) {
-        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1))
-    }
+   
 
     if (isNearToSofZman(sofZman2 , date)) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
+    }
+
+    if (isShowTehilim(date, day)) {
+        specifyMsg.push(`%פרקי תהלים:@%` + tehilimByDays[day.day] || '');
+        showTehilim = true;
+    }
+    else showTehilim = false;
+    
+    // debugger;
+    // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
+    if (isNearToSofZman(sofZman1 , date) && Math.floor(date.getSeconds() / 10) % 2 == 0) {
+        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
+        showTehilim = false;
     }
  
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
@@ -228,6 +242,13 @@ function setMessages(date, day, specifyMsg) {
         msgObj.classList.remove('red');
     }
 
+    if (showTehilim) {
+        msgObj.classList.add('blue');
+    }
+    else {
+        msgObj.classList.remove('blue');
+    }
+
     // if (isAdar) {
     //     msgObj.classList.add('hide')
     // }
@@ -303,6 +324,14 @@ function isNearToSofZman(time , now) {
         return true;
     }
     return false;
+}
+
+function isShowTehilim(date, day) {
+    //debugger;
+   if (day.getDay() != 6 && [6,7,8].includes(date.getHours())) {
+    return true;
+   }
+   
 }
 
 function getHebObj(date) {

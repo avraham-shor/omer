@@ -207,3 +207,8 @@
     font-size: 3rem;
 }
 
+.blue {
+    color: black;
+    text-shadow: 3px -3px white;
+}
+
