@@ -131,7 +131,12 @@ function refresh() {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
     }
 
-    if (isShowTehilim(date, day)) {
+    if (isNearToSofZman(sofZman1 , date)) {
+        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
+        showTehilim = false;
+    }
+    
+    if (isShowTehilim(date, day) && Math.floor(date.getSeconds() / 10) % 3 != 0) {
         specifyMsg.push(`%פרקי תהלים:@%` + tehilimByDays[day.day] || '');
         showTehilim = true;
     }
@@ -139,10 +144,7 @@ function refresh() {
     
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
-    if (isNearToSofZman(sofZman1 , date) && Math.floor(date.getSeconds() / 10) % 2 == 0) {
-        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
-        showTehilim = false;
-    }
+    
  
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
