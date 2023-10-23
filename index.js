@@ -131,13 +131,13 @@ function refresh() {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
     }
 
-    if (isNearToSofZman(sofZman1 , date)) {
+    if (isNearToSofZman(sofZman1 , date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
         showTehilim = false;
     }
     
-    if (isShowTehilim(date, day) && Math.floor(date.getSeconds() / 10) % 3 != 0) {
-        specifyMsg.push(`%פרקי תהלים:@%` + tehilimByDays[day.day] || '');
+    if (isShowTehilim(date, day)) {
+        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
         showTehilim = true;
     }
     else showTehilim = false;
@@ -376,7 +376,7 @@ function isStartMoridHageshem(day, date) {
 }
 
 function isStartBorechOlenu(day) {
-    if (day.month == 8 && (day.day == 7 || day.day == 8 || day.day == 9) && day.getDay() != 6) {
+    if (day.month == 8 && (day.day == 7 || day.day == 8) && day.getDay() != 6) {
        return true;
     }
 }
