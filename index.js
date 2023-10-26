@@ -77,7 +77,7 @@ function refresh() {
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
     //debugger;
-    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + getParsha());
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') +getParsha());
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -368,8 +368,14 @@ function isStartBorchenu(day) {
 }
 
 function getParsha() {
-    return new Hebcal.HDate().getParsha('h')[0] || '';
+    let label = ' פרשת ';
+    const parsha = new Hebcal.HDate().getParsha('h')[0] || '';
     
+    if (['חול המועד פסח','חול המועד סוכות','שמיני עצרת'].includes(parsha)) {
+        label = ' שבוע של ';
+    }
+
+    return label + parsha;
 }
 
 function isStartMoridHageshem(day, date) {
