@@ -76,7 +76,8 @@ function refresh() {
     // zmanObj["nerot"] = nerot;
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
-    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
+    //debugger;
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + getParsha());
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -364,6 +365,11 @@ function isStartBorchenu(day) {
     if (day.month == 1 && (day.day == 17 || day.day == 18) && day.getDay() != 6) {
        return true;
     }
+}
+
+function getParsha() {
+    return new Hebcal.HDate().getParsha('h')[0] || '';
+    
 }
 
 function isStartMoridHageshem(day, date) {
