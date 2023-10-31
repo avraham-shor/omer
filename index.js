@@ -126,9 +126,13 @@ function refresh() {
         specifyMsg.push('על הניסים')
     }
 
-   
+   if (isShowTehilim(date, day)) {
+        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
+        showTehilim = true;
+    }
+    else showTehilim = false;
 
-    if (isNearToSofZman(sofZman2 , date)) {
+    if (isNearToSofZman(sofZman2 , date) && Math.floor(date.getSeconds() / 10) % 3 == 0 ) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
     }
 
@@ -136,12 +140,7 @@ function refresh() {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
         showTehilim = false;
     }
-    
-    if (isShowTehilim(date, day)) {
-        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
-        showTehilim = true;
-    }
-    else showTehilim = false;
+
     
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
