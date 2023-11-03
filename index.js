@@ -9,8 +9,6 @@ let dayOrNight = 'יום ';
 
 const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
 
-//const MESSAGES_SHABAT = MESSAGES.slice(0, -1);
-
 let positionInArray = 0;
 
 const zmanObj = {};
@@ -57,8 +55,8 @@ function refresh() {
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
     
     const SHKIAH_STR = format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
-    const MASECHTA_STR = masechtaAndDafArr[0];
-    const DAF_STR = masechtaAndDafArr[1];
+    const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
+    const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
@@ -90,7 +88,10 @@ function refresh() {
 
 
 
-
+    if (isSiumMasechet(day)) {
+        specifyMsg.push('הדרן עלך מסכת ' + MASECHTA_STR);
+        showTehilim = true;
+    }
 
 
     if (isHoliday(day)) {
@@ -140,7 +141,7 @@ function refresh() {
         specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
         showTehilim = true;
     }
-    else showTehilim = false;
+    //else showTehilim = false;
     
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
@@ -334,6 +335,13 @@ function isShowTehilim(date, day) {
     return true;
    }
    
+}
+
+function isSiumMasechet(day) {
+    debugger;
+    const tomorow = day.next();
+    const dafTomorowArr = tomorow.dafyomi().split(" ");
+    return dafTomorowArr[dafTomorowArr.length -1] == 2;
 }
 
 function getHebObj(date) {
