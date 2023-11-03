@@ -339,7 +339,7 @@ function isShowTehilim(date, day) {
 }
 
 function isSiumMasechet(day) {
-    debugger;
+    
     const tomorow = day.next();
     const dafTomorowArr = tomorow.dafyomi().split(" ");
     return dafTomorowArr[dafTomorowArr.length -1] == 2;
