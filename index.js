@@ -74,7 +74,8 @@ function refresh() {
     // zmanObj["nerot"] = nerot;
 
     insertIn('#time',(formatTimeWithSeconds(date2)));
-    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + " פרשת " + (day.getParsha('h')[0] || ''));
+    //debugger;
+    insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') +getParsha());
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -126,9 +127,13 @@ function refresh() {
         specifyMsg.push('על הניסים')
     }
 
-   
+   if (isShowTehilim(date, day)) {
+        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
+        showTehilim = true;
+    }
+    //else showTehilim = false;
 
-    if (isNearToSofZman(sofZman2 , date)) {
+    if (isNearToSofZman(sofZman2 , date) && Math.floor(date.getSeconds() / 10) % 3 == 0 ) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
     }
 
@@ -137,11 +142,7 @@ function refresh() {
         showTehilim = false;
     }
     
-    if (isShowTehilim(date, day)) {
-        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
-        showTehilim = true;
-    }
-    //else showTehilim = false;
+
     
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
@@ -372,6 +373,17 @@ function isStartBorchenu(day) {
     if (day.month == 1 && (day.day == 17 || day.day == 18) && day.getDay() != 6) {
        return true;
     }
+}
+
+function getParsha() {
+    let label = ' פרשת ';
+    const parsha = new Hebcal.HDate().getParsha('h')[0] || '';
+    
+    if (['חול המועד פסח','חול המועד סוכות','שמיני עצרת'].includes(parsha)) {
+        label = ' שבוע של ';
+    }
+
+    return label + parsha;
 }
 
 function isStartMoridHageshem(day, date) {
