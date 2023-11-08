@@ -88,7 +88,7 @@ function refresh() {
 
 
 
-
+    
     if (isSiumMasechet(day)) {
         specifyMsg.push('הדרן עלך מסכת ' + MASECHTA_STR);
         showTehilim = true;
@@ -358,6 +358,26 @@ function isAlHanisim(day) {
     const adar = isLeapYear? 13 : 12;
     const purim = day.day == 15 && day.month == adar;
     return chanucaCislev || chanucaTevet || purim;
+}
+
+function isSpeakTehilim(day, date) {
+    
+}
+
+function getTehilimDay(day) {
+    debugger;
+    const elulDays = new Hebcal.HDate(1,6).getMonthObject().days;
+    const tishreiDays = new Hebcal.HDate(1,7).getMonthObject().days.slice(2, 9);
+    const elulAndTishrei = [...elulDays, ...tishreiDays];
+    let seder = 1;
+    elulAndTishrei.forEach(d => {
+        if (d.getDay() != 5 && d.getDay != 6) {
+            if (d.day == day.day && d.month == day.month) {
+                return seder;
+            }
+            seder++;
+        }
+    });
 }
 
 function isStartMoridHatal(day, date) {
