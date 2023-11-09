@@ -141,6 +141,16 @@ function refresh() {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
         showTehilim = false;
     }
+
+    if (isSpeakTehilim(day, date)) {
+        const tehilimSeder = getTehilimDay(day);
+        if (tehilimSeder) {
+            specifyMsg.push(`%תהלים@%` + 'סדר ' + tehilimSeder);
+            showTehilim = true;
+        }
+    }
+
+    
     
 
     
@@ -361,23 +371,32 @@ function isAlHanisim(day) {
 }
 
 function isSpeakTehilim(day, date) {
-    
+    if ((day.month == 6 || day.month == 7) && day.getDay() != 5 || day.getDay() != 6) {
+        return true;
+    }
 }
 
 function getTehilimDay(day) {
+    const elulYear = day.month == 6? day.year : day.year - 1;
+    const tishreiYear = day.month == 7? day.year : day.year + 1;
     debugger;
-    const elulDays = new Hebcal.HDate(1,6).getMonthObject().days;
-    const tishreiDays = new Hebcal.HDate(1,7).getMonthObject().days.slice(2, 9);
+    const elulDays = new Hebcal.HDate(1,6, elulYear).getMonthObject().days;
+    const tishreiDays = new Hebcal.HDate(1,7, tishreiYear).getMonthObject().days.slice(2, 9);
     const elulAndTishrei = [...elulDays, ...tishreiDays];
     let seder = 1;
-    elulAndTishrei.forEach(d => {
-        if (d.getDay() != 5 && d.getDay != 6) {
+    for (let i = 0; i < elulAndTishrei.length; i++) {
+        const d = elulAndTishrei[i];
+        if ((d.month == 6 && d.getDay() != 5 && d.getDay() != 6) || d.month != 6) {
+
+            console.log("seder:", seder);
+            console.log("יום בשבוע:" , d.getDay() + 1);
+            console.log("יום בחודש:" , d.day);
             if (d.day == day.day && d.month == day.month) {
-                return seder;
+                return daysInMonth[seder];
             }
             seder++;
         }
-    });
+    }
 }
 
 function isStartMoridHatal(day, date) {
