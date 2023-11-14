@@ -25,7 +25,7 @@ let showTehilim = false;
 function refresh() {
     let specifyMsg =  []; 
     let date = new Date();
-    let date2 = new Date();
+    //let date2 = new Date();
     let dateLater = new Date();
     let dateEarlier = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 13);
@@ -73,8 +73,7 @@ function refresh() {
     // zmanObj["mincha"] = mincha;
     // zmanObj["nerot"] = nerot;
 
-    insertIn('#time',(formatTimeWithSeconds(date2)));
-    //debugger;
+    
     insertIn('#day',(dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') +getParsha());
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
@@ -85,7 +84,6 @@ function refresh() {
     insertIn('#day-of-month', dayOfMonth);
     insertIn('#month', month);
     insertIn('#year', yearHebrew);
-
 
 
     
@@ -200,7 +198,7 @@ function refresh() {
 
 
 
-    setTimeout('refresh()', 1000);
+    setTimeout('refresh()', 10000);
 
     
 
@@ -441,6 +439,9 @@ function isStartBorechOlenu(day) {
        return true;
     }
 }
+setInterval(() => {
+    insertIn('#time',(formatTimeWithSeconds(new Date())));
+}, 1000);
 
 Hebcal.events.on('ready', refresh());
 
