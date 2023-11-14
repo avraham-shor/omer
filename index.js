@@ -342,10 +342,12 @@ function isNearToSofZman(time , now) {
 
 function isShowTehilim(date, day) {
     //debugger;
-   if (day.getDay() != 6 && [6,7,8,9].includes(date.getHours())) {
-    return true;
+   if (day.getDay() != 6) {
+    if ([6,7,8].includes(date.getHours()) || (date.getHours() == 9 && date.getMinutes() < 20)) {
+        return true;
+        }    
    }
-   
+   return false;
 }
 
 function isSiumMasechet(day) {
