@@ -381,7 +381,7 @@ function getTehilimDay(day) {
     const tishreiYear = day.month == 7? day.year : day.year + 1;
     debugger;
     const elulDays = new Hebcal.HDate(1,6, elulYear).getMonthObject().days;
-    const tishreiDays = new Hebcal.HDate(1,7, tishreiYear).getMonthObject().days.slice(2, 9);
+    const tishreiDays = new Hebcal.HDate(1,7, tishreiYear).getMonthObject().days.slice(2, 8);
     const elulAndTishrei = [...elulDays, ...tishreiDays];
     let seder = 1;
     for (let i = 0; i < elulAndTishrei.length; i++) {
