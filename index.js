@@ -371,7 +371,7 @@ function isAlHanisim(day) {
 }
 
 function isSpeakTehilim(day, date) {
-    if ((day.month == 6 || day.month == 7) && day.getDay() != 5 || day.getDay() != 6) {
+    if (day.getDay() != 6 &&  (day.month == 7 || (day.month == 6  &&  day.getDay() != 5))) {
         return true;
     }
 }
