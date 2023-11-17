@@ -456,9 +456,6 @@ class Warning {
         this.msg = msg;
         this.color = color;
     }
-    constructor() {
-
-    }
 }
 
 
