@@ -23,7 +23,8 @@ let showTehilim = false;
 
 
 function refresh() {
-    let specifyMsg =  []; 
+    let specifyMsg =  [];
+    const warningMsgs = [];
     let date = new Date();
     //let date2 = new Date();
     let dateLater = new Date();
@@ -94,6 +95,7 @@ function refresh() {
 
 
     if (isHoliday(day)) {
+        const war = new Warning('יעלה ויבוא', 'red');
         specifyMsg.push('יעלה ויבוא'); 
     }
 
@@ -237,7 +239,7 @@ function setMessages(date, day, specifyMsg) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    let msgText = specifyMsg[(specifyMsg.length - 1) % minutes] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
+    let msgText = specifyMsg[0] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     const msgObj = document.querySelector('#msg');
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
@@ -444,5 +446,19 @@ setInterval(() => {
 }, 1000);
 
 Hebcal.events.on('ready', refresh());
+
+
+class Warning {
+    msg;
+    color;
+    fontSize;
+    constructor(msg, color) {
+        this.msg = msg;
+        this.color = color;
+    }
+    constructor() {
+
+    }
+}
 
 
