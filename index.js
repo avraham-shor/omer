@@ -123,9 +123,9 @@ function refresh() {
         specifyMsg.push('ברך עלינו')
     }
 
-    if (isAlHanisim(day)) {
-        specifyMsg.push('על הניסים')
-    }
+    //if (isAlHanisim(day)) {
+ //       specifyMsg.push('על הניסים')
+    //}
 
    if (isShowTehilim(date, day)) {
         specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
