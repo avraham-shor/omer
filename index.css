@@ -142,7 +142,7 @@
     color: rgba(155,74,9,255);
     position: absolute;
     bottom: 1vh;
-    right: 3vw;
+    right: 3%;
     width: 50%;
     text-align: center;
     align-items: stretch;
@@ -157,7 +157,7 @@
     color: rgba(155,74,9,255);
     position: absolute;
     bottom: 1vh;
-    left: 20vw;
+    left: 20%;
     text-align: center;
     align-items: stretch;
     display: inline-flex;
@@ -211,4 +211,15 @@
     color: black;
     text-shadow: 3px -3px white;
 }
+
+@media (max-width: 500px) {
+    
+    .box-shma {
+        font-size: 2.6rem;
+    }
+    
+    .shkiah {
+        font-size: 2.6rem;
+    }
+  }
 
