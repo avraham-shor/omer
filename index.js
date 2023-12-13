@@ -24,7 +24,7 @@ let showTehilim = false;
 
 function refresh() {
     let specifyMsg =  [];
-    const warningMsgs = [];
+    // const warningMsgs = [];
     let date = new Date();
     //let date2 = new Date();
     let dateLater = new Date();
@@ -95,7 +95,7 @@ function refresh() {
 
 
     if (isHoliday(day)) {
-        const war = new Warning('יעלה ויבוא', 'red');
+        // const war = new Warning('יעלה ויבוא', 'red');
         specifyMsg.push('יעלה ויבוא'); 
     }
 
@@ -448,14 +448,14 @@ setInterval(() => {
 Hebcal.events.on('ready', refresh());
 
 
-class Warning {
-    msg;
-    color;
-    fontSize;
-    constructor(msg, color) {
-        this.msg = msg;
-        this.color = color;
-    }
-}
+// class Warning {
+//     msg;
+//     color;
+//     fontSize;
+//     constructor(msg, color) {
+//         this.msg = msg;
+//         this.color = color;
+//     }
+// }
 
 
