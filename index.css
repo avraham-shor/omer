@@ -225,5 +225,12 @@
     .time {
         font-size: 4.5rem;
     }
+
+    .title {
+        bottom: 4vh;
+        font-size: 2.6rem;
+    }
+
+    
   }
 
