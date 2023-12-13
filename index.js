@@ -239,6 +239,7 @@ function setMessages(date, day, specifyMsg) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
+    let sizeForAndroid = 1;
     let msgText = specifyMsg[specifyMsg.length -1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     const msgObj = document.querySelector('#msg');
     const moiladTxt = showZmanMoilad(day, hours, minutes);
@@ -246,8 +247,10 @@ function setMessages(date, day, specifyMsg) {
         msgObj.style.lineHeight = '100%';
         msgText = moiladTxt;
     }
-    
-    msgObj.style.fontSize = 10 - msgText.length / 12 + 'rem';
+    if (window.innerWidth < 400 && window.innerHeight < 400) {
+        sizeForAndroid = 0.4;
+    }
+    msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
     if (specifyMsg.length || moiladTxt) {
         msgObj.classList.add('red');
