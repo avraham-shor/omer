@@ -123,9 +123,9 @@ function refresh() {
         specifyMsg.push('ברך עלינו')
     }
 
-    //if (isAlHanisim(day)) {
- //       specifyMsg.push('על הניסים')
-    //}
+    if (isAlHanisim(day)) {
+       specifyMsg.push('על הניסים')
+    }
 
    if (isShowTehilim(date, day)) {
         specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
@@ -239,7 +239,7 @@ function setMessages(date, day, specifyMsg) {
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
-    let msgText = specifyMsg[0] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
+    let msgText = specifyMsg[specifyMsg.length -1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     const msgObj = document.querySelector('#msg');
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
