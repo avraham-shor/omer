@@ -251,7 +251,7 @@ function setMessages(date, day, specifyMsg) {
     console.log('width:',window.screen.width, 'height:', window.screen.height)
 
     if (window.screen.height < 700 && screen.orientation.type == "landscape-primary") {
-        sizeForAndroid = 0.5;
+        sizeForAndroid = 1;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
