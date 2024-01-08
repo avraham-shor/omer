@@ -247,8 +247,9 @@ function setMessages(date, day, specifyMsg) {
         msgObj.style.lineHeight = '100%';
         msgText = moiladTxt;
     }
-    if (window.innerWidth < 400 && window.innerHeight < 400) {
-        sizeForAndroid = 0.4;
+    console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
+    if (window.innerWidth < 1000 && window.innerHeight < 600) {
+        sizeForAndroid = 0.5;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
