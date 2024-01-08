@@ -263,7 +263,7 @@
     }
   }
 
-  @media screen and (max-width: 1200px) and (max-height: 2500px) {
+  @media (orientation: portrait) {
     
     .box-shma {
         bottom: 10vh;

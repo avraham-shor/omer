@@ -249,7 +249,7 @@ function setMessages(date, day, specifyMsg) {
     }
     console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
     console.log('width:',window.screen.width, 'height:', window.screen.height)
-    if (indow.screen.width < 800 && window.screen.heigh < 400) {
+    if (window.screen.width < 800 && window.screen.heigh < 400) {
         // debugger;
         sizeForAndroid = 0.5;
     }
