@@ -248,7 +248,8 @@ function setMessages(date, day, specifyMsg) {
         msgText = moiladTxt;
     }
     console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
-    if (window.innerWidth < 1500 && window.innerHeight < 600) {
+    console.log('width:',window.screen.width, 'height:', window.screen.height)
+    if (indow.screen.width < 800 && window.screen.heigh < 400) {
         // debugger;
         sizeForAndroid = 0.5;
     }
