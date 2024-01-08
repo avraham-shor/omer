@@ -250,7 +250,7 @@ function setMessages(date, day, specifyMsg) {
     console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
     console.log('width:',window.screen.width, 'height:', window.screen.height)
 
-    if (window.screen.width < 800 && window.screen.height < 400) {
+    if (window.screen.height < 700 && screen.orientation.type == "landscape-primary") {
         sizeForAndroid = 0.5;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
