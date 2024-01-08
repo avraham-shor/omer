@@ -247,8 +247,9 @@ function setMessages(date, day, specifyMsg) {
         msgObj.style.lineHeight = '100%';
         msgText = moiladTxt;
     }
-    // console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
-    if (window.innerWidth < 1000 && window.innerHeight < 600) {
+    console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
+    if (window.innerWidth < 1500 && window.innerHeight < 600) {
+        // debugger;
         sizeForAndroid = 0.5;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';

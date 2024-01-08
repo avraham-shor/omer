@@ -215,7 +215,7 @@
     text-shadow: 3px -3px white;
 }
 
-@media screen and (max-width: 1000px) and (max-height: 600px) {
+@media screen and (max-width: 1500px) and (max-height: 600px) {
     
     .box-shma {
         font-size: 2.6rem;
@@ -263,7 +263,7 @@
     }
   }
 
-  @media screen and (max-width: 1000px) and (max-height: 2500px) {
+  @media screen and (max-width: 1200px) and (max-height: 2500px) {
     
     .box-shma {
         bottom: 10vh;
