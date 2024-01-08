@@ -156,6 +156,12 @@
     font-size: 4.6rem;
 }
 
+.size {
+    position: absolute;
+    top: 5vh;
+    left: 1vw;
+}
+
 .shkiah {
     color: rgba(155,74,9,255);
     position: absolute;

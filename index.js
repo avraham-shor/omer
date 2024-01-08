@@ -157,7 +157,7 @@ function refresh() {
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
     
- 
+    writeSize()
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
@@ -295,6 +295,14 @@ function setZmanList(dayInWeek, hours) {
     return zmanList;
 
 
+}
+
+function writeSize() {
+    const innerHeight = window.innerHeight;
+    const innerWidth = window.innerWidth;
+    const height = window.screen.height;
+    const width = window.screen.width;
+   insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width); 
 }
 
 function showZmanMoilad(day, hours, minutes) {
