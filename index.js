@@ -157,7 +157,7 @@ function refresh() {
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
     
-   // writeSize()
+   writeSize()
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
