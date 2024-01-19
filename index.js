@@ -18,6 +18,8 @@ let changeOpacity = 1;
 
 let showTehilim = false;
 
+let colorClass = 'black';
+
 
 
 
@@ -54,7 +56,6 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units? '"' : '') + VAL[tens] + (units? '"' + VAL[units] : '');
-    
     const SHKIAH_STR = format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
@@ -64,7 +65,7 @@ function refresh() {
     //const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות:%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 29))) + '@';
     
     // zmanObj["shkiah"] = SHKIAH_STR;
     // zmanObj["daf"] = DAF_STR;
@@ -91,55 +92,76 @@ function refresh() {
     if (isSiumMasechet(day)) {
         specifyMsg.push('הדרן עלך מסכת ' + MASECHTA_STR);
         showTehilim = true;
+        colorClass = "blue";
+    }
+
+    if (day.getDay() == 5) {
+        specifyMsg.push(nerot);
+    }
+
+    if (isNearToShkiah(day.sunset().setMinutes(day.sunset().getMinutes() + 1), date)) {
+        specifyMsg.push("%שקיעת החמה@%" + SHKIAH_STR);
+        colorClass = "black";
     }
 
 
     if (isHoliday(day)) {
         // const war = new Warning('יעלה ויבוא', 'red');
         specifyMsg.push('יעלה ויבוא'); 
+        colorClass = "red";
     }
 
     if (isZom(date, day)) {
-        specifyMsg.push('עננו')
+        specifyMsg.push('עננו');
+        colorClass = "red";
     }
     
     if(day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
-         specifyMsg.push('%נחם%@עננו@')
+         specifyMsg.push('%נחם%@עננו@');
+         colorClass = "red";
     }
 
     if (isStartMoridHatal(day, date)) {
-        specifyMsg.push('מוריד הטל')
+        specifyMsg.push('מוריד הטל');
+        colorClass = "red";
     }
 
     if (isStartBorchenu(day)) {
-        specifyMsg.push('ברכנו')
+        specifyMsg.push('ברכנו');
+        colorClass = "red";
     }
 
     if (isStartMoridHageshem(day, date)) {
-        specifyMsg.push('%משיב הרוח%@ומוריד הגשם@')
+        specifyMsg.push('%משיב הרוח%@ומוריד הגשם@');
+        colorClass = "red";
     }
 
     if (isStartBorechOlenu(day)) {
-        specifyMsg.push('ברך עלינו')
+        specifyMsg.push('ברך עלינו');
+        colorClass = "red";
     }
 
     if (isAlHanisim(day)) {
-       specifyMsg.push('על הניסים')
+       specifyMsg.push('על הניסים');
+       colorClass = "red";
     }
 
    if (isShowTehilim(date, day)) {
         specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
         showTehilim = true;
+        colorClass = "blue";
     }
     //else showTehilim = false;
 
-    if (isNearToSofZman(sofZman2 , date) && Math.floor(date.getSeconds() / 10) % 3 == 0 ) {
-        specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2))
+    if (isNearToSofZman(sofZman2 , date)) {
+        specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
+        colorClass = "red";
     }
 
     if (isNearToSofZman(sofZman1 , date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
         showTehilim = false;
+        colorClass = "red";
     }
 
     if (isSpeakTehilim(day, date)) {
@@ -147,7 +169,8 @@ function refresh() {
         if (tehilimSeder) {
             specifyMsg.push(`%תהלים@%` + 'סדר ' + tehilimSeder);
             showTehilim = true;
-        }
+        };
+        colorClass = "blue";
     }
 
     
@@ -157,7 +180,7 @@ function refresh() {
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
     
-   writeSize()
+//    writeSize()
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
@@ -250,24 +273,32 @@ function setMessages(date, day, specifyMsg) {
     console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight',window.innerHeight);
     console.log('width:',window.screen.width, 'height:', window.screen.height)
 
-    if (window.screen.height < 700 && screen.orientation.type == "landscape-primary") {
-        sizeForAndroid = 1;
+    if (window.screen.height < 400 && window.screen.width < 900) {
+        sizeForAndroid = 0.5;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
-    if (specifyMsg.length || moiladTxt) {
-        msgObj.classList.add('red');
+    
+    if (msgObj.classList.length > 2 && !msgObj.classList.contains(colorClass)) {
+        const classList = msgObj.classList.value.split(" ");
+        const oldClass = classList[classList.length -1];
+        msgObj.classList.replace(oldClass, colorClass);
     }
-    else {
-        msgObj.classList.remove('red');
-    }
+    
 
-    if (showTehilim) {
-        msgObj.classList.add('blue');
-    }
-    else {
-        msgObj.classList.remove('blue');
-    }
+    // if (specifyMsg.length || moiladTxt) {
+    //     msgObj.classList.add('red');
+    // }
+    // else {
+    //     msgObj.classList.remove('red');
+    // }
+
+    // if (showTehilim) {
+    //     msgObj.classList.add('blue');
+    // }
+    // else {
+    //     msgObj.classList.remove('blue');
+    // }
 
     // if (isAdar) {
     //     msgObj.classList.add('hide')
@@ -349,6 +380,13 @@ function isHoliday(day) {
 
 function isNearToSofZman(time , now) {
     if (time - now  < (1000 * 60 * 15)  && time - now > -(1000 * 60)) {
+        return true;
+    }
+    return false;
+}
+
+function isNearToShkiah(time , now) {
+    if (time - now  < (1000 * 60 * 30)  && time - now > -(1000 * 60)) {
         return true;
     }
     return false;
