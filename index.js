@@ -95,7 +95,7 @@ function refresh() {
         colorClass = "blue";
     }
 
-    if (day.getDay() == 5 && day.sunset() > date) {
+    if (day.getDay() == 5 && dayOrNight == 'יום ') {
         specifyMsg.push(nerot);
     }
 
