@@ -221,6 +221,13 @@
     text-shadow: 3px -3px white;
 }
 
+.image-purim {
+    width: 171%;
+    height: 165%;
+    top: -41%;
+    left: -37%;
+}
+
 @media screen and (max-width: 1500px) and (max-height: 600px) {
     
     .box-shma {

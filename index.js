@@ -21,6 +21,7 @@ let showTehilim = false;
 let colorClass = 'black';
 
 
+//setMishenichnas();
 
 
 
@@ -43,7 +44,7 @@ function refresh() {
     else dayOrNight = 'יום ';
     
 
-    
+
 
 
     const omerDay = day.omer();
@@ -284,6 +285,8 @@ function setMessages(date, day, specifyMsg) {
         const oldClass = classList[classList.length -1];
         msgObj.classList.replace(oldClass, colorClass);
     }
+
+    
     
 
     // if (specifyMsg.length || moiladTxt) {
@@ -302,6 +305,32 @@ function setMessages(date, day, specifyMsg) {
 
     // if (isAdar) {
     //     msgObj.classList.add('hide')
+    // }
+}
+
+function setMishenichnas() {
+    const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
+    let mishArr = [];
+    const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple'];
+    debugger;
+    const msgObj = document.querySelector('#msg');
+    let index = 0;
+
+    // for (let i = 0; i < mishMsg.length; i++) {
+        setInterval(function () {
+            msgObj.style.fontSize = (12 - mishArr.length / 6) + 'rem';
+            const char = mishMsg[index];
+            const divChar = `<div class="in-div" style="color: ${colors[index  % colors.length]}"; >${char}</div>`;
+            msgObj.innerHTML += divChar;
+            mishArr.push(char);
+            index++;
+            if (index > mishMsg.length){
+                index = 0;
+                msgObj.innerHTML = '';
+                mishArr = [];
+            }
+        }, 1000);
+        
     // }
 }
 
