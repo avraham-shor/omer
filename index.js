@@ -21,7 +21,7 @@ let showTehilim = false;
 let colorClass = 'black';
 
 
-//setMishenichnas();
+// setMishenichnas();
 
 
 
@@ -67,7 +67,13 @@ function refresh() {
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '@';
-    
+
+
+    const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
+    let mishArr = [];
+    const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple', 'gold'];
+    let indexAdar = 0;
+
     // zmanObj["shkiah"] = SHKIAH_STR;
     // zmanObj["daf"] = DAF_STR;
     // zmanObj["shma1"] = SHMA_STR1;
@@ -264,8 +270,47 @@ function setMessages(date, day, specifyMsg) {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     let sizeForAndroid = 1;
-    let msgText = specifyMsg[specifyMsg.length -1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     const msgObj = document.querySelector('#msg');
+    debugger;
+    if (day.month == 11 && day.day == 30 && day.sunset() < date && date.sunset() - date < (1000 * 60 * 15)) {
+
+        
+        debugger;
+        msgObj.classList.remove('msg');
+        msgObj.classList.add('msg-adar');
+    
+        // for (let i = 0; i < mishMsg.length; i++) {
+            // setInterval(function () {
+                msgObj.style.fontSize = (15 - mishArr.length / 3) + 'rem';
+                const char = mishMsg[indexAdar];
+                const divChar = document.createElement('span');
+                const rand1 = Math.floor(Math.random() * colors.length);
+                const rand2 = Math.floor(Math.random() * colors.length);
+                divChar.style.color = colors[rand1];
+                divChar.style.textShadow = '3px -3px ' + colors[rand2]
+                divChar.innerHTML = char;
+                divChar.classList.add('chars-adar');
+                //console.log('1',divChar.classList);
+    
+                //const divChar = `<span class="" style="color: ${colors[index  % colors.length]}"; >${char}</span>`;
+                msgObj.append(divChar);
+                // setTimeout(function() {
+                //     divChar.classList.remove('chars-adar');
+                //     console.log('2',divChar.classList);
+    
+                // }, 500);
+                mishArr.push(char);
+                index++;
+                if (index > mishMsg.length){
+                    index = 0;
+                    msgObj.innerHTML = '';
+                    mishArr = [];
+                }
+            // }, 3000);
+        
+    }
+    else {
+        let msgText = specifyMsg[specifyMsg.length -1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
         msgObj.style.lineHeight = '100%';
@@ -285,6 +330,8 @@ function setMessages(date, day, specifyMsg) {
         const oldClass = classList[classList.length -1];
         msgObj.classList.replace(oldClass, colorClass);
     }
+    }
+    
 
     
     
@@ -308,31 +355,45 @@ function setMessages(date, day, specifyMsg) {
     // }
 }
 
-function setMishenichnas() {
-    const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
-    let mishArr = [];
-    const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple'];
-    debugger;
-    const msgObj = document.querySelector('#msg');
-    let index = 0;
+// function setMishenichnas() {
+//     // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
+//     // let mishArr = [];
+//     // const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple', 'gold'];
+//     // debugger;
+//     // const msgObj = document.querySelector('#msg');
+//     // let index = 0;
 
-    // for (let i = 0; i < mishMsg.length; i++) {
-        setInterval(function () {
-            msgObj.style.fontSize = (12 - mishArr.length / 6) + 'rem';
-            const char = mishMsg[index];
-            const divChar = `<div class="in-div" style="color: ${colors[index  % colors.length]}"; >${char}</div>`;
-            msgObj.innerHTML += divChar;
-            mishArr.push(char);
-            index++;
-            if (index > mishMsg.length){
-                index = 0;
-                msgObj.innerHTML = '';
-                mishArr = [];
-            }
-        }, 1000);
+//     // // for (let i = 0; i < mishMsg.length; i++) {
+//     //     setInterval(function () {
+//     //         msgObj.style.fontSize = (15 - mishArr.length / 3) + 'rem';
+//     //         const char = mishMsg[index];
+//     //         const divChar = document.createElement('span');
+//     //         const rand1 = Math.floor(Math.random() * colors.length);
+//     //         const rand2 = Math.floor(Math.random() * colors.length);
+//     //         divChar.style.color = colors[rand1];
+//     //         divChar.style.textShadow = '3px -3px ' + colors[rand2]
+//     //         divChar.innerHTML = char;
+//     //         divChar.classList.add('chars-adar');
+//     //         //console.log('1',divChar.classList);
+
+//     //         //const divChar = `<span class="" style="color: ${colors[index  % colors.length]}"; >${char}</span>`;
+//     //         msgObj.append(divChar);
+//     //         // setTimeout(function() {
+//     //         //     divChar.classList.remove('chars-adar');
+//     //         //     console.log('2',divChar.classList);
+
+//     //         // }, 500);
+//     //         mishArr.push(char);
+//     //         index++;
+//     //         if (index > mishMsg.length){
+//     //             index = 0;
+//     //             msgObj.innerHTML = '';
+//     //             mishArr = [];
+//     //         }
+//     //     }, 3000);
         
-    // }
-}
+//     // }
+// }
 
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
