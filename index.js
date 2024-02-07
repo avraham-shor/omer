@@ -218,7 +218,7 @@ function refresh() {
         const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
         const purim = document.getElementById('purim');
         purim.src = purimSrc;
-        opacity = opacity + 1 * changeOpacity;
+        opacity = opacity + 3 * changeOpacity;
         purim.style.opacity = opacity > -1 ? (opacity / 100) : 0;
 
         if (opacity >= 300) {
