@@ -275,14 +275,15 @@ function setMessages(date, day, specifyMsg) {
     const seconds = date.getSeconds();
     let sizeForAndroid = 1;
     const msgObj = document.querySelector('#msg');
+    const mainImage = document.querySelector('#main-img');
+    const divsToHide = document.getElementsByClassName('dth');
     if (day.month == 11 && day.day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
-
+        Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
         debugger;
         msgObj.classList.remove('msg');
         msgObj.classList.add('msg-adar');
-        document.querySelector('#main-img').classList.add("image-adar");
-        document.querySelector('#main-img').classList.remove("image");
+        mainImage.classList.add("image-adar");
         if (msgObj.innerHTML.includes('החמה')) {
             msgObj.innerHTML = '';
             indexAdar = 0;
@@ -290,7 +291,7 @@ function setMessages(date, day, specifyMsg) {
 
         }
 
-        msgObj.style.fontSize = (15 - mishArr.length / 3) + 'rem';
+        msgObj.style.fontSize = (25 - mishArr.length / 3) + 'rem';
         const char = mishMsg[indexAdar];
         const divChar = document.createElement('span');
         const rand1 = Math.floor(Math.random() * colors.length);
@@ -309,6 +310,8 @@ function setMessages(date, day, specifyMsg) {
         }
     }
     else {
+        mainImage.classList.remove("image-adar");
+        Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
         let msgText = specifyMsg[specifyMsg.length - 1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
         const moiladTxt = showZmanMoilad(day, hours, minutes);
         if (moiladTxt) {

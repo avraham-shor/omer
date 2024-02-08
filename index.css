@@ -37,6 +37,7 @@
     height: 165%;
     top: -41%;
     left: -37%;
+    transition: all 2.5s;
 }
 
 
@@ -65,11 +66,12 @@
     text-align: center;
     align-items: center;
     z-index: 100;
-    top: 40vh;
-    left: 27vw;
-    width: 47vw;
-    height: 43vh;
+    top: 18vh;
+    right: 12vw;
+    width: 80vw;
+    height: 80vh;
     line-height: 100%;
+    transition: all 2.5s;
 }
 
 .chars-adar {
@@ -228,10 +230,6 @@
     text-align: left;
 }
 
-.hide {
-   visibility: hidden; 
-}
-
 .candles {
     width: 10%; 
     height: 20%; 
@@ -262,6 +260,11 @@
     color: black;
     text-shadow: 3px -3px white;
 }
+
+
+.hide {
+    visibility: hidden; 
+ }
 
 
 @media screen and (max-width: 1500px) and (max-height: 600px) {
