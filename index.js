@@ -291,7 +291,7 @@ function setMessages(date, day, specifyMsg) {
 
         }
 
-        msgObj.style.fontSize = (25 - mishArr.length / 3) + 'rem';
+        msgObj.style.fontSize = (22 - mishArr.length / 3) + 'rem';
         const char = mishMsg[indexAdar];
         const divChar = document.createElement('span');
         const rand1 = Math.floor(Math.random() * colors.length);
