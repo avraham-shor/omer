@@ -281,10 +281,13 @@ function setMessages(date, day, specifyMsg) {
         debugger;
         msgObj.classList.remove('msg');
         msgObj.classList.add('msg-adar');
+        document.querySelector('#main-img').classList.add("image-adar");
+        document.querySelector('#main-img').classList.remove("image");
         if (msgObj.innerHTML.includes('החמה')) {
             msgObj.innerHTML = '';
             indexAdar = 0;
             mishArr = [];
+
         }
 
         msgObj.style.fontSize = (15 - mishArr.length / 3) + 'rem';

@@ -32,6 +32,14 @@
     left: 0;
 }
 
+.image-adar {
+    width: 171%;
+    height: 165%;
+    top: -41%;
+    left: -37%;
+}
+
+
 .purim {
     transition: margin-right 12s 15s;
     z-index: 100;
@@ -253,13 +261,6 @@
 .blue {
     color: black;
     text-shadow: 3px -3px white;
-}
-
-.image-purim {
-    width: 171%;
-    height: 165%;
-    top: -41%;
-    left: -37%;
 }
 
 
