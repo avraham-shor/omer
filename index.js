@@ -24,7 +24,7 @@ let colorClass = 'black';
 //For Adar;
 const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
 let mishArr = [];
-const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold'];
+const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold', 'pink', 'gray', 'turquoise', 'beige', 'maroon'];
 let indexAdar = 0;
 
 
@@ -297,7 +297,7 @@ function setMessages(date, day, specifyMsg) {
         const rand1 = Math.floor(Math.random() * colors.length);
         const rand2 = Math.floor(Math.random() * colors.length);
         divChar.style.color = colors[rand1];
-        divChar.style.textShadow = '3px -3px ' + colors[rand2]
+        divChar.style.textShadow = '10px -5px ' + colors[rand2]
         divChar.innerHTML = char;
         divChar.classList.add('chars-adar');
         msgObj.append(divChar);
@@ -310,6 +310,7 @@ function setMessages(date, day, specifyMsg) {
         }
     }
     else {
+        msgObj.classList.add('msg');
         mainImage.classList.remove("image-adar");
         Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
         let msgText = specifyMsg[specifyMsg.length - 1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
