@@ -21,6 +21,13 @@ let showTehilim = false;
 let colorClass = 'black';
 
 
+//For Adar;
+const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
+let mishArr = [];
+const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple', 'gold'];
+let indexAdar = 0;
+
+
 // setMishenichnas();
 
 
@@ -69,10 +76,7 @@ function refresh() {
     const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '@';
 
 
-    const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
-    let mishArr = [];
-    const colors = ['red', 'blue', 'yellow', 'green',  'orange', 'brown', 'black', 'purple', 'gold'];
-    let indexAdar = 0;
+    
 
     // zmanObj["shkiah"] = SHKIAH_STR;
     // zmanObj["daf"] = DAF_STR;
@@ -272,7 +276,7 @@ function setMessages(date, day, specifyMsg) {
     let sizeForAndroid = 1;
     const msgObj = document.querySelector('#msg');
     debugger;
-    if (day.month == 11 && day.day == 30 && day.sunset() < date && date.sunset() - date < (1000 * 60 * 15)) {
+    if (day.month == 11 && day.day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
 
         
         debugger;
@@ -300,9 +304,9 @@ function setMessages(date, day, specifyMsg) {
     
                 // }, 500);
                 mishArr.push(char);
-                index++;
-                if (index > mishMsg.length){
-                    index = 0;
+                indexAdar++;
+                if (indexAdar > mishMsg.length){
+                    indexAdar = 0;
                     msgObj.innerHTML = '';
                     mishArr = [];
                 }
