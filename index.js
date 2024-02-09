@@ -221,7 +221,7 @@ function refresh() {
         opacity = opacity + 3 * changeOpacity;
         purim.style.opacity = opacity > -1 ? (opacity / 100) : 0;
 
-        if (opacity >= 300) {
+        if (opacity >= 115) {
             changeOpacity *= -1;
         }
         if (opacity < -300) {
