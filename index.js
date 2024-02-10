@@ -365,7 +365,7 @@ function writeSize(opacity) {
     //const innerWidth window.innerWidth;
     //const height = window.screen.height;
     //const width = window.screen.width;
-    insertIn('#size', 'opacity', opacity);
+    insertIn('#size', 'opacity: ' + opacity);
 }
 
 function showZmanMoilad(day, hours, minutes) {
