@@ -212,7 +212,7 @@ function refresh() {
     }
 
 
-    if (day.month == adar || (day.month == 11 && day.day == 30)) {
+    if (day.month == 12 || day.month == 13 || (day.month == 11 && day.day == 30)) {
         // src = 'images/purimBG.pdf'
 
         const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
