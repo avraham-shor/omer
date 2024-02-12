@@ -224,7 +224,7 @@ function refresh() {
         if (opacity >= 150) {
             changeOpacity *= -1;
         }
-        if (opacity < -600) {
+        if (opacity < -800) {
             changeOpacity *= -1;
         }
 
