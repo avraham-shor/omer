@@ -191,7 +191,7 @@ function refresh() {
     // debugger;
     // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
 
-    writeSize(opacity)
+   // writeSize(opacity)
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
@@ -212,7 +212,7 @@ function refresh() {
     }
 
 
-    if (day.month == 12 || day.month == 13 || (day.month == 11 && day.day == 30)) {
+    if (false && (day.month == 12 || day.month == 13 || (day.month == 11 && day.day == 30))) {
         // src = 'images/purimBG.pdf'
 
         const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
