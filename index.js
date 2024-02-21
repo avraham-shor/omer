@@ -164,7 +164,7 @@ function refresh() {
     }
     //else showTehilim = false;
 
-    if (isNearToSofZman(sofZman2, date)) {
+    if (isNearToSofZman(sofZman2, date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
         colorClass = "red";
     }
