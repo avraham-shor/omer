@@ -427,7 +427,7 @@ function isNearToShkiah(time, now) {
 function isShowTehilim(date, day) {
     //debugger;
     if (day.getDay() != 6) {
-        if ([6, 7, 8].includes(date.getHours()) || (date.getHours() == 9 && date.getMinutes() < 20)) {
+        if ([6, 7, 8, 9].includes(date.getHours()) || (date.getHours() == 10 && date.getMinutes() < 20)) {
             return true;
         }
     }
