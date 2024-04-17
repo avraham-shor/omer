@@ -198,7 +198,7 @@ function refresh() {
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const adar = isLeapYear ? 13 : 12;
     // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
-    if (omerDay == 0 day.sunset() < dateLater) {
+    if (omerDay == 0 || day.sunset() < dateLater) {
         src = 'images/empty2.jpg';
         setMessages(date, day, specifyMsg);
     }
