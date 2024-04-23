@@ -169,6 +169,11 @@ function refresh() {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
         colorClass = "red";
     }
+    
+    if (omerDay > 0 && Math.floor(date.getSeconds() / 10) % 3 == 1) {
+        specifyMsg.push(daysInMonth[omerDay] + "' לעומר");
+        colorClass = "blut";
+    }
 
     if (isNearToSofZman(sofZman1, date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
