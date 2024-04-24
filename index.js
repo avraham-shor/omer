@@ -8,6 +8,8 @@ const VAL = { 0: '', 1: 'א', 2: 'ב', 3: 'ג', 4: 'ד', 5: 'ה', 6: 'ו', 7: '�
 
 let dayOrNight = 'יום ';
 
+
+
 const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
 
 let positionInArray = 0;
@@ -48,8 +50,12 @@ function refresh() {
     if (day.sunset() < dateLater) {
         day = day.next();
         dayOrNight = 'ליל ';
+         isNight = true;
     }
-    else dayOrNight = 'יום ';
+    else {
+        dayOrNight = 'יום ';
+        isNight = false;
+    }
 
 
 
@@ -203,13 +209,13 @@ function refresh() {
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const adar = isLeapYear ? 13 : 12;
     // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
-    if (omerDay == 0 || day.sunset() < dateLater) {
+    if (omerDay == 0 || !isNight) {
         src = 'images/empty2.jpg';
         setMessages(date, day, specifyMsg);
         document.querySelector('#omer img').classList.remove("up");
     }
 
-    if (omerDay > 0 && day.sunset() > dateLater) {
+    if (omerDay > 0 && isNight) {
         document.querySelector('#omer img').classList.add("up");
         setCandles(day, dateEarlier);
 
