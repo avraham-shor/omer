@@ -206,15 +206,13 @@ function refresh() {
     if (omerDay == 0 || day.sunset() < dateLater) {
         src = 'images/empty2.jpg';
         setMessages(date, day, specifyMsg);
+        document.querySelector('#omer img').classList.remove("up");
     }
 
     if (omerDay > 0 && day.sunset() > dateLater) {
         document.querySelector('#omer img').classList.add("up");
         setCandles(day, dateEarlier);
 
-    }
-    else {
-        document.querySelector('#omer img').classList.remove("up");
     }
 
 
