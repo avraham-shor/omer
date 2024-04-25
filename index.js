@@ -144,7 +144,7 @@ function refresh() {
         colorClass = "red";
     }
 
-    if (isStartBorchenu(day)) {
+    if (isStartBorchenu(day)  && Math.floor(date.getSeconds() / 10) % 3 == 2) {
         specifyMsg.push('ברכנו');
         colorClass = "red";
     }
