@@ -144,6 +144,12 @@ function refresh() {
         colorClass = "red";
     }
 
+    if (isShowTehilim(date, day) && tehilimByDays[day.day]) {
+        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
+        showTehilim = true;
+        colorClass = "blue";
+    }
+    
     if (isStartBorchenu(day)  && Math.floor(date.getSeconds() / 10) % 3 == 2) {
         specifyMsg.push('ברכנו');
         colorClass = "red";
@@ -164,11 +170,7 @@ function refresh() {
         colorClass = "red";
     }
 
-    if (isShowTehilim(date, day) && tehilimByDays[day.day]) {
-        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
-        showTehilim = true;
-        colorClass = "blue";
-    }
+
     //else showTehilim = false;
 
     if (isNearToSofZman(sofZman2, date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
