@@ -144,7 +144,7 @@ function refresh() {
         colorClass = "red";
     }
 
-    if (isShowTehilim(date, day) && tehilimByDays[day.day]) {
+    if (isShowTehilim(date, day) && tehilimByDays[day.day] && tehilimByDays[day.day].length ) {
         specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
         showTehilim = true;
         colorClass = "blue";
