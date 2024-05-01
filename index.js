@@ -6,6 +6,10 @@ const daysInMonth = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', '
 
 const VAL = { 0: '', 1: 'א', 2: 'ב', 3: 'ג', 4: 'ד', 5: 'ה', 6: 'ו', 7: 'ז', 8: 'ח', 9: 'ט', 10: 'י', 20: 'כ', 30: 'ל', 40: 'מ', 50: 'נ', 60: 'ס', 70: 'ע', 80: 'פ', 90: 'צ', 100: 'ק', 200: 'ר', 300: 'ש', 400: 'ת' };
 
+const tensInOmer = ['','עשר', 'עשרים', 'שלשים', 'ארבעים'];
+
+const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה', 'ששה', 'שבעה', 'שמונה', 'תשעה'];
+
 let dayOrNight = 'יום ';
 
 
@@ -18,6 +22,7 @@ const zmanObj = {};
 
 let opacity = 1;
 let changeOpacity = 1;
+let indexMsg = 0;
 
 let showTehilim = false;
 
@@ -82,7 +87,7 @@ function refresh() {
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '@';
 
-
+    //console.log(getSefira(15));
 
 
     // zmanObj["shkiah"] = SHKIAH_STR;
@@ -150,7 +155,7 @@ function refresh() {
         colorClass = "blue";
     }
     
-    if (isStartBorchenu(day)  && Math.floor(date.getSeconds() / 10) % 3 == 2) {
+    if (isStartBorchenu(day)) {
         specifyMsg.push('ברכנו');
         colorClass = "red";
     }
@@ -173,17 +178,17 @@ function refresh() {
 
     //else showTehilim = false;
 
-    if (isNearToSofZman(sofZman2, date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
+    if (isNearToSofZman(sofZman2, date)) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
         colorClass = "red";
     }
     
-    if (omerDay > 0 && Math.floor(date.getSeconds() / 10) % 3 == 1) {
-        specifyMsg.push(daysInMonth[omerDay] + "' לעומר");
+    if (omerDay > 0) {
+        specifyMsg.push(getSefira(omerDay));
         colorClass = "blut";
     }
 
-    if (isNearToSofZman(sofZman1, date) && Math.floor(date.getSeconds() / 10) % 3 == 0) {
+    if (isNearToSofZman(sofZman1, date)) {
         specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
         showTehilim = false;
         colorClass = "red";
@@ -289,63 +294,72 @@ function setMessages(date, day, specifyMsg) {
     const msgObj = document.querySelector('#msg');
     const mainImage = document.querySelector('#main-img');
     const divsToHide = document.getElementsByClassName('dth');
-    if (day.month == 11 && day.day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
-        Array.from(divsToHide).forEach(div => div.classList.add('hide'));
+    // if (day.month == 11 && day.day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
+    //     Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
-        debugger;
-        msgObj.classList.remove('msg');
-        msgObj.classList.add('msg-adar');
-        mainImage.classList.add("image-adar");
-        if (msgObj.innerHTML.includes('החמה')) {
-            msgObj.innerHTML = '';
-            indexAdar = 0;
-            mishArr = [];
+    //     debugger;
+    //     msgObj.classList.remove('msg');
+    //     msgObj.classList.add('msg-adar');
+    //     mainImage.classList.add("image-adar");
+    //     if (msgObj.innerHTML.includes('החמה')) {
+    //         msgObj.innerHTML = '';
+    //         indexAdar = 0;
+    //         mishArr = [];
 
-        }
+    //     }
 
-        msgObj.style.fontSize = (22 - mishArr.length / 3) + 'rem';
-        const char = mishMsg[indexAdar];
-        const divChar = document.createElement('span');
-        const rand1 = Math.floor(Math.random() * colors.length);
-        const rand2 = Math.floor(Math.random() * colors.length);
-        divChar.style.color = colors[rand1];
-        divChar.style.textShadow = '10px -5px ' + colors[rand2]
-        divChar.innerHTML = char;
-        divChar.classList.add('chars-adar');
-        msgObj.append(divChar);
-        mishArr.push(char);
-        indexAdar++;
-        if (indexAdar > mishMsg.length) {
-            indexAdar = 0;
-            msgObj.innerHTML = '';
-            mishArr = [];
-        }
+    //     msgObj.style.fontSize = (22 - mishArr.length / 3) + 'rem';
+    //     const char = mishMsg[indexAdar];
+    //     const divChar = document.createElement('span');
+    //     const rand1 = Math.floor(Math.random() * colors.length);
+    //     const rand2 = Math.floor(Math.random() * colors.length);
+    //     divChar.style.color = colors[rand1];
+    //     divChar.style.textShadow = '10px -5px ' + colors[rand2]
+    //     divChar.innerHTML = char;
+    //     divChar.classList.add('chars-adar');
+    //     msgObj.append(divChar);
+    //     mishArr.push(char);
+    //     indexAdar++;
+    //     if (indexAdar > mishMsg.length) {
+    //         indexAdar = 0;
+    //         msgObj.innerHTML = '';
+    //         mishArr = [];
+    //     }
+    // }
+    // else {
+    // msgObj.classList.add('msg');
+    // mainImage.classList.remove("image-adar");
+    // Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
+    //date.getSeconds() / 10) % 3 == 0
+    
+    // let i = 0;
+    // if (specifyMsg.length >= 0) {
+    //     i = date.getSeconds() / 15 % specifyMsg.length;
+    //     console.log( i);
+
+    // }
+
+    let msgText = specifyMsg[Math.floor(date.getSeconds() / 15 % specifyMsg.length)]  || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
+    const moiladTxt = showZmanMoilad(day, hours, minutes);
+    if (moiladTxt) {
+        msgObj.style.lineHeight = '100%';
+        msgText = moiladTxt;
     }
-    else {
-        msgObj.classList.add('msg');
-        mainImage.classList.remove("image-adar");
-        Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
-        let msgText = specifyMsg[specifyMsg.length - 1] || 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
-        const moiladTxt = showZmanMoilad(day, hours, minutes);
-        if (moiladTxt) {
-            msgObj.style.lineHeight = '100%';
-            msgText = moiladTxt;
-        }
-        console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight', window.innerHeight);
-        console.log('width:', window.screen.width, 'height:', window.screen.height)
+    // console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight', window.innerHeight);
+    // console.log('width:', window.screen.width, 'height:', window.screen.height)
 
-        if (window.screen.height < 400 && window.screen.width < 900) {
-            sizeForAndroid = 0.5;
-        }
-        msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
-        msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
-
-        if (msgObj.classList.length > 2 && !msgObj.classList.contains(colorClass)) {
-            const classList = msgObj.classList.value.split(" ");
-            const oldClass = classList[classList.length - 1];
-            msgObj.classList.replace(oldClass, colorClass);
-        }
+    if (window.screen.height < 400 && window.screen.width < 900) {
+        sizeForAndroid = 0.5;
     }
+    msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
+    msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
+
+    if (msgObj.classList.length > 2 && !msgObj.classList.contains(colorClass)) {
+        const classList = msgObj.classList.value.split(" ");
+        const oldClass = classList[classList.length - 1];
+        msgObj.classList.replace(oldClass, colorClass);
+    }
+    // }
 }
 
 
@@ -510,6 +524,28 @@ function isStartBorchenu(day) {
     if (day.month == 1 && (day.day == 17 || day.day == 18) && day.getDay() != 6) {
         return true;
     }
+}
+
+function getSefira(omerDay) {
+    const HAYOM = "היום ";
+    const LOHOMER = " לעומר";
+    const and = omerDay % 10 == 0 ? '': ' ו';
+    const units = omerDay % 10;
+    const tens = omerDay - units;
+    const WEEKS = omerDay > 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
+    const DAYS_IN_WEEK = (omerDay > 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים','יום אחד') : '';
+    let omerDays = (unitsInOmer[units]  + ' ימים').replace('אחד ימים','יום אחד');
+    if (omerDay == 10) {
+        omerDays = 'עשרה ימים';
+    }
+    if (omerDay > 10 && omerDay < 20) {
+        omerDays = unitsInOmer[units] + ' ' + (tensInOmer[tens / 10]  + ' יום').replace('שני','שנים');
+    }
+    if (omerDay > 19) {
+        omerDays = tensInOmer[tens / 10] + and + (unitsInOmer[units] + ' ימים').replace('שני','שנים');
+    }
+    return HAYOM + omerDays + WEEKS + DAYS_IN_WEEK + LOHOMER;
+    
 }
 
 function getParsha() {
