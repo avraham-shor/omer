@@ -247,18 +247,25 @@ function refresh() {
     // }
     document.querySelector('#omer img').src = src;
 
-    // console.log(getSefira(13));
-    // console.log(getSefira(19));
-    // console.log(getSefira(20));
-    // console.log(getSefira(21));
-    // console.log(getSefira(22));
-    // console.log(getSefira(28));
-    // console.log(getSefira(31));
-    // console.log(getSefira(40));
-    // console.log(getSefira(41));
 
-    // console.log(getSefira(42));
-    // console.log(getSefira(49));
+    console.log(getSefira(1));
+    console.log(getSefira(2));
+    console.log(getSefira(9));
+    console.log(getSefira(10));
+    console.log(getSefira(11));
+    console.log(getSefira(22));
+    console.log(getSefira(13));
+    console.log(getSefira(19));
+    console.log(getSefira(20));
+    console.log(getSefira(21));
+    console.log(getSefira(22));
+    console.log(getSefira(28));
+    console.log(getSefira(31));
+    console.log(getSefira(40));
+    console.log(getSefira(41));
+
+    console.log(getSefira(42));
+    console.log(getSefira(49));
 
 
     setTimeout('refresh()', 2000);
@@ -537,21 +544,18 @@ function isStartBorchenu(day) {
 }
 
 function getSefira(omerDay) {
-    const HAYOM = "היום ";
-    const LOHOMER = " לעומר";
+    // const HAYOM = "היום ";
+    // const LOHOMER = " לעומר";
     const and = omerDay % 10 == 0 ? '': ' ו';
     const units = omerDay % 10;
     const tens = omerDay - units;
+    const YOM = omerDay > 10 ? 'יום' : 'ימים';
     const WEEKS = omerDay > 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
+    const TENS_IN_OMER = omerDay > 9 ? (and + tensInOmer[tens / 10] + ' ').replace(' עשר ', ' עשרה ').replace(' ועשר ', ' עשר ') : ' ';
+    const UNITS_IN_OMER = unitsInOmer[units];
     const DAYS_IN_WEEK = (omerDay > 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים','יום אחד') : '';
-    let omerDays = (unitsInOmer[units]  + ' ימים').replace('אחד ימים','יום אחד');
-    if (omerDay == 10) {
-        omerDays = 'עשרה ימים';
-    }
-    if (omerDay > 10) {
-        omerDays = ( (unitsInOmer[units] + and + tensInOmer[tens / 10] + ' יום')).replace(unitsInOmer[units] + ' ועשר ', unitsInOmer[units] + ' עשר' + ' ').replace('שני','שנים');
-    }
-    return HAYOM + omerDays + WEEKS + DAYS_IN_WEEK + LOHOMER;
+    const omerDays = (UNITS_IN_OMER + TENS_IN_OMER + YOM).replace('אחד ימים', 'יום אחד').replace('י ו', 'ים ו')
+    return "היום " + omerDays + WEEKS + DAYS_IN_WEEK + " לעומר";
     
 }
 
