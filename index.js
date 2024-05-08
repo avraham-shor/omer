@@ -21,7 +21,10 @@ let positionInArray = 0;
 const zmanObj = {};
 
 let opacity = 1;
+
 let changeOpacity = 1;
+
+let isHoliday = false;
 
 let showTehilim = false;
 
@@ -48,6 +51,7 @@ function refresh() {
     let dateEarlier = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 13);
     dateEarlier = dateEarlier.setMinutes(dateEarlier.getMinutes() + 29);
+    isHoliday = false;
 
     let day = new Hebcal.HDate();
 
@@ -110,6 +114,7 @@ function refresh() {
     insertIn('#year', yearHebrew);
 
 
+    setIsHoliday(day);
 
     if (isSiumMasechet(day)) {
         specifyMsg.push('הדרן עלך מסכת ' + MASECHTA_STR);
@@ -127,7 +132,7 @@ function refresh() {
     }
 
 
-    if (isHoliday(day)) {
+    if (isHolidayOrCholHamoed(day)) {
         // const war = new Warning('יעלה ויבוא', 'red');
         specifyMsg.push('יעלה ויבוא');
         colorClass = "red";
@@ -174,8 +179,6 @@ function refresh() {
         colorClass = "red";
     }
 
-
-
     if (isNearToSofZman(sofZman2, date)) {
         specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
         colorClass = "red";
@@ -199,6 +202,11 @@ function refresh() {
             showTehilim = true;
         };
         colorClass = "blue";
+    }
+
+    if (isEndColelim(date)) {
+        specifyMsg.push('%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.');
+        colorClass = "blut";
     }
 
 
@@ -248,30 +256,41 @@ function refresh() {
     document.querySelector('#omer img').src = src;
 
 
-    console.log(getSefira(1));
-    console.log(getSefira(2));
-    console.log(getSefira(9));
-    console.log(getSefira(10));
-    console.log(getSefira(11));
-    console.log(getSefira(22));
-    console.log(getSefira(13));
-    console.log(getSefira(19));
-    console.log(getSefira(20));
-    console.log(getSefira(21));
-    console.log(getSefira(22));
-    console.log(getSefira(28));
-    console.log(getSefira(31));
-    console.log(getSefira(40));
-    console.log(getSefira(41));
+    // console.log(getSefira(1));
+    // console.log(getSefira(2));
+    // console.log(getSefira(9));
+    // console.log(getSefira(10));
+    // console.log(getSefira(11));
+    // console.log(getSefira(22));
+    // console.log(getSefira(13));
+    // console.log(getSefira(19));
+    // console.log(getSefira(20));
+    // console.log(getSefira(21));
+    // console.log(getSefira(22));
+    // console.log(getSefira(28));
+    // console.log(getSefira(31));
+    // console.log(getSefira(40));
+    // console.log(getSefira(41));
 
-    console.log(getSefira(42));
-    console.log(getSefira(49));
+    // console.log(getSefira(42));
+    // console.log(getSefira(49));
 
 
     setTimeout('refresh()', 2000);
 
 
 
+}
+
+function setIsHoliday(day) {
+    const shavuot = day.month == 3 && day.day == 7;
+    const pesach = day.month == 1 && (day.day == 15 || day.day == 21);
+    const sucot = day.month == 7 && (day.day == 15 || day.day == 22);
+    const roshHashana = day.month == 7 && day.day == 2;
+    const cipur = day.month == 7 && day.day == 10;
+    if (day.getDay() == 6 || shavuot || pesach || sucot || roshHashana || cipur) {
+        isHoliday = true;
+    }
 }
 
 function setCandles(day, dateEarlier) {
@@ -441,7 +460,7 @@ function isZom(date, day) {
     return tamuzZom || tishreiZom || tevetZom || adarZom;
 }
 
-function isHoliday(day) {
+function isHolidayOrCholHamoed(day) {
     const roshChodesh = day.day == 30 || day.day == 1;
     // const roshChodeshBug = day.month != 5 && day.month != 6 && day.day == 2;
     const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
@@ -543,9 +562,12 @@ function isStartBorchenu(day) {
     }
 }
 
+function isEndColelim(date) {
+    console.log('minuts / 6' ,  Math.floor(date.getMinutes() / 6));
+    return !isHoliday && (date.getHours() == 13 || date.getHours() == 19) && Math.floor(date.getMinutes() / 6)  == 1
+}
+
 function getSefira(omerDay) {
-    // const HAYOM = "היום ";
-    // const LOHOMER = " לעומר";
     const and = omerDay % 10 == 0 ? '': ' ו';
     const units = omerDay % 10;
     const tens = omerDay - units;
