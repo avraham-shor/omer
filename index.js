@@ -565,7 +565,7 @@ function isStartBorchenu(day) {
 function isEndColelim(date) {
     const HH = date.getHours();
     const MM = date.getMinutes();
-    return !isHoliday && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 1 || Math.floor(MM / 10) == 2);
+    return !isHoliday && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1);
 }
 
 function getSefira(omerDay) {
