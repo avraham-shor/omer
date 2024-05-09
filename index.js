@@ -206,6 +206,7 @@ function refresh() {
 
     if (isEndColelim(date)) {
         specifyMsg.push('%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.');
+        // specifyMsg.push('לומד יקר ! אנא, החזר את הספרים שהשתמשת בהם למקומם.');
         colorClass = "blut";
     }
 
