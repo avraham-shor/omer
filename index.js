@@ -566,7 +566,7 @@ function isStartBorchenu(day) {
 function isEndColelim(date, day) {
     const HH = date.getHours();
     const MM = date.getMinutes();
-    return !isHoliday && ((HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
+    return !isHoliday && (day.getDay() != 5 && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
             (day.getDay() == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
 );
 }
