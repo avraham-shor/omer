@@ -204,7 +204,7 @@ function refresh() {
         colorClass = "blue";
     }
 
-    if (isEndColelim(date)) {
+    if (isEndColelim(date , day)) {
         specifyMsg.push('%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.');
         // specifyMsg.push('לומד יקר ! אנא, החזר את הספרים שהשתמשת בהם למקומם.');
         colorClass = "blut";
@@ -563,10 +563,12 @@ function isStartBorchenu(day) {
     }
 }
 
-function isEndColelim(date) {
+function isEndColelim(date, day) {
     const HH = date.getHours();
     const MM = date.getMinutes();
-    return !isHoliday && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1);
+    return !isHoliday && ((HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
+            (day.getDay() == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
+);
 }
 
 function getSefira(omerDay) {
