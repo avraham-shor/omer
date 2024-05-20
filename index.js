@@ -262,8 +262,9 @@ function refresh() {
     // console.log(getSefira(9));
     // console.log(getSefira(10));
     // console.log(getSefira(11));
-    // console.log(getSefira(22));
+    // console.log(getSefira(12));
     // console.log(getSefira(13));
+    // console.log(getSefira(15));
     // console.log(getSefira(19));
     // console.log(getSefira(20));
     // console.log(getSefira(21));
@@ -423,12 +424,13 @@ function setZmanList(dayInWeek, hours) {
 
 }
 
-function writeSize(opacity) {
-    //const innerHeight = window.innerHeight;
-    //const innerWidth window.innerWidth;
-    //const height = window.screen.height;
-    //const width = window.screen.width;
-    insertIn('#size', 'opacity: ' + opacity);
+
+function writeSize() {
+    const innerHeight = window.innerHeight;
+    const innerWidth = window.innerWidth;
+    const height = window.screen.height;
+    const width = window.screen.width;
+   insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width); 
 }
 
 function showZmanMoilad(day, hours, minutes) {
@@ -577,10 +579,10 @@ function getSefira(omerDay) {
     const tens = omerDay - units;
     const YOM = omerDay > 10 ? 'יום' : 'ימים';
     const WEEKS = omerDay > 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
-    const TENS_IN_OMER = omerDay > 9 ? (and + tensInOmer[tens / 10] + ' ').replace(' עשר ', ' עשרה ').replace(' ועשר ', ' עשר ') : ' ';
+    const TENS_IN_OMER = omerDay > 9 ? (and + tensInOmer[tens / 10] + ' ').replace('עשר ', 'עשרה ').replace('ועשרה ', 'עשר ') : ' ';
     const UNITS_IN_OMER = unitsInOmer[units];
     const DAYS_IN_WEEK = (omerDay > 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים','יום אחד') : '';
-    const omerDays = (UNITS_IN_OMER + TENS_IN_OMER + YOM).replace('אחד ימים', 'יום אחד').replace('י ו', 'ים ו')
+    const omerDays = (UNITS_IN_OMER + TENS_IN_OMER + YOM).replace('אחד ימים', 'יום אחד').replace('י ו', 'ים ו').replace('י ע', 'ים ע');
     return "היום " + omerDays + WEEKS + DAYS_IN_WEEK + " לעומר";
     
 }
