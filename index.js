@@ -53,7 +53,7 @@ function refresh() {
     dateEarlier = dateEarlier.setMinutes(dateEarlier.getMinutes() + 29);
     isHoliday = false;
 
-    let day = new Hebcal.HDate();
+    let day = new Hebcal.HDate("ד אייר");
 
     if (day.sunset() < dateLater) {
         day = day.next();
