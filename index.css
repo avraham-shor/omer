@@ -59,7 +59,7 @@
     flex-direction: column;
     justify-content: center;
     line-height: 110%;
-    transition: all 2.5s;
+    /* transition: all 2.5s; */
     
 }
 
