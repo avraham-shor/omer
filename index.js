@@ -55,6 +55,15 @@ function refresh() {
     isHoliday = false;
 
     let day = new Hebcal.HDate();
+    let isNight;
+    let isStartNight;
+
+    if (day.sunset() < dateLater && dateLater - day.sunset() > (22*60*1000) && dateLater - day.sunset() < (52*60*1000)) {
+        isStartNight = true;
+    }
+    else {
+        isStartNight = false;
+    }
 
     if (day.sunset() < dateLater) {
         day = day.next();
@@ -65,6 +74,8 @@ function refresh() {
         dayOrNight = 'יום ';
         isNight = false;
     }
+
+    
 
 
 
@@ -254,13 +265,13 @@ function refresh() {
     let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
     const adar = isLeapYear ? 13 : 12;
     // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
-    if (omerDay == 0 || !isNight) {
+    if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
         setMessages(date, day, specifyMsg);
         document.querySelector('#omer img').classList.remove("up");
     }
 
-    if (omerDay > 0 && isNight) {
+    if (omerDay > 0 && isStartNight) {
         document.querySelector('#omer img').classList.add("up");
         setCandles(day, dateEarlier);
 
