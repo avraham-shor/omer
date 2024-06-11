@@ -26,8 +26,6 @@ let changeOpacity = 1;
 
 let isHoliday = false;
 
-let showTehilim = false;
-
 let colorClass = 'black';
 
 
@@ -129,127 +127,77 @@ function refresh() {
     setIsHoliday(day);
 
     if (isSiumMasechet(day)) {
-        specifyMsg.push('הדרן עלך מסכת ' + MASECHTA_STR);
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
-        showTehilim = true;
-        colorClass = "blue";
+        specifyMsg.push({color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR});
     }
 
     if (day.getDay() == 5 && dayOrNight == 'יום ') {
-        specifyMsg.push(nerot);
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'darkblue', text: nerot});
     }
 
     if (isNearToShkiah(day.sunset().setMinutes(day.sunset().getMinutes() + 1), date)) {
-        specifyMsg.push("%שקיעת החמה@%" + SHKIAH_STR);
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
-        colorClass = "black";
+        specifyMsg.push({color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR});
     }
 
 
     if (isHolidayOrCholHamoed(day)) {
         // const war = new Warning('יעלה ויבוא', 'red');
-        specifyMsg.push('יעלה ויבוא');
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
-        colorClass = "red";
+        specifyMsg.push({color: 'red', text: 'יעלה ויבוא'});
     }
 
     if (isZom(date, day)) {
-        specifyMsg.push('עננו');
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
-        colorClass = "red";
+        specifyMsg.push({color: 'red', text: 'עננו'});
     }
 
     if (day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
-        specifyMsg.push('%נחם%@עננו@');
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
-        colorClass = "red";
+        specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
     if (isStartMoridHatal(day, date)) {
-        specifyMsg.push('מוריד הטל');
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
     if (isShowTehilim(date, day) && tehilimByDays[day.day] && tehilimByDays[day.day].length ) {
-        specifyMsg.push(`%פרקי תהלים@%` + tehilimByDays[day.day] || '');
-        showTehilim = true;
-        colorClass = "blue";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[day.day] || ''});
     }
     
     if (isStartBorchenu(day)) {
-        specifyMsg.push('ברכנו');
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: 'ברכנו'});
     }
 
     if (isStartMoridHageshem(day, date)) {
-        specifyMsg.push('%משיב הרוח%@ומוריד הגשם@');
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: '%משיב הרוח%@ומוריד הגשם@'});
     }
 
     if (isStartBorechOlenu(day)) {
-        specifyMsg.push('ברך עלינו');
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: 'ברך עלינו'});
     }
 
     if (isAlHanisim(day)) {
-        specifyMsg.push('על הניסים');
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: 'על הניסים'});
     }
 
     if (isNearToSofZman(sofZman2, date)) {
-        specifyMsg.push(`%סוזק"ש ב'@%` + format_time(sofZman2));
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: `%סוזק"ש ב'@%` + format_time(sofZman2)});
     }
     
     if (omerDay > 0) {
-        specifyMsg.push(getSefira(omerDay));
+        specifyMsg.push({color: 'black', text: getSefira(omerDay)});
         colorClass = "blut";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
     }
 
     if (isNearToSofZman(sofZman1, date)) {
-        specifyMsg.push(`%סוזק"ש א'@%` + format_time(sofZman1));
-        showTehilim = false;
-        colorClass = "red";
-        const msgInfo = {text: 'הדרן עלך מסכת ' + MASECHTA_STR, color: 'blue'};
-        msgObject.push(msgInfo);
+        specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
     }
 
     if (isSpeakTehilim(day, date)) {
         const tehilimSeder = getTehilimDay(day);
         if (tehilimSeder) {
-            specifyMsg.push(`%תהלים@%` + 'סדר ' + tehilimSeder);
-            showTehilim = true;
+            specifyMsg.push({color: 'darkblue', text: `%תהלים@%` + 'סדר ' + tehilimSeder});   
         };
-        colorClass = "blue";
     }
 
     if (isEndColelim(date , day)) {
-        specifyMsg.push('%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.');
-        // specifyMsg.push('לומד יקר ! אנא, החזר את הספרים שהשתמשת בהם למקומם.');
-        colorClass = "blut";
+        specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
 
 
@@ -419,7 +367,9 @@ function setMessages(date, day, specifyMsg) {
 
     // }
 
-    let msgText = specifyMsg[Math.floor(date.getSeconds() / 10 % specifyMsg.length)]  || MESSAGE;
+    let msg = specifyMsg[Math.floor(date.getSeconds() / 10 % specifyMsg.length)];
+    let msgText = msg?.text   || MESSAGE;
+    let color = msg?.color || 'black';
     const moiladTxt = showZmanMoilad(day, hours, minutes);
     if (moiladTxt) {
         msgObj.style.lineHeight = '100%';
@@ -432,6 +382,7 @@ function setMessages(date, day, specifyMsg) {
         sizeForAndroid = 0.5;
     }
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
+    msgObj.style.color = color;
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
 
     if (msgObj.classList.length > 2 && !msgObj.classList.contains(colorClass)) {
