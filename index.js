@@ -1,5 +1,7 @@
 
 //window.location.replace("https://aoklivestrim.com/");
+
+//Globals;
 const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 
 const daysInMonth = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'יא', 'יב', 'יג', 'יד', 'טו', 'טז', 'יז', 'יח', 'יט', 'כ', 'כא', 'כב', 'כג', 'כד', 'כה', 'כו', 'כז', 'כח', 'כט', 'ל'];
@@ -12,22 +14,20 @@ const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה
 
 let dayOrNight = 'יום ';
 
-
-
 const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
 
-let positionInArray = 0;
+// let opacity = 1;
 
-const zmanObj = {};
-
-let opacity = 1;
-
-let changeOpacity = 1;
+// let changeOpacity = 1;
 
 let isHoliday = false;
-
-let colorClass = 'black';
-
+let dayInWeek;
+let month;
+let year;
+let dayInMonth;
+let hours;
+let minutes;
+let seconds;
 
 // //For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
@@ -56,6 +56,16 @@ function refresh() {
     let isNight;
     let isStartNight;
 
+    // Set globals.
+
+    dayInWeek = day.getDay();
+    dayInMonth = day.day;
+    month = day.month;
+    year = day.year;
+    hours = date.getHours();
+    minutes = date.getMinutes();
+    seconds = date.getSeconds();
+
     if (day.sunset() < dateLater && dateLater - day.sunset() > (22*60*1000) && dateLater - day.sunset() < (52*60*1000)) {
         isStartNight = true;
     }
@@ -81,8 +91,8 @@ function refresh() {
 
     const omerDay = day.omer();
     const masechtaAndDafArr = day.dafyomi('h').split(" ");
-    const dayOfMonth = daysInMonth[day.day];
-    const month = day.getMonthName('h');
+    const dayOfMonth = daysInMonth[dayInMonth];
+    const monthHebrew = day.getMonthName('h');
     const yearNumber = day.getFullYear() - 5700;
     const sofZman1 = day.getZemanim().sof_zman_shma_A;
     const sofZman2 = day.getZemanim().sof_zman_shma;
@@ -95,24 +105,14 @@ function refresh() {
 
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
-    //const DATE_STR = dayOfMonth + ' ' + month + ' ' + yearHebrew;
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '@';
 
-    //console.log(getSefira(15));
 
 
-    // zmanObj["shkiah"] = SHKIAH_STR;
-    // zmanObj["daf"] = DAF_STR;
-    // zmanObj["shma1"] = SHMA_STR1;
-    // zmanObj["shma2"] = SHMA_STR2;
-    // zmanObj["netz"] = netz;
-    // zmanObj["mincha"] = mincha;
-    // zmanObj["nerot"] = nerot;
 
-
-    insertIn('#day', (dayOrNight + days[day.getDay()]).replace('ליל ראשון', 'מוצ"ש') + getParsha());
+    insertIn('#day', (dayOrNight + days[dayInWeek]).replace('ליל ראשון', 'מוצ"ש') + getParsha());
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -120,17 +120,17 @@ function refresh() {
     insertIn('#shma1', SHMA_STR1);
     //insertIn('#date', DATE_STR);
     insertIn('#day-of-month', dayOfMonth);
-    insertIn('#month', month);
+    insertIn('#month', monthHebrew);
     insertIn('#year', yearHebrew);
 
 
-    setIsHoliday(day);
+    setIsHoliday();
 
     if (isSiumMasechet(day)) {
         specifyMsg.push({color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR});
     }
 
-    if (day.getDay() == 5 && dayOrNight == 'יום ') {
+    if (dayInWeek == 5 && dayOrNight == 'יום ') {
         specifyMsg.push({color: 'darkblue', text: nerot});
     }
 
@@ -139,8 +139,7 @@ function refresh() {
     }
 
 
-    if (isHolidayOrCholHamoed(day)) {
-        // const war = new Warning('יעלה ויבוא', 'red');
+    if (isHolidayOrCholHamoed()) {
         specifyMsg.push({color: 'red', text: 'יעלה ויבוא'});
     }
 
@@ -148,31 +147,31 @@ function refresh() {
         specifyMsg.push({color: 'red', text: 'עננו'});
     }
 
-    if (day.month == 5 && ((day.getDay() == 0 && day.day == 10) || (day.getDay() != 6 && day.day == 9))) {
+    if (month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9))) {
         specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
-    if (isStartMoridHatal(day, date)) {
+    if (isStartMoridHatal()) {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
-    if (isShowTehilim(date, day) && tehilimByDays[day.day] && tehilimByDays[day.day].length ) {
-        specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[day.day] || ''});
+    if (isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
+        specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
     
-    if (isStartBorchenu(day)) {
+    if (isStartBorchenu()) {
         specifyMsg.push({color: 'red', text: 'ברכנו'});
     }
 
-    if (isStartMoridHageshem(day, date)) {
+    if (isStartMoridHageshem()) {
         specifyMsg.push({color: 'red', text: '%משיב הרוח%@ומוריד הגשם@'});
     }
 
-    if (isStartBorechOlenu(day)) {
+    if (isStartBorechOlenu()) {
         specifyMsg.push({color: 'red', text: 'ברך עלינו'});
     }
 
-    if (isAlHanisim(day)) {
+    if (isAlHanisim()) {
         specifyMsg.push({color: 'red', text: 'על הניסים'});
     }
 
@@ -182,40 +181,29 @@ function refresh() {
     
     if (omerDay > 0) {
         specifyMsg.push({color: 'black', text: getSefira(omerDay)});
-        colorClass = "blut";
     }
 
     if (isNearToSofZman(sofZman1, date)) {
         specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
     }
 
-    if (isSpeakTehilim(day, date)) {
-        const tehilimSeder = getTehilimDay(day);
+    if (isSpeakTehilim()) {
+        const tehilimSeder = getTehilimDay();
         if (tehilimSeder) {
             specifyMsg.push({color: 'darkblue', text: `%תהלים@%` + 'סדר ' + tehilimSeder});   
         };
     }
 
-    if (isEndColelim(date , day)) {
+    if (isEndColelim()) {
         specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
-
-
-
-
-
-    // debugger;
-    // console.log(Math.floor(date.getSeconds() / 20), date.getSeconds(), date.getSeconds() / 20)
 
    // writeSize(opacity)
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
-    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
-    const adar = isLeapYear ? 13 : 12;
-    // const adarDays = day.month == adar || (day.month == 11 && day.day == 30);
     if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
-        setMessages(date, day, specifyMsg);
+        setMessages(day, specifyMsg);
         document.querySelector('#omer img').classList.remove("up");
     }
 
@@ -226,10 +214,10 @@ function refresh() {
     }
 
 
-    // if (false && (day.month == 12 || day.month == 13 || (day.month == 11 && day.day == 30))) {
+    // if (false && (month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
     //     // src = 'images/purimBG.pdf'
 
-    //     const purimSrc = 'images/purim' + Math.round(date.getMinutes() / 3) % 10 + '.jpg';
+    //     const purimSrc = 'images/purim' + Math.round(minutes / 3) % 10 + '.jpg';
     //     const purim = document.getElementById('purim');
     //     purim.src = purimSrc;
     //     opacity = opacity + 10 * changeOpacity;
@@ -247,26 +235,6 @@ function refresh() {
     document.querySelector('#omer img').src = src;
 
 
-    // console.log(getSefira(1));
-    // console.log(getSefira(2));
-    // console.log(getSefira(9));
-    // console.log(getSefira(10));
-    // console.log(getSefira(11));
-    // console.log(getSefira(12));
-    // console.log(getSefira(13));
-    // console.log(getSefira(15));
-    // console.log(getSefira(19));
-    // console.log(getSefira(20));
-    // console.log(getSefira(21));
-    // console.log(getSefira(22));
-    // console.log(getSefira(28));
-    // console.log(getSefira(31));
-    // console.log(getSefira(40));
-    // console.log(getSefira(41));
-
-    // console.log(getSefira(42));
-    // console.log(getSefira(49));
-
 
     setTimeout('refresh()', 2000);
 
@@ -274,20 +242,20 @@ function refresh() {
 
 }
 
-function setIsHoliday(day) {
-    const shavuot = day.month == 3 && day.day == 7;
-    const pesach = day.month == 1 && (day.day == 15 || day.day == 21);
-    const sucot = day.month == 7 && (day.day == 15 || day.day == 22);
-    const roshHashana = day.month == 7 && day.day == 2;
-    const cipur = day.month == 7 && day.day == 10;
-    if (day.getDay() == 6 || shavuot || pesach || sucot || roshHashana || cipur) {
+function setIsHoliday() {
+    const shavuot = month == 3 && dayInMonth == 7;
+    const pesach = month == 1 && (dayInMonth == 15 || dayInMonth == 21);
+    const sucot = month == 7 && (dayInMonth == 15 || dayInMonth == 22);
+    const roshHashana = month == 7 && dayInMonth == 2;
+    const cipur = month == 7 && dayInMonth == 10;
+    if (dayInWeek == 6 || shavuot || pesach || sucot || roshHashana || cipur) {
         isHoliday = true;
     }
 }
 
 function setCandles(day, dateEarlier) {
     const candlesImages = document.querySelectorAll('.candles');
-    if (day.getDay() == 6 || (day.getDay() == 5 && day.sunset() < dateEarlier)) {
+    if (dayInWeek == 6 || (dayInWeek == 5 && day.sunset() < dateEarlier)) {
         candlesImages.forEach(img => {
             img.classList.remove("hide");
         });
@@ -312,17 +280,12 @@ function formatTimeWithSeconds(date) {
 }
 
 
-function setMessages(date, day, specifyMsg) {
-    const dayInWeek = day.getDay();
-    const isShabat = dayInWeek == 6;
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+function setMessages(day, specifyMsg) {
     let sizeForAndroid = 1;
     const msgObj = document.querySelector('#msg');
-    const mainImage = document.querySelector('#main-img');
-    const divsToHide = document.getElementsByClassName('dth');
-    // if (day.month == 11 && day.day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
+    // const mainImage = document.querySelector('#main-img');
+    // const divsToHide = document.getElementsByClassName('dth');
+    // if (month == 11 && dayInMonth == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
     //     Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
     //     debugger;
@@ -358,16 +321,16 @@ function setMessages(date, day, specifyMsg) {
     // msgObj.classList.add('msg');
     // mainImage.classList.remove("image-adar");
     // Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
-    //date.getSeconds() / 10) % 3 == 0
+    //seconds / 10) % 3 == 0
     
     // let i = 0;
     // if (specifyMsg.length >= 0) {
-    //     i = date.getSeconds() / 15 % specifyMsg.length;
+    //     i = seconds / 15 % specifyMsg.length;
     //     console.log( i);
 
     // }
 
-    let msg = specifyMsg[Math.floor(date.getSeconds() / 10 % specifyMsg.length)];
+    let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
     let msgText = msg?.text   || MESSAGE;
     let color = msg?.color || 'black';
     const moiladTxt = showZmanMoilad(day, hours, minutes);
@@ -385,36 +348,11 @@ function setMessages(date, day, specifyMsg) {
     msgObj.style.color = color;
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
 
-    if (msgObj.classList.length > 2 && !msgObj.classList.contains(colorClass)) {
-        const classList = msgObj.classList.value.split(" ");
-        const oldClass = classList[classList.length - 1];
-        msgObj.classList.replace(oldClass, colorClass);
-    }
-    // }
 }
 
 
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
-}
-
-function setZmanList(dayInWeek, hours) {
-    let zmanList = [];
-    if (hours < 12 || hours > 19) {
-        zmanList = [zmanObj["netz"], zmanObj["shma1"], zmanObj["shma2"]];
-    }
-    else {
-        zmanList = [zmanObj["daf"], zmanObj["shkiah"]];
-    }
-
-
-    if (dayInWeek == 5) {
-        zmanList.push(zmanObj["nerot"]);
-    }
-    //console.log('zmanList', zmanList);
-    return zmanList;
-
-
 }
 
 
@@ -427,10 +365,10 @@ function writeSize() {
 }
 
 function showZmanMoilad(day, hours, minutes) {
-    const currentMonth = new Hebcal.Month(day.month, day.year);
+    const currentMonth = new Hebcal.Month(month, year);
 
 
-    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day.day && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
         const moilad = currentMonth.next().molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
@@ -442,29 +380,28 @@ function showZmanMoilad(day, hours, minutes) {
 }
 
 function isZom(date, day) {
-    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
-    const dayInWeek = day.getDay();
+    let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
     }
-    const tamuzZom = day.month == 4 && ((dayInWeek == 0 && day.day == 18) || (dayInWeek != 6 && day.day == 17));
-    //     const avZom = day.month == 5 && ((dayInWeek == 0 && day.day == 10) || (dayInWeek != 6 && day.day == 9)); 
-    const tishreiZom = day.month == 7 && ((dayInWeek == 0 && day.day == 4) || (dayInWeek != 6 && day.day == 3));
-    const tevetZom = day.month == 10 && day.day == 11;
+    const tamuzZom = month == 4 && ((dayInWeek == 0 && dayInMonth == 18) || (dayInWeek != 6 && dayInMonth == 17));
+    //     const avZom = month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9)); 
+    const tishreiZom = month == 7 && ((dayInWeek == 0 && dayInMonth == 4) || (dayInWeek != 6 && dayInMonth == 3));
+    const tevetZom = month == 10 && dayInMonth == 11;
     const adar = isLeapYear ? 13 : 12;
-    const adarZom = day.month == adar && ((dayInWeek == 4 && day.day == 12) || (dayInWeek != 6 && day.day == 14));
+    const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 12) || (dayInWeek != 6 && dayInMonth == 14));
     return tamuzZom || tishreiZom || tevetZom || adarZom;
 }
 
-function isHolidayOrCholHamoed(day) {
-    const roshChodesh = day.day == 30 || day.day == 1;
-    // const roshChodeshBug = day.month != 5 && day.month != 6 && day.day == 2;
+function isHolidayOrCholHamoed() {
+    const roshChodesh = dayInMonth == 30 || dayInMonth == 1;
+    // const roshChodeshBug = month != 5 && month != 6 && dayInMonth == 2;
     const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
-    const pesach = day.month == 1 && cholHamoedDays.includes(day.day);
-    const shavuot = day.month == 3 && day.day == 6;
-    const roshHashana = day.month == 7 && day.day == 2;
-    const cipur = day.month == 7 && day.day == 10;
-    const sucot = day.month == 7 && (cholHamoedDays.includes(day.day) || day.day == 22);
+    const pesach = month == 1 && cholHamoedDays.includes(dayInMonth);
+    const shavuot = month == 3 && dayInMonth == 6;
+    const roshHashana = month == 7 && dayInMonth == 2;
+    const cipur = month == 7 && dayInMonth == 10;
+    const sucot = month == 7 && (cholHamoedDays.includes(dayInMonth) || dayInMonth == 22);
     return roshChodesh || pesach || shavuot || roshHashana || cipur || sucot;
 }
 
@@ -482,10 +419,10 @@ function isNearToShkiah(time, now) {
     return false;
 }
 
-function isShowTehilim(date, day) {
+function isShowTehilim() {
     //debugger;
-    if (day.getDay() != 6) {
-        if ([6, 7, 8, 9].includes(date.getHours()) || (date.getHours() == 10 && date.getMinutes() < 20)) {
+    if (dayInWeek != 6) {
+        if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
         }
     }
@@ -503,26 +440,26 @@ function getHebObj(date) {
     return new Hebcal.HDate(date);
 }
 
-function isAlHanisim(day) {
+function isAlHanisim() {
     const chanucaDays = [25, 26, 27, 28, 29, 30];
     const cislevSmall = new Hebcal.HDate("כו כסלו").daysInMonth() == 29;
-    let isLeapYear = new Hebcal.Month(day.month, day.year).isLeapYear();
-    const chanucaCislev = day.month == 9 && chanucaDays.includes(day.day);
-    const chanucaTevet = day.month == 10 && (day.day == 1 || day.day == 2 || day.day == 3 || cislevSmall && day.day == 4);
+    let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
+    const chanucaCislev = month == 9 && chanucaDays.includes(dayInMonth);
+    const chanucaTevet = month == 10 && (dayInMonth == 1 || dayInMonth == 2 || dayInMonth == 3 || cislevSmall && dayInMonth == 4);
     const adar = isLeapYear ? 13 : 12;
-    const purim = day.day == 15 && day.month == adar;
+    const purim = dayInMonth == 15 && month == adar;
     return chanucaCislev || chanucaTevet || purim;
 }
 
-function isSpeakTehilim(day, date) {
-    if (day.getDay() != 6 && (day.month == 7 || (day.month == 6 && day.getDay() != 5))) {
+function isSpeakTehilim() {
+    if (dayInWeek != 6 && (month == 7 || (month == 6 && dayInWeek != 5))) {
         return true;
     }
 }
 
-function getTehilimDay(day) {
-    const elulYear = day.month == 6 ? day.year : day.year - 1;
-    const tishreiYear = day.month == 7 ? day.year : day.year + 1;
+function getTehilimDay() {
+    const elulYear = month == 6 ? year : year - 1;
+    const tishreiYear = month == 7 ? year : year + 1;
     debugger;
     const elulDays = new Hebcal.HDate(1, 6, elulYear).getMonthObject().days;
     const tishreiDays = new Hebcal.HDate(1, 7, tishreiYear).getMonthObject().days.slice(2, 8);
@@ -535,7 +472,7 @@ function getTehilimDay(day) {
             console.log("seder:", seder);
             console.log("יום בשבוע:", d.getDay() + 1);
             console.log("יום בחודש:", d.day);
-            if (d.day == day.day && d.month == day.month) {
+            if (d.day == dayInMonth && d.month == month) {
                 return daysInMonth[seder];
             }
             seder++;
@@ -543,26 +480,25 @@ function getTehilimDay(day) {
     }
 }
 
-function isStartMoridHatal(day, date) {
-    const hours = date.getHours();
-    if (day.month == 1) {
-        if (day.day == 16 || (day.day == 16 && hours > 10 && hours < 19)) {
+function isStartMoridHatal() {
+    if (month == 1) {
+        if (dayInMonth == 16 || (dayInMonth == 16 && hours > 10 && hours < 19)) {
             return true;
         }
     }
 }
 
-function isStartBorchenu(day) {
-    if (day.month == 1 && (day.day == 17 || day.day == 18) && day.getDay() != 6) {
+function isStartBorchenu() {
+    if (month == 1 && (dayInMonth == 17 || dayInMonth == 18) && dayInWeek != 6) {
         return true;
     }
 }
 
-function isEndColelim(date, day) {
-    const HH = date.getHours();
-    const MM = date.getMinutes();
-    return !isHoliday && (day.getDay() != 5 && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
-            (day.getDay() == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
+function isEndColelim() {
+    const HH = hours;
+    const MM = minutes;
+    return !isHoliday && (dayInWeek != 5 && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
+            (dayInWeek == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
 );
 }
 
@@ -591,17 +527,16 @@ function getParsha() {
     return label + parsha;
 }
 
-function isStartMoridHageshem(day, date) {
-    const hours = date.getHours();
-    if (day.month == 7) {
-        if (day.day == 24 || day.day == 23 || (day.day == 22 && hours > 10 && hours < 19)) {
+function isStartMoridHageshem() {
+    if (month == 7) {
+        if (dayInMonth == 24 || dayInMonth == 23 || (dayInMonth == 22 && hours > 10 && hours < 19)) {
             return true;
         }
     }
 }
 
-function isStartBorechOlenu(day) {
-    if (day.month == 8 && (day.day == 7 || day.day == 8) && day.getDay() != 6) {
+function isStartBorechOlenu() {
+    if (month == 8 && (dayInMonth == 7 || dayInMonth == 8) && dayInWeek != 6) {
         return true;
     }
 }
@@ -611,15 +546,5 @@ setInterval(() => {
 
 Hebcal.events.on('ready', refresh());
 
-
-// class Warning {
-//     msg;
-//     color;
-//     fontSize;
-//     constructor(msg, color) {
-//         this.msg = msg;
-//         this.color = color;
-//     }
-// }
 
 
