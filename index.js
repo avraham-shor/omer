@@ -56,15 +56,6 @@ function refresh() {
     let isNight;
     let isStartNight;
 
-    // Set globals.
-
-    dayInWeek = day.getDay();
-    dayInMonth = day.day;
-    month = day.month;
-    year = day.year;
-    hours = date.getHours();
-    minutes = date.getMinutes();
-    seconds = date.getSeconds();
 
     if (day.sunset() < dateLater && dateLater - day.sunset() > (22*60*1000) && dateLater - day.sunset() < (52*60*1000)) {
         isStartNight = true;
@@ -85,7 +76,15 @@ function refresh() {
 
     
 
+    // Set globals.
 
+    dayInWeek = day.getDay();
+    dayInMonth = day.day;
+    month = day.month;
+    year = day.year;
+    hours = date.getHours();
+    minutes = date.getMinutes();
+    seconds = date.getSeconds();
 
 
 
