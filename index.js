@@ -28,6 +28,8 @@ let dayInMonth;
 let hours;
 let minutes;
 let seconds;
+let isNight;
+let isStartNight;
 
 // //For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
@@ -53,8 +55,7 @@ function refresh() {
     isHoliday = false;
 
     let day = new Hebcal.HDate();
-    let isNight;
-    let isStartNight;
+
 
 
     if (day.sunset() < dateLater && dateLater - day.sunset() > (22*60*1000) && dateLater - day.sunset() < (52*60*1000)) {
