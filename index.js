@@ -248,7 +248,7 @@ function refresh() {
 
 function getAmountTimeNerotBeforeShkiah() {
     const minutes = localStorage.getItem('nerotBeforeShkiah');
-    if (minutes)
+    if (minutes) {
         nerotFromStorage = +minutes;
     }
     nerotFromStorage = setAndGetNerotToTheStorage();
