@@ -13,7 +13,8 @@ const tensInOmer = ['','עשר', 'עשרים', 'שלשים', 'ארבעים'];
 const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה', 'ששה', 'שבעה', 'שמונה', 'תשעה'];
 
 // amont time nerot before shkiah in current city.
-let nerotFromStorage = getAmountTimeNerotBeforeShkiah();
+let nerotFromStorage;
+getAmountTimeNerotBeforeShkiah();
 
 let dayOrNight = 'יום ';
 
@@ -247,17 +248,16 @@ function refresh() {
 
 function getAmountTimeNerotBeforeShkiah() {
     const minutes = localStorage.getItem('nerotBeforeShkiah');
-    if (minutes) {
-        return +minutes;
+    if (minutes)
+        nerotFromStorage = +minutes;
     }
-    return setAndGetNerotToTheStorage();
+    nerotFromStorage = setAndGetNerotToTheStorage();
 }
 
 function setAndGetNerotToTheStorage() {
     const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
     if (minutes && !isNaN(minutes)) {
         localStorage.setItem('nerotBeforeShkiah', minutes);
-        nerotFromStorage = +minutes;
         return +minutes;
     }
 }
