@@ -12,6 +12,9 @@ const tensInOmer = ['','עשר', 'עשרים', 'שלשים', 'ארבעים'];
 
 const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה', 'ששה', 'שבעה', 'שמונה', 'תשעה'];
 
+// amont time nerot before shkiah in current city.
+let nerotFromStorage = getAmountTimeNerotBeforeShkiah();
+
 let dayOrNight = 'יום ';
 
 const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת התפילה מתחילתה ועד סופה';
@@ -107,7 +110,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - 28))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - (nerotFromStorage || 30) +2 ))) + '@';
 
 
 
@@ -240,6 +243,24 @@ function refresh() {
 
 
 
+}
+
+function getAmountTimeNerotBeforeShkiah() {
+    const minutes = localStorage.getItem('nerotBeforeShkiah');
+    if (minutes) {
+        return +minutes;
+    }
+    return setAndGetNerotToTheStorage();
+}
+
+function setAndGetNerotToTheStorage() {
+    const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
+    debugger;
+    if (minutes && !isNaN(minutes)) {
+        localStorage.setItem('nerotBeforeShkiah', minutes);
+        nerotFromStorage = +minutes;
+        return +minutes;
+    }
 }
 
 function setIsHoliday() {
