@@ -255,7 +255,6 @@ function getAmountTimeNerotBeforeShkiah() {
 
 function setAndGetNerotToTheStorage() {
     const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
-    debugger;
     if (minutes && !isNaN(minutes)) {
         localStorage.setItem('nerotBeforeShkiah', minutes);
         nerotFromStorage = +minutes;
