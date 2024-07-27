@@ -14,7 +14,7 @@ const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה
 
 // amont time nerot before shkiah in current city.
 let nerotFromStorage;
-getAmountTimeNerotBeforeShkiah();
+//getAmountTimeNerotBeforeShkiah();
 
 let dayOrNight = 'יום ';
 
