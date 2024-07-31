@@ -538,7 +538,8 @@ function getSefira(omerDay) {
 
 function getParsha() {
     let label = ' פרשת ';
-    const parsha = new Hebcal.HDate().getParsha('h')[0] || '';
+    //TODO remove after shabat
+    const parsha = (new Hebcal.HDate().getParsha('h')[0] || '').replace('מטות','מטות מסעי');
 
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת'].includes(parsha)) {
         label = ' שבוע של ';
