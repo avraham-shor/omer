@@ -24,6 +24,8 @@ const MESSAGE = 'כאן בביהכ"נ אוסרים הדיבור בכל שעת ה
 
 // let changeOpacity = 1;
 
+let day;
+let dayUntil12;
 let isHoliday = false;
 let dayInWeek;
 let month;
@@ -58,7 +60,8 @@ function refresh() {
     dateEarlier = dateEarlier.setMinutes(dateEarlier.getMinutes() + 29);
     isHoliday = false;
 
-    let day = new Hebcal.HDate();
+    day = new Hebcal.HDate();
+    dayUntil12 = new Hebcal.HDate();
 
 
 
@@ -103,7 +106,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const SHKIAH_STR = format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() + 1)));
+    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 1)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
@@ -539,7 +542,7 @@ function getSefira(omerDay) {
 function getParsha() {
     let label = ' פרשת ';
     //TODO remove after shabat
-    const parsha = (new Hebcal.HDate().getParsha('h')[0] || '').replace('מטות','מטות מסעי');
+    const parsha = dayUntil12.getParsha('h')[0] || '';
 
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת'].includes(parsha)) {
         label = ' שבוע של ';
