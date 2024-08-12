@@ -154,7 +154,9 @@ function refresh() {
         specifyMsg.push({color: 'red', text: 'עננו'});
     }
 
-    if (false && month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9))) {
+    const isAfterNoon = date > day.getZemanim().chatzot && date < day.getZemanim().tzeit;
+
+    if (isAfterNoon && month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9))) {
         specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
