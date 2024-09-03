@@ -164,7 +164,7 @@ function refresh() {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
-    if (isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
+    if (false && isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
         specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
     
@@ -478,7 +478,9 @@ function isAlHanisim() {
 
 function isSpeakTehilim() {
     if (dayInWeek != 6 && (month == 7 || (month == 6 && dayInWeek != 5))) {
-        return true;
+        if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
+            return true;
+        }
     }
 }
 
