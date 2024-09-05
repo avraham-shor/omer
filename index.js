@@ -164,7 +164,7 @@ function refresh() {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
-    if (false && isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
+    if (isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
         specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
     
@@ -446,7 +446,7 @@ function isNearToShkiah(time, now) {
 
 function isShowTehilim() {
     //debugger;
-    if (dayInWeek != 6) {
+    if (dayInWeek == 5) {
         if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
         }
