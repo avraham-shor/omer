@@ -207,7 +207,7 @@ function refresh() {
         specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
 
-   writeSize(opacity)
+   writeSize()
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     if (omerDay == 0 || !isStartNight) {
