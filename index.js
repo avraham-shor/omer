@@ -45,6 +45,7 @@ let isStartNight;
 
 
 // setMishenichnas();
+// writeSize()
 
 
 
@@ -207,7 +208,6 @@ function refresh() {
         specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
 
-   writeSize()
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     if (omerDay == 0 || !isStartNight) {
@@ -382,11 +382,15 @@ function pad(n) {
 
 
 function writeSize() {
-    const innerHeight = window.innerHeight;
-    const innerWidth = window.innerWidth;
-    const height = window.screen.height;
-    const width = window.screen.width;
-   insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width); 
+    try {
+        const innerHeight = window.innerHeight;
+        const innerWidth = window.innerWidth;
+        const height = window.screen.height;
+        const width = window.screen.width;
+       insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width); 
+    } catch (error) {
+        console.log('error:', error);        
+    }
 }
 
 function showZmanMoilad(day, hours, minutes) {
