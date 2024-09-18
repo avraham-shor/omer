@@ -372,6 +372,7 @@ function setMessages(day, specifyMsg) {
 
     if (window.innerHeight == 424 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
         sizeForAndroid = 0.5;
+        writeSize();
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
