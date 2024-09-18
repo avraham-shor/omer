@@ -369,6 +369,11 @@ function setMessages(day, specifyMsg) {
     if (window.screen.height < 400 && window.screen.width < 900) {
         sizeForAndroid = 0.5;
     }
+
+    if (window.innerHeight == 424 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
+        sizeForAndroid = 0.5;
+    }
+
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.style.color = color;
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
