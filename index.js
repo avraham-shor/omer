@@ -371,7 +371,7 @@ function setMessages(day, specifyMsg) {
     }
 
     if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
-        sizeForAndroid = 0.5;
+        sizeForAndroid = 0.8;
         writeSize();
     }
 
