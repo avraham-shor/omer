@@ -317,7 +317,7 @@
   }
 
 
-  @media screen and (width: 960px) and (height: 540px) {
+  @media screen and (width: 960) and (height: 540) {
     
     .box-shma {
         font-size: 2.6rem;
