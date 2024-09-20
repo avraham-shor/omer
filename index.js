@@ -372,7 +372,29 @@ function setMessages(day, specifyMsg) {
 
     if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
         sizeForAndroid = 0.8;
-        writeSize();
+
+        // Apply styles to elements
+        document.querySelector('.box-shma').style.fontSize = '2.6rem';
+        document.querySelector('.shkiah').style.fontSize = '2.6rem';
+        document.querySelector('.day').style.fontSize = '3rem';
+        
+        let timeElement = document.querySelector('.time');
+        timeElement.style.fontSize = '3rem';
+        timeElement.style.top = '10vh';
+    
+        let titleElement = document.querySelector('.title');
+        titleElement.style.bottom = '8vh';
+        titleElement.style.fontSize = '2.6rem';
+    
+        let middleBoxElement = document.querySelector('.middle-box');
+        middleBoxElement.style.fontSize = '2rem';
+        middleBoxElement.style.top = '43vh';
+        middleBoxElement.style.right = '10vw';
+    
+        document.querySelector('.msg').style.top = '27vh';
+        document.querySelector('.daf').style.fontSize = '2rem';
+        document.querySelector('.date').style.fontSize = '2rem';
+        document.querySelector('.daf-title').style.fontSize = '2rem';
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
