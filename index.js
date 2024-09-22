@@ -382,8 +382,8 @@ function setMessages(day, specifyMsg) {
         dayDiv.style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '8.5rem';
-        timeElement.style.top = '4.5vh';
+        timeElement.style.fontSize = '8.3rem';
+        timeElement.style.top = '4.1vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.9rem';
@@ -391,12 +391,12 @@ function setMessages(day, specifyMsg) {
         middleBoxElement.style.right = '10vw';
 
         let titleElement = document.querySelector('.title');
-        titleElement.style.bottom = '10vh';
-        titleElement.style.fontSize = '3.3rem';
+        titleElement.style.bottom = '9vh';
+        titleElement.style.fontSize = '3.6rem';
 
         let titleShkiahElement = document.querySelector('.title-shkiah');
-        titleShkiahElement.style.bottom = '10vh';
-        titleShkiahElement.style.fontSize = '3.3rem';
+        titleShkiahElement.style.bottom = '9vh';
+        titleShkiahElement.style.fontSize = '3.6rem';
     
         document.querySelector('.msg').style.top = '35vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
