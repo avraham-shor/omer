@@ -394,7 +394,7 @@ function setMessages(day, specifyMsg) {
         titleElement.style.bottom = '10vh';
         titleElement.style.fontSize = '3.3rem';
     
-        document.querySelector('.msg').style.top = '33vh';
+        document.querySelector('.msg').style.top = '35vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
         document.querySelector('.date').style.fontSize = '2.9rem';
         document.querySelector('.daf-title').style.fontSize = '2rem';
