@@ -317,53 +317,6 @@
   }
 
 
-  @media screen and (width: 960) and (height: 540) {
-    
-    .box-shma {
-        font-size: 2.6rem;
-    }
-    
-    .shkiah {
-        font-size: 2.6rem;
-    }
-
-    .day {
-        font-size: 3rem;
-    }
-
-    .time {
-        font-size: 3rem;
-        top: 10vh;
-    }
-
-    .title {
-        bottom: 8vh;
-        font-size: 2.6rem;
-    }
-
-    .middle-box {
-        font-size: 2rem;
-        top: 43vh;
-        right: 10vw;
-
-    }
-
-    .msg {
-        top: 27vh;
-    }
-    
-    .daf {
-        font-size: 2rem
-    }
-
-    .date {
-        font-size: 2rem
-    }
-
-    .daf-title {
-        font-size: 2rem;
-    }
-  }
 
   @media (orientation: portrait) {
     
