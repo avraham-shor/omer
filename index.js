@@ -370,8 +370,8 @@ function setMessages(day, specifyMsg) {
         sizeForAndroid = 0.5;
     }
 
-    // if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
-    //     sizeForAndroid = 0.7;
+    if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
+        sizeForAndroid = 0.7;
 
         // Apply styles to elements
         document.querySelector('.box-shma').style.fontSize = '3.3rem';
@@ -402,7 +402,7 @@ function setMessages(day, specifyMsg) {
         document.querySelector('.daf').style.fontSize = '2.9rem';
         document.querySelector('.date').style.fontSize = '2.9rem';
         document.querySelector('.daf-title').style.fontSize = '2rem';
-    // }
+    }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.style.color = color;
