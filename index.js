@@ -370,16 +370,16 @@ function setMessages(day, specifyMsg) {
         sizeForAndroid = 0.5;
     }
 
-    if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
-        sizeForAndroid = 0.7;
+    // if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
+    //     sizeForAndroid = 0.7;
 
         // Apply styles to elements
         document.querySelector('.box-shma').style.fontSize = '3.3rem';
         document.querySelector('.shkiah').style.fontSize = '3.3rem';
 
-        let day = document.querySelector('.day');
-        day.style.top = '0.5vh';
-        day.style.fontSize = '3.5rem';
+        let dayDiv = document.querySelector('.day');
+        dayDiv.style.top = '0.5vh';
+        dayDiv.style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
         timeElement.style.fontSize = '8.5rem';
@@ -393,12 +393,16 @@ function setMessages(day, specifyMsg) {
         let titleElement = document.querySelector('.title');
         titleElement.style.bottom = '10vh';
         titleElement.style.fontSize = '3.3rem';
+
+        let titleShkiahElement = document.querySelector('.title-shkiah');
+        titleShkiahElement.style.bottom = '10vh';
+        titleShkiahElement.style.fontSize = '3.3rem';
     
         document.querySelector('.msg').style.top = '35vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
         document.querySelector('.date').style.fontSize = '2.9rem';
         document.querySelector('.daf-title').style.fontSize = '2rem';
-    }
+    // }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
     msgObj.style.color = color;
