@@ -374,7 +374,9 @@ function setMessages(day, specifyMsg) {
         sizeForAndroid = 0.7;
 
         // Apply styles to elements
-        document.querySelector('.box-shma').style.fontSize = '3.3rem';
+        let boxShma = document.querySelector('.box-shma');
+        boxShma.style.fontSize = '3.3rem';
+        boxShma.style.right = '9vw';
         document.querySelector('.shkiah').style.fontSize = '3.3rem';
 
         let dayDiv = document.querySelector('.day');
@@ -393,6 +395,7 @@ function setMessages(day, specifyMsg) {
         let titleElement = document.querySelector('.title');
         titleElement.style.bottom = '9vh';
         titleElement.style.fontSize = '3.6rem';
+        titleElement.style.right
 
         let titleShkiahElement = document.querySelector('.title-shkiah');
         titleShkiahElement.style.bottom = '9vh';
