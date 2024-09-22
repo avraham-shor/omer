@@ -390,7 +390,7 @@ function setMessages(day, specifyMsg) {
         middleBoxElement.style.top = '46vh';
         middleBoxElement.style.right = '10vw';
 
-        let titleElement = document.querySelector('.title');
+        let titleElement = document.querySelector('#title');
         titleElement.style.bottom = '10vh';
         titleElement.style.fontSize = '3.3rem';
     
