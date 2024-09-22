@@ -371,7 +371,7 @@ function setMessages(day, specifyMsg) {
     }
 
     if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
-        sizeForAndroid = 0.8;
+        sizeForAndroid = 0.7;
 
         // Apply styles to elements
         document.querySelector('.box-shma').style.fontSize = '3.3rem';
@@ -383,16 +383,16 @@ function setMessages(day, specifyMsg) {
         
         let timeElement = document.querySelector('.time');
         timeElement.style.fontSize = '8.5rem';
-        timeElement.style.top = '5.5vh';
-    
-        let titleElement = document.querySelector('.title');
-        titleElement.style.bottom = '10vh';
-        titleElement.style.fontSize = '3.3rem';
+        timeElement.style.top = '4.5vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.9rem';
         middleBoxElement.style.top = '46vh';
         middleBoxElement.style.right = '10vw';
+
+        let titleElement = document.querySelector('.title');
+        titleElement.style.bottom = '10vh';
+        titleElement.style.fontSize = '3.3rem';
     
         document.querySelector('.msg').style.top = '33vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
