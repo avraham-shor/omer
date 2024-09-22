@@ -376,14 +376,17 @@ function setMessages(day, specifyMsg) {
         // Apply styles to elements
         document.querySelector('.box-shma').style.fontSize = '3.3rem';
         document.querySelector('.shkiah').style.fontSize = '3.3rem';
-        document.querySelector('.day').style.fontSize = '3.5rem';
+
+        let day = document.querySelector('.day');
+        day.style.top = '0.5vh';
+        day.style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '8.7rem';
-        timeElement.style.top = '6vh';
+        timeElement.style.fontSize = '8.5rem';
+        timeElement.style.top = '5.5vh';
     
         let titleElement = document.querySelector('.title');
-        titleElement.style.bottom = '11vh';
+        titleElement.style.bottom = '10vh';
         titleElement.style.fontSize = '3.3rem';
     
         let middleBoxElement = document.querySelector('.middle-box');
