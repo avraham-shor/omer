@@ -392,7 +392,8 @@ function setMessages(day, specifyMsg) {
 
         let titleElement = document.querySelector('.title');
         titleElement.style.bottom = '10vh';
-        titleElement.style.fontSize = '5.3rem';
+        titleElement.style.fontSize = '7.3rem';
+        titleElement.style.color = 'green';
     
         document.querySelector('.msg').style.top = '35vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
