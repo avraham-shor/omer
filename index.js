@@ -374,17 +374,17 @@ function setMessages(day, specifyMsg) {
         sizeForAndroid = 0.8;
 
         // Apply styles to elements
-        document.querySelector('.box-shma').style.fontSize = '2.9rem';
-        document.querySelector('.shkiah').style.fontSize = '2.9rem';
+        document.querySelector('.box-shma').style.fontSize = '3.3rem';
+        document.querySelector('.shkiah').style.fontSize = '3.3rem';
         document.querySelector('.day').style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '4.7rem';
-        timeElement.style.top = '9vh';
+        timeElement.style.fontSize = '8.7rem';
+        timeElement.style.top = '6vh';
     
         let titleElement = document.querySelector('.title');
-        titleElement.style.bottom = '6vh';
-        titleElement.style.fontSize = '2.6rem';
+        titleElement.style.bottom = '11vh';
+        titleElement.style.fontSize = '3.3rem';
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.9rem';
@@ -394,7 +394,7 @@ function setMessages(day, specifyMsg) {
         document.querySelector('.msg').style.top = '33vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
         document.querySelector('.date').style.fontSize = '2.9rem';
-        document.querySelector('.daf-title').style.fontSize = '2.9rem';
+        document.querySelector('.daf-title').style.fontSize = '2rem';
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
