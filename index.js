@@ -395,7 +395,7 @@ function setMessages(day, specifyMsg) {
         let titleElement = document.querySelector('.title');
         titleElement.style.bottom = '8.6vh';
         titleElement.style.fontSize = '3.6rem';
-        titleElement.style.right = 10vw;
+        titleElement.style.right = '10vw';
 
         let titleShkiahElement = document.querySelector('.title-shkiah');
         titleShkiahElement.style.bottom = '8.6vh';
