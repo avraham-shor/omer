@@ -381,15 +381,15 @@ function setMessages(day, specifyMsg) {
         let boxShma = document.querySelector('.box-shma');
         boxShma.style.fontSize = '3.3rem';
         boxShma.style.right = '4.5vw';
-        document.querySelector('.shkiah').style.fontSize = '3.3rem';
+        document.querySelector('.shkiah').style.fontSize = '3.2rem';
 
         let dayDiv = document.querySelector('.day');
         dayDiv.style.top = '0.5vh';
         dayDiv.style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '7.1rem';
-        timeElement.style.top = '4.1vh';
+        timeElement.style.fontSize = '7.8rem';
+        timeElement.style.top = '4.2vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.9rem';
