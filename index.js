@@ -376,7 +376,7 @@ function setMessages(day, specifyMsg) {
         // Apply styles to elements
         let boxShma = document.querySelector('.box-shma');
         boxShma.style.fontSize = '3.3rem';
-        boxShma.style.right = '9vw';
+        boxShma.style.right = '6vw';
         document.querySelector('.shkiah').style.fontSize = '3.3rem';
 
         let dayDiv = document.querySelector('.day');
