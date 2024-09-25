@@ -1,4 +1,4 @@
-
+6
 //window.location.replace("https://aoklivestrim.com/");
 
 //Globals;
@@ -380,7 +380,7 @@ function setMessages(day, specifyMsg) {
         // Apply styles to elements
         let boxShma = document.querySelector('.box-shma');
         boxShma.style.fontSize = '3.3rem';
-        boxShma.style.right = '6vw';
+        boxShma.style.right = '4.5vw';
         document.querySelector('.shkiah').style.fontSize = '3.3rem';
 
         let dayDiv = document.querySelector('.day');
@@ -388,12 +388,12 @@ function setMessages(day, specifyMsg) {
         dayDiv.style.fontSize = '3.5rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '8.1rem';
+        timeElement.style.fontSize = '7.1rem';
         timeElement.style.top = '4.1vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.9rem';
-        middleBoxElement.style.top = '46vh';
+        middleBoxElement.style.top = '47vh';
         middleBoxElement.style.right = '10vw';
 
         let titleElement = document.querySelector('.title');
