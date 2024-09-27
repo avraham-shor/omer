@@ -477,10 +477,10 @@ function isHolidayOrCholHamoed() {
     const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
     const pesach = month == 1 && cholHamoedDays.includes(dayInMonth);
     const shavuot = month == 3 && dayInMonth == 6;
-    // const roshHashana = month == 7 && dayInMonth == 2;
-    // const cipur = month == 7 && dayInMonth == 10;
+    const roshHashana = month == 7 && dayInMonth == 2;
+    const cipur = month == 7 && dayInMonth == 10;
     const sucot = month == 7 && (cholHamoedDays.includes(dayInMonth) || dayInMonth == 22);
-    return roshChodesh || pesach || shavuot || roshHashana || cipur || sucot;
+    return roshChodesh || pesach || shavuot || sucot;
 }
 
 function isNearToSofZman(time, now) {
