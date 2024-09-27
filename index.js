@@ -216,7 +216,11 @@ function refresh() {
 
     if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
-        setMessages(day, specifyMsg);
+        try {
+            setMessages(day, specifyMsg);
+        } catch (error) {
+            logError(error); 
+        }
         document.querySelector('#omer img').classList.remove("up");
     }
 
@@ -358,7 +362,6 @@ function setMessages(day, specifyMsg) {
     //     console.log( i);
 
     // }
-
     let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
     let msgText = msg?.text   || MESSAGE;
     let color = msg?.color || 'black';
@@ -422,6 +425,10 @@ function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
 
+function logError(err) {
+    insertIn('#size', 'error: ' + err);
+    console.error('error:', err);
+}
 
 function writeSize() {
     try {
