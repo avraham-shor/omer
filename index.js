@@ -168,6 +168,10 @@ function refresh() {
     if (isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
         specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
+
+    if (isStartAseretYemeiTeshuva()) {
+        specifyMsg.push({color: 'red', text: 'המלך'});
+    }
     
     if (isStartBorchenu()) {
         specifyMsg.push({color: 'red', text: 'ברכנו'});
@@ -458,6 +462,13 @@ function isZom(date, day) {
     const adar = isLeapYear ? 13 : 12;
     const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 12) || (dayInWeek != 6 && dayInMonth == 14));
     return tamuzZom || tishreiZom || tevetZom || adarZom;
+}
+
+function isStartAseretYemeiTeshuva() {
+    if (month == 7 && [1, 2, 3, 4].includes(dayInMonth)) {
+        return true;
+    }
+    
 }
 
 function isHolidayOrCholHamoed() {
