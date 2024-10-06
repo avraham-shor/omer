@@ -120,7 +120,7 @@ function refresh() {
 
 
 
-    insertIn('#day', (dayOrNight + days[dayInWeek]).replace('ליל ראשון', 'מוצ"ש') + getParsha());
+    insertIn('#day', (dayOrNight + days[dayInWeek]).replace('ליל ראשון', 'מוצ"ש') + t(getParsha));
     insertIn('#shkiah', SHKIAH_STR);
     insertIn('#masechta', MASECHTA_STR);
     insertIn('#daf', DAF_STR);
@@ -131,11 +131,11 @@ function refresh() {
     insertIn('#month', monthHebrew);
     insertIn('#year', yearHebrew);
 
-    setShtibelSetings();
+    t(setShtibelSetings);
 
     setIsHoliday();
 
-    if (isSiumMasechet(day)) {
+    if (t(isSiumMasechet, [day])) {
         specifyMsg.push({color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR});
     }
 
@@ -143,16 +143,16 @@ function refresh() {
         specifyMsg.push({color: 'darkblue', text: nerot});
     }
 
-    if (isNearToShkiah(day.sunset().setMinutes(day.sunset().getMinutes() + 1), date)) {
+    if (t(isNearToShkiah,[day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
         specifyMsg.push({color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR});
     }
 
 
-    if (isHolidayOrCholHamoed()) {
+    if (t(isHolidayOrCholHamoed)) {
         specifyMsg.push({color: 'red', text: 'יעלה ויבוא'});
     }
 
-    if (isZom(date, day)) {
+    if (t(isZom,[date, day])) {
         specifyMsg.push({color: 'red', text: 'עננו'});
     }
 
@@ -162,35 +162,35 @@ function refresh() {
         specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
-    if (isStartMoridHatal()) {
+    if (t(isStartMoridHatal)) {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
-    if (isShowTehilim() && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
+    if (t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
         specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
 
-    if (isStartAseretYemeiTeshuva()) {
+    if (t(isStartAseretYemeiTeshuva)) {
         specifyMsg.push({color: 'red', text: 'המלך'});
     }
     
-    if (isStartBorchenu()) {
+    if (t(isStartBorchenu)) {
         specifyMsg.push({color: 'red', text: 'ברכנו'});
     }
 
-    if (isStartMoridHageshem()) {
+    if (t(isStartMoridHageshem)) {
         specifyMsg.push({color: 'red', text: '%משיב הרוח%@ומוריד הגשם@'});
     }
 
-    if (isStartBorechOlenu()) {
+    if (t(isStartBorechOlenu)) {
         specifyMsg.push({color: 'red', text: 'ברך עלינו'});
     }
 
-    if (isAlHanisim()) {
+    if (t(isAlHanisim)) {
         specifyMsg.push({color: 'red', text: 'על הניסים'});
     }
 
-    if (isNearToSofZman(sofZman2, date)) {
+    if (t(isNearToSofZman,[sofZman2, date])) {
         specifyMsg.push({color: 'red', text: `%סוזק"ש ב'@%` + format_time(sofZman2)});
     }
     
@@ -198,18 +198,18 @@ function refresh() {
         specifyMsg.push({color: 'black', text: getSefira(omerDay)});
     }
 
-    if (isNearToSofZman(sofZman1, date)) {
+    if (t(isNearToSofZman,[sofZman1, date])) {
         specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
     }
 
-    if (isSpeakTehilim()) {
-        const tehilimSeder = getTehilimDay();
+    if (t(isSpeakTehilim)) {
+        const tehilimSeder = t(getTehilimDay);
         if (tehilimSeder) {
             specifyMsg.push({color: 'darkblue', text: `%תהלים@%` + 'סדר ' + tehilimSeder});   
         };
     }
 
-    if (isEndColelim()) {
+    if (t(isEndColelim)) {
         specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
 
@@ -217,11 +217,7 @@ function refresh() {
 
     if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
-        try {
-            setMessages(day, specifyMsg);
-        } catch (error) {
-            logError(error); 
-        }
+        t(setMessages,[day, specifyMsg]);
         document.querySelector('#omer img').classList.remove("up");
     }
 
@@ -636,12 +632,13 @@ function isStartBorechOlenu() {
 }
 
 function t(func, args) {
+    // try and catch for error handling.
     try {
-        if (args.length) {
-            func(...args);
+        if (args && args.length) {
+            return func(...args);
         }
         else {
-            func();
+            return func();
         }
     } catch (error) {
         logError(error);
