@@ -529,14 +529,13 @@ function isSpeakTehilim() {
 function getTehilimDay() {
     const elulYear = month == 6 ? year : year - 1;
     const tishreiYear = month == 7 ? year : year + 1;
-    debugger;
     const elulDays = new Hebcal.HDate(1, 6, elulYear).getMonthObject().days;
     const tishreiDays = new Hebcal.HDate(1, 7, tishreiYear).getMonthObject().days.slice(2, 8);
     const elulAndTishrei = [...elulDays, ...tishreiDays];
     let seder = 1;
     for (let i = 0; i < elulAndTishrei.length; i++) {
         const d = elulAndTishrei[i];
-        if ((d.month == 6 && d.getDay() != 5 && d.getDay() != 6) || d.month != 6) {
+        if (d.getDay() != 6 && (d.getDay() != 5 || d.day == 29)) {
 
             console.log("seder:", seder);
             console.log("יום בשבוע:", d.getDay() + 1);
