@@ -131,6 +131,7 @@ function refresh() {
     insertIn('#month', monthHebrew);
     insertIn('#year', yearHebrew);
 
+    setShtibelSetings();
 
     setIsHoliday();
 
@@ -370,48 +371,14 @@ function setMessages(day, specifyMsg) {
         msgObj.style.lineHeight = '100%';
         msgText = moiladTxt;
     }
-    // console.log('window.innerWidth:', window.innerWidth, 'window.innerHeight', window.innerHeight);
-    // console.log('width:', window.screen.width, 'height:', window.screen.height)
+
 
     if (window.screen.height < 400 && window.screen.width < 900) {
         sizeForAndroid = 0.5;
     }
 
-    if (window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960) {
+    if (isSizeOfShtibel()) {
         sizeForAndroid = 0.7;
-
-        // Apply styles to elements
-        let boxShma = document.querySelector('.box-shma');
-        boxShma.style.fontSize = '3.3rem';
-        boxShma.style.right = '4.5vw';
-        document.querySelector('.shkiah').style.fontSize = '3.2rem';
-
-        let dayDiv = document.querySelector('.day');
-        dayDiv.style.top = '0.5vh';
-        dayDiv.style.fontSize = '3.5rem';
-        
-        let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '7.8rem';
-        timeElement.style.top = '4.2vh';
-    
-        let middleBoxElement = document.querySelector('.middle-box');
-        middleBoxElement.style.fontSize = '2.9rem';
-        middleBoxElement.style.top = '47vh';
-        middleBoxElement.style.right = '10vw';
-
-        let titleElement = document.querySelector('.title');
-        titleElement.style.bottom = '8.6vh';
-        titleElement.style.fontSize = '3.6rem';
-        titleElement.style.right = '10vw';
-
-        let titleShkiahElement = document.querySelector('.title-shkiah');
-        titleShkiahElement.style.bottom = '8.6vh';
-        titleShkiahElement.style.fontSize = '3.6rem';
-    
-        document.querySelector('.msg').style.top = '35vh';
-        document.querySelector('.daf').style.fontSize = '2.9rem';
-        document.querySelector('.date').style.fontSize = '2.9rem';
-        document.querySelector('.daf-title').style.fontSize = '2rem';
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
@@ -614,6 +581,46 @@ function getParsha() {
     return label + parsha;
 }
 
+function setShtibelSetings() {
+    if (isSizeOfShtibel()) {
+        let boxShma = document.querySelector('.box-shma');
+        boxShma.style.fontSize = '3.3rem';
+        boxShma.style.right = '4.5vw';
+        document.querySelector('.shkiah').style.fontSize = '3.2rem';
+
+        let dayDiv = document.querySelector('.day');
+        dayDiv.style.top = '0.5vh';
+        dayDiv.style.fontSize = '3.5rem';
+        
+        let timeElement = document.querySelector('.time');
+        timeElement.style.fontSize = '7.8rem';
+        timeElement.style.top = '4.2vh';
+    
+        let middleBoxElement = document.querySelector('.middle-box');
+        middleBoxElement.style.fontSize = '2.9rem';
+        middleBoxElement.style.top = '47vh';
+        middleBoxElement.style.right = '10vw';
+
+        let titleElement = document.querySelector('.title');
+        titleElement.style.bottom = '8.6vh';
+        titleElement.style.fontSize = '3.6rem';
+        titleElement.style.right = '10vw';
+
+        let titleShkiahElement = document.querySelector('.title-shkiah');
+        titleShkiahElement.style.bottom = '8.6vh';
+        titleShkiahElement.style.fontSize = '3.6rem';
+    
+        document.querySelector('.msg').style.top = '35vh';
+        document.querySelector('.daf').style.fontSize = '2.9rem';
+        document.querySelector('.date').style.fontSize = '2.9rem';
+        document.querySelector('.daf-title').style.fontSize = '2rem';
+    }
+}
+
+function isSizeOfShtibel() {
+    return window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960;   
+}
+
 function isStartMoridHageshem() {
     if (month == 7) {
         if (dayInMonth == 24 || dayInMonth == 23 || (dayInMonth == 22 && hours > 10 && hours < 19)) {
@@ -627,6 +634,20 @@ function isStartBorechOlenu() {
         return true;
     }
 }
+
+function t(func, args) {
+    try {
+        if (args.length) {
+            func(...args);
+        }
+        else {
+            func();
+        }
+    } catch (error) {
+        logError(error);
+    }
+}
+
 setInterval(() => {
     insertIn('#time', (formatTimeWithSeconds(new Date())));
 }, 1000);
