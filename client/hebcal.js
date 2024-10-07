@@ -4098,7 +4098,7 @@
             ['Shoftim', 0, 'שופטים'],
             ['Ki Teitzei', 'Ki Seitzei', 'כי תצא'],
             ['Ki Tavo', 'Ki Savo', 'כי תבוא'],
-            ['Nitzavim', 0, 'נצבים'], // 50
+            ['Nitzavim', 0, 'נצבים וילך'], // 50 //TODO remove after Shabat
             ['Vayeilech', 0, 'וילך'],
             ['Ha\'Azinu', 0, 'האזינו']
         ];

@@ -589,7 +589,7 @@ function getParsha() {
     //TODO remove after shabat
     const parsha = dayUntil12.getParsha('h')[0] || '';
 
-    if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת'].includes(parsha)) {
+    if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור'].includes(parsha)) {
         label = ' שבוע של ';
     }
 
