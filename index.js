@@ -202,6 +202,16 @@ function refresh() {
         specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
     }
 
+    if (dayUntil12.month == 7 && dayUntil12.day == 10) {
+        specifyMsg.push({color: 'darkblue', text: 'המלך'});
+        if(hours == 17 && minutes > 30 || (hours == 18 && minutes < 30)) {
+            specifyMsg.push({color: 'red', text: 'וחתמנו'});
+        }
+        if(hours == 18) {
+            specifyMsg.push({color: 'red', text: 'צאת החג 6:47'});
+        }
+    }
+
     if (t(isSpeakTehilim)) {
         const tehilimSeder = t(getTehilimDay);
         if (tehilimSeder) {
