@@ -204,20 +204,8 @@ function refresh() {
         specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
     }
 
-    try {
-        if (dayUntil12.month == 7 && dayUntil12.day == 10) {
-            specifyMsg.push({color: 'darkblue', text: 'המלך'});
-            if(hours == 17 && minutes > 30 || (hours == 18 && minutes < 30)) {
-                specifyMsg.push({color: 'red', text: 'וחתמנו'});
-            }
-            if(hours == 18) {
-                specifyMsg.push({color: 'red', text: 'צאת החג 6:47'});
-            }
-        }
-    } catch (error) {
-        writeSize(error);
-    }
-
+    t(setCipurMsgs, [specifyMsg]);
+    
     if (t(isSpeakTehilim)) {
         const tehilimSeder = t(getTehilimDay);
         if (tehilimSeder) {
@@ -270,6 +258,21 @@ function refresh() {
 
 
 
+}
+
+function setCipurMsgs(specifyMsg) {
+    if (day.month == 7 && (day.day == 10 || day.day == 11)) {
+        if (day.day == 10) {
+            specifyMsg.push({ color: 'darkblue', text: 'המלך' });
+            if (hours == 17 && minutes > 30 || (hours == 18 && minutes < 30)) {
+                specifyMsg.push({ color: 'red', text: 'וחתמנו' });
+            }
+        }
+
+        if (dayUntil12 == 10 && hours == 18) {
+            specifyMsg.push({ color: 'red', text: 'צאת החג 6:47' }); //TODO it is updated for year תשפה
+        }
+    }
 }
 
 function getAmountTimeNerotBeforeShkiah() {
