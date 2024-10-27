@@ -1,4 +1,4 @@
-6
+
 //window.location.replace("https://aoklivestrim.com/");
 
 //Globals;
@@ -36,6 +36,8 @@ let minutes;
 let seconds;
 let isNight;
 let isStartNight;
+
+setShtibelSetings();
 
 // //For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
