@@ -428,7 +428,7 @@ function showZmanMoilad(day, hours, minutes) {
     const currentMonth = new Hebcal.Month(month, year);
 
 
-    if (true || currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
         const moilad = currentMonth.next().molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
