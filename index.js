@@ -37,7 +37,7 @@ let seconds;
 let isNight;
 let isStartNight;
 
-// setShtibelSetings();
+setShtibelSetings();
 
 // //For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
@@ -133,7 +133,7 @@ function refresh() {
     insertIn('#month', monthHebrew);
     insertIn('#year', yearHebrew);
 
-    // t(setShtibelSetings);
+    t(setShtibelSetings);
 
     setIsHoliday();
 
@@ -389,7 +389,7 @@ function setMessages(day, specifyMsg) {
 
 
     if (window.screen.height < 400 && window.screen.width < 900) {
-        sizeForAndroid = 0.5;
+        sizeForAndroid = 0.4;
     }
 
     if (isSizeOfShtibel()) {
