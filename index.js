@@ -47,7 +47,7 @@ setShtibelSetings();
 
 
 // setMishenichnas();
-writeSize()
+// writeSize()
 
 
 
@@ -389,11 +389,11 @@ function setMessages(day, specifyMsg) {
 
 
     if (window.screen.height < 400 && window.screen.width < 900) {
-        sizeForAndroid = 0.4;
+        sizeForAndroid = 0.5;
     }
 
     if (isSizeOfShtibel()) {
-        sizeForAndroid = 0.7;
+        sizeForAndroid = 0.5;
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
@@ -634,7 +634,7 @@ function setShtibelSetings() {
 }
 
 function isSizeOfShtibel() {
-    return window.innerHeight == 724 && window.innerWidth == 1288 && window.screen.height == 540 && window.screen.width == 960;   
+    return window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960;   
 }
 
 function isStartMoridHageshem() {
