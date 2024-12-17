@@ -47,7 +47,7 @@ setShtibelSetings();
 
 
 // setMishenichnas();
-// writeSize()
+writeSize()
 
 
 
