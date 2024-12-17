@@ -393,7 +393,7 @@ function setMessages(day, specifyMsg) {
     }
 
     if (isSizeOfShtibel()) {
-        sizeForAndroid = 0.5;
+        sizeForAndroid = 0.2;
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
@@ -600,31 +600,31 @@ function getParsha() {
 function setShtibelSetings() {
     if (isSizeOfShtibel()) {
         let boxShma = document.querySelector('.box-shma');
-        boxShma.style.fontSize = '3.3rem';
-        boxShma.style.right = '4.5vw';
-        document.querySelector('.shkiah').style.fontSize = '3.2rem';
+        boxShma.style.fontSize = '2.3rem';
+        boxShma.style.right = '2.5vw';
+        document.querySelector('.shkiah').style.fontSize = '2.2rem';
 
         let dayDiv = document.querySelector('.day');
         dayDiv.style.top = '0.5vh';
-        dayDiv.style.fontSize = '3.5rem';
+        dayDiv.style.fontSize = '3rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '7.8rem';
+        timeElement.style.fontSize = '6.8rem';
         timeElement.style.top = '4.2vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
-        middleBoxElement.style.fontSize = '2.9rem';
+        middleBoxElement.style.fontSize = '2.5rem';
         middleBoxElement.style.top = '47vh';
         middleBoxElement.style.right = '10vw';
 
         let titleElement = document.querySelector('.title');
         titleElement.style.bottom = '8.6vh';
-        titleElement.style.fontSize = '3.6rem';
-        titleElement.style.right = '10vw';
+        titleElement.style.fontSize = '3rem';
+        titleElement.style.right = '7vw';
 
         let titleShkiahElement = document.querySelector('.title-shkiah');
         titleShkiahElement.style.bottom = '8.6vh';
-        titleShkiahElement.style.fontSize = '3.6rem';
+        titleShkiahElement.style.fontSize = '3rem';
     
         document.querySelector('.msg').style.top = '35vh';
         document.querySelector('.daf').style.fontSize = '2.9rem';
