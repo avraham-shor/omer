@@ -393,7 +393,7 @@ function setMessages(day, specifyMsg) {
     }
 
     if (isSizeOfShtibel()) {
-        sizeForAndroid = 0.2;
+        sizeForAndroid = 0.1;
     }
 
     msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
