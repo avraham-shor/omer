@@ -47,7 +47,7 @@ setShtibelSetings();
 
 
 // setMishenichnas();
-writeSize()
+// writeSize()
 
 
 
@@ -392,8 +392,9 @@ function setMessages(day, specifyMsg) {
         sizeForAndroid = 0.5;
     }
 
-    if (isSizeOfShtibel()) {
-        sizeForAndroid = 0.1;
+    if (window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960;   
+}) {
+        sizeForAndroid = 0.55;
         t(writeSize)
     }
 
