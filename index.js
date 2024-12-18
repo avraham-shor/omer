@@ -635,7 +635,7 @@ function setShtibelSetings() {
 }
 
 function isSizeOfShtibel() {
-    return window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960;   
+    return window.screen.height == 540 && window.screen.width == 960;   
 }
 
 function isStartMoridHageshem() {
