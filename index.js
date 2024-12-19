@@ -330,7 +330,7 @@ function formatTimeWithSeconds(date) {
 
 
 function setMessages(day, specifyMsg) {
-    let sizeForAndroid = 0.6;
+    let sizeForAndroid = 1;
     const msgObj = document.querySelector('#msg');
     // const mainImage = document.querySelector('#main-img');
     // const divsToHide = document.getElementsByClassName('dth');
