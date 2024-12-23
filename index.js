@@ -627,10 +627,10 @@ function setShtibelSetings() {
         titleShkiahElement.style.bottom = '8.6vh';
         titleShkiahElement.style.fontSize = '3rem';
     
-        document.querySelector('.msg').style.top = '35vh';
-        document.querySelector('.daf').style.fontSize = '2.9rem';
-        document.querySelector('.date').style.fontSize = '2.9rem';
-        document.querySelector('.daf-title').style.fontSize = '2rem';
+        document.querySelector('.msg').style.top = '32vh';
+        document.querySelector('.daf').style.fontSize = '2.4rem';
+        document.querySelector('.date').style.fontSize = '2.6rem';
+        document.querySelector('.daf-title').style.fontSize = '1.8rem';
     }
 }
 
