@@ -615,7 +615,7 @@ function setShtibelSetings() {
     
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.5rem';
-        middleBoxElement.style.top = '47vh';
+        middleBoxElement.style.top = '48vh';
         middleBoxElement.style.right = '10vw';
 
         let titleElement = document.querySelector('.title');
@@ -627,9 +627,9 @@ function setShtibelSetings() {
         titleShkiahElement.style.bottom = '8.6vh';
         titleShkiahElement.style.fontSize = '3rem';
     
-        document.querySelector('.msg').style.top = '32vh';
+        document.querySelector('.msg').style.top = '33vh';
         document.querySelector('.daf').style.fontSize = '2.4rem';
-        document.querySelector('.date').style.fontSize = '2.6rem';
+        document.querySelector('.date').style.fontSize = '2.4rem';
         document.querySelector('.daf-title').style.fontSize = '1.8rem';
     }
 }
