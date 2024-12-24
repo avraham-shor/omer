@@ -397,7 +397,7 @@ function setMessages(day, specifyMsg) {
         t(writeSize)
     }
 
-    // msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'rem';
+    msgObj.style.fontSize = (10 - msgText.length / 12) * sizeForAndroid + 'vw';
     msgObj.style.color = color;
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
 
@@ -588,9 +588,7 @@ function getSefira(omerDay) {
 
 function getParsha() {
     let label = ' פרשת ';
-    //TODO remove after shabat
     const parsha = dayUntil12.getParsha('h')[0] || '';
-
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור'].includes(parsha)) {
         label = ' שבוע של ';
     }
