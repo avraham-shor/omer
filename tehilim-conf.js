@@ -1,4 +1,4 @@
-ולאconst tehilimByDays = {
+const tehilimByDays = {
     1  : "כח, כט, ל",
     2  : "לא, לב, לג",
     3  : "לד, לה",
