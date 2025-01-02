@@ -428,7 +428,7 @@ function writeSize() {
 function showZmanMoilad(day, hours, minutes) {
     const currentMonth = new Hebcal.Month(month, year);
 
-
+// TODO המולד של חודשים אדר תמוז אלול לא תקינים
     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
         const moilad = currentMonth.next().next().molad();
         const moiladDay = days[moilad.doy];
