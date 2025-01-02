@@ -430,13 +430,13 @@ function showZmanMoilad(day, hours, minutes) {
 
 
     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
-        const moilad = currentMonth.next().molad();
+        const moilad = currentMonth.next().next().molad();
         const moiladDay = days[moilad.doy];
         const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
         const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
         const moiladChalakim = moilad.chalakim;
-        // let moiladText = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים');
-        const moiladText = 'המולד יהיה במוצאי שבת 4:49 ו- 15 חלקים'; //TODO remove after shabat
+        const moiladText = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים');
+        // const moiladText = 'המולד יהיה במוצאי שבת 4:49 ו- 15 חלקים'; //TODO remove after shabat
         return moiladText;
     }
 }
