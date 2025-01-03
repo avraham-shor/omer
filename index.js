@@ -109,7 +109,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 2));
+    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 2)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
