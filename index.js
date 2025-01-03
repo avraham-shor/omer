@@ -109,7 +109,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 1)));
+    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 2));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
@@ -117,7 +117,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - (nerotFromStorage || 30) +1 ))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - (nerotFromStorage || 30) +2))) + '@';
 
 
 
