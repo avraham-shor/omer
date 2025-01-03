@@ -514,7 +514,7 @@ function isAlHanisim() {
     const cislevSmall = new Hebcal.HDate("כו כסלו").daysInMonth() == 29;
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     const chanucaCislev = month == 9 && chanucaDays.includes(dayInMonth);
-    const chanucaTevet = month == 10 && (dayInMonth == 1 || dayInMonth == 2 || dayInMonth == 3 || cislevSmall && dayInMonth == 4);
+    const chanucaTevet = month == 10 && (dayInMonth == 1 || dayInMonth == 2 || cislevSmall && dayInMonth == 3);
     const adar = isLeapYear ? 13 : 12;
     const purim = dayInMonth == 15 && month == adar;
     return chanucaCislev || chanucaTevet || purim;
