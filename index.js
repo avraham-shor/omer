@@ -14,7 +14,7 @@ const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה
 
 // amont time nerot before shkiah in current city.
 let nerotFromStorage;
-//getAmountTimeNerotBeforeShkiah();
+// getAmountTimeNerotBeforeShkiah();
 
 let dayOrNight = 'יום ';
 
@@ -38,7 +38,7 @@ let isNight;
 let isStartNight;
 
 setShtibelSetings();
-
+// calculateMoilad()
 // //For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
 // let mishArr = [];
@@ -109,7 +109,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setMinutes(dayUntil12.sunset().getMinutes() + 2)));
+    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + 150)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
@@ -117,7 +117,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setMinutes(day.sunset().getMinutes() - (nerotFromStorage || 30) +2))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (nerotFromStorage || 30 * 60) + 150))) + '@';
 
 
 
@@ -276,18 +276,21 @@ function setCipurMsgs(specifyMsg) {
 }
 
 function getAmountTimeNerotBeforeShkiah() {
-    const minutes = localStorage.getItem('nerotBeforeShkiah');
-    if (minutes) {
-        nerotFromStorage = +minutes;
+    const seconds = localStorage.getItem('nerotBeforeShkiah');
+    if (seconds) {
+        nerotFromStorage = +seconds;
     }
-    nerotFromStorage = setAndGetNerotToTheStorage();
+    else {
+        nerotFromStorage = setAndGetNerotToTheStorage();
+    }
+    
 }
 
 function setAndGetNerotToTheStorage() {
     const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
     if (minutes && !isNaN(minutes)) {
-        localStorage.setItem('nerotBeforeShkiah', minutes);
-        return +minutes;
+        localStorage.setItem('nerotBeforeShkiah', minutes * 60);
+        return minutes * 60;
     }
 }
 
@@ -649,6 +652,16 @@ function isStartBorechOlenu() {
         return true;
     }
 }
+
+// function calculateMoilad() {
+//     debugger;
+//     const roundOfMoon = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
+//     const brackTime = 0.2318664379334;  // In ms that the time started before the Moilad;
+//     let moiladDay = new Date(2025, 0, 29, 6, 17, 57);
+//     const moiladTime = moiladDay.getTime() - brackTime;
+//     const amount = moiladTime / roundOfMoon;
+//     console.log("amount:", amount );
+// } 
 
 function t(func, args) {
     // try and catch for error handling.
