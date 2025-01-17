@@ -1,5 +1,13 @@
 
 //window.location.replace("https://aoklivestrim.com/");
+window.location.replace("https://avraham-shor-venn.github.io/avot/");
+
+const toDayNow = new Date();
+if (toDayNow.getHours() == 18 && toDayNow.getDay() == 18 && toDayNow.getMonth() == 1) {
+    window.location.replace("https://avraham-shor-venn.github.io/avot/")
+} {
+    
+}
 
 //Globals;
 const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
