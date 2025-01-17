@@ -1,6 +1,6 @@
 
 //window.location.replace("https://aoklivestrim.com/");
-window.location.replace("https://avraham-shor-venn.github.io/avot/");
+//window.location.replace("https://avraham-shor-venn.github.io/avot/");
 
 const toDayNow = new Date();
 if (toDayNow.getHours() == 18 && toDayNow.getDate() == 18 && toDayNow.getMonth() == 0) {
