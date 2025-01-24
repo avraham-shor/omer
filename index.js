@@ -3,7 +3,7 @@
 //window.location.replace("https://avraham-shor-venn.github.io/avot/");
 
 const toDayNow = new Date();
-if (toDayNow.getHours() == 18 && toDayNow.getDate() == 18 && toDayNow.getMonth() == 0) {
+if (toDayNow.getHours() == 18 && toDayNow.getMinutes() > 30 && toDayNow.getDate() == 25 && toDayNow.getMonth() == 0) {
     window.location.replace("https://avraham-shor-venn.github.io/avot/")
 } {
     
