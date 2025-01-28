@@ -46,8 +46,7 @@ let isNight;
 let isStartNight;
 
 setShtibelSetings();
-// calculateMoilad()
-// //For Adar;
+//For Adar;
 // const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
 // let mishArr = [];
 // const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold', 'pink', 'gray', 'turquoise', 'beige', 'maroon'];
@@ -157,6 +156,9 @@ function refresh() {
         specifyMsg.push({color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR});
     }
 
+    if (isShowZmanMoilad()) {
+        specifyMsg.push({color: 'red', text: calculateMoiladAndGetMoiladText()});
+    }
 
     if (t(isHolidayOrCholHamoed)) {
         specifyMsg.push({color: 'red', text: 'יעלה ויבוא'});
@@ -392,13 +394,7 @@ function setMessages(day, specifyMsg) {
     let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
     let msgText = msg?.text   || MESSAGE;
     let color = msg?.color || 'black';
-    const moiladTxt = showZmanMoilad(day, hours, minutes);
-    if (moiladTxt) {
-        msgObj.style.lineHeight = '100%';
-        msgText = moiladTxt;
-    }
-
-
+  
     if (window.screen.height < 400 && window.screen.width < 900) {
         sizeForAndroid = 0.5;
     }
@@ -436,21 +432,32 @@ function writeSize() {
     }
 }
 
-function showZmanMoilad(day, hours, minutes) {
+function isShowZmanMoilad() {
     const currentMonth = new Hebcal.Month(month, year);
-
-// TODO המולד של חודשים אדר תמוז אלול לא תקינים
-    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
-        const moilad = currentMonth.next().next().molad();
-        const moiladDay = days[moilad.doy];
-        const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
-        const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
-        const moiladChalakim = moilad.chalakim;
-        const moiladText = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים');
-        // const moiladText = 'המולד יהיה במוצאי שבת 4:49 ו- 15 חלקים'; //TODO remove after shabat
-        return moiladText;
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 20) || (hours == 10 && minutes < 59))) {
+        return true;
     }
+
 }
+
+// function showZmanMoilad(day, hours, minutes) {
+
+// // TODO המולד של חודשים אדר תמוז אלול לא תקינים
+//     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
+//         return calculateMoiladAndGetMoiladText()
+
+
+
+// const moilad = currentMonth.next().next().molad();
+// const moiladDay = days[moilad.doy];
+// const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
+// const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
+// const moiladChalakim = moilad.chalakim;
+// // const moiladText = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים');
+// const moiladText = 'המולד יהיה בליל שישי 7:02'; //TODO remove after SHVAT
+// return moiladText;
+//     }
+// }
 
 function isZom(date, day) {
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
@@ -661,15 +668,39 @@ function isStartBorechOlenu() {
     }
 }
 
-// function calculateMoilad() {
-//     debugger;
-//     const roundOfMoon = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
-//     const brackTime = 0.2318664379334;  // In ms that the time started before the Moilad;
-//     let moiladDay = new Date(2025, 0, 29, 6, 17, 57);
-//     const moiladTime = moiladDay.getTime() - brackTime;
-//     const amount = moiladTime / roundOfMoon;
-//     console.log("amount:", amount );
-// } 
+function calculateMoiladAndGetMoiladText() {
+    const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
+    const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
+    const timeOfToday = new Date().getTime();
+    const amount = Math.round((timeOfToday - BRACK_TIME) / ROUND_OF_MOON);
+    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount + 2));
+    hebrewMoiladDay = new Hebcal.HDate(moiladDay);
+    if (hebrewMoiladDay.sunset() < moiladDay.getTime()) {
+        moiladDay.setDate(moiladDay.getDate() + 1);
+    }
+    const moiladDayInWords = days[moiladDay.getDay()];
+    const dayOrNight = moiladDay.getUTCHours() >= 6 && moiladDay.getUTCHours() < 18 ? 'ביום ' : 'בליל ';
+    const moladHours = moiladDay.getUTCHours();
+    const moladMinutes = moiladDay.getUTCMinutes();
+    const moladSeconds = moiladDay.getUTCSeconds();
+    const totalChalakim = (moladHours * 1080) + (moladMinutes * 18) + Math.floor(moladSeconds / 3);
+    const chalakim = totalChalakim % 18;   
+    moiladDay.setHours(moiladDay.getUTCHours() + 2);
+    const moiladTime = format_time(moiladDay)
+    let chalakimText;
+    if (chalakim == 0) {
+        chalakimText = '';
+    }
+    else if (chalakim == 1) {
+        chalakimText = ' וחלק אחד';
+    } else {
+        chalakimText = ' ו-' + chalakim + ' חלקים';
+    }
+    const moiladText = (' המולד יהיה ' + dayOrNight + moiladDayInWords + ' בשעה ' + moiladTime + chalakimText);
+    console.log("moiladText:", moiladText );
+    return moiladText;
+
+}
 
 function t(func, args) {
     // try and catch for error handling.
