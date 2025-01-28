@@ -156,8 +156,8 @@ function refresh() {
         specifyMsg.push({color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR});
     }
 
-    if (isShowZmanMoilad()) {
-        specifyMsg.push({color: 'red', text: calculateMoiladAndGetMoiladText()});
+    if (t(isShowZmanMoilad())) {
+        specifyMsg.push({color: 'red', text: t(calculateMoiladAndGetMoiladText())});
     }
 
     if (t(isHolidayOrCholHamoed)) {
