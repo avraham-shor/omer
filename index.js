@@ -178,7 +178,7 @@ function refresh() {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
-    if (t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
+    if (false && t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
         specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
     }
 
