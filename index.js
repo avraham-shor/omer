@@ -669,6 +669,7 @@ function isStartBorechOlenu() {
 }
 
 function calculateMoiladAndGetMoiladText() {
+    return "המולד יהיה בליל שישי 7:02";
     const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
     const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
     const timeOfToday = new Date().getTime();
