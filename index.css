@@ -76,8 +76,9 @@
 }
 
 .chars-adar {
+    position: relative;
     animation-name: simcha;
-    animation-duration: 5s;
+    animation-duration: 4s;
     animation-delay: 2s;
 }
 /* div {

@@ -46,11 +46,11 @@ let isNight;
 let isStartNight;
 
 setShtibelSetings();
-//For Adar;
-// const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
-// let mishArr = [];
-// const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold', 'pink', 'gray', 'turquoise', 'beige', 'maroon'];
-// let indexAdar = 0;
+// For Adar;
+const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
+let mishArr = [];
+const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold', 'pink', 'gray', 'turquoise', 'beige', 'maroon'];
+let indexAdar = 0;
 
 
 // setMishenichnas();
@@ -345,52 +345,57 @@ function formatTimeWithSeconds(date) {
 function setMessages(day, specifyMsg) {
     let sizeForAndroid = 1;
     const msgObj = document.querySelector('#msg');
-    // const mainImage = document.querySelector('#main-img');
-    // const divsToHide = document.getElementsByClassName('dth');
+    const mainImage = document.querySelector('#main-img');
+    const divsToHide = document.getElementsByClassName('dth');
+    debugger;
+    const sunset = day.sunset();
+    const date = new Date();
     // if (month == 11 && dayInMonth == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
-    //     Array.from(divsToHide).forEach(div => div.classList.add('hide'));
+        if (month == 11 && dayInMonth == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
 
-    //     debugger;
-    //     msgObj.classList.remove('msg');
-    //     msgObj.classList.add('msg-adar');
-    //     mainImage.classList.add("image-adar");
-    //     if (msgObj.innerHTML.includes('החמה')) {
-    //         msgObj.innerHTML = '';
-    //         indexAdar = 0;
-    //         mishArr = [];
+        Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
-    //     }
+        debugger;
+        msgObj.classList.remove('msg');
+        msgObj.classList.add('msg-adar');
+        mainImage.classList.add("image-adar");
+        if (msgObj.innerHTML.includes('החמה')) {
+            msgObj.innerHTML = '';
+            indexAdar = 0;
+            mishArr = [];
 
-    //     msgObj.style.fontSize = (22 - mishArr.length / 3) + 'rem';
-    //     const char = mishMsg[indexAdar];
-    //     const divChar = document.createElement('span');
-    //     const rand1 = Math.floor(Math.random() * colors.length);
-    //     const rand2 = Math.floor(Math.random() * colors.length);
-    //     divChar.style.color = colors[rand1];
-    //     divChar.style.textShadow = '10px -5px ' + colors[rand2]
-    //     divChar.innerHTML = char;
-    //     divChar.classList.add('chars-adar');
-    //     msgObj.append(divChar);
-    //     mishArr.push(char);
-    //     indexAdar++;
-    //     if (indexAdar > mishMsg.length) {
-    //         indexAdar = 0;
-    //         msgObj.innerHTML = '';
-    //         mishArr = [];
-    //     }
-    // }
-    // else {
-    // msgObj.classList.add('msg');
-    // mainImage.classList.remove("image-adar");
-    // Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
-    //seconds / 10) % 3 == 0
+        }
+
+        msgObj.style.fontSize = (22 - mishArr.length / 3) + 'rem';
+        const char = mishMsg[indexAdar];
+        const divChar = document.createElement('span');
+        const rand1 = Math.floor(Math.random() * colors.length);
+        const rand2 = Math.floor(Math.random() * colors.length);
+        divChar.style.color = colors[rand1];
+        divChar.style.textShadow = '10px -5px ' + colors[rand2]
+        divChar.innerHTML = char;
+        divChar.classList.add('chars-adar');
+        msgObj.append(divChar);
+        mishArr.push(char);
+        indexAdar++;
+        if (indexAdar > mishMsg.length) {
+            indexAdar = 0;
+            msgObj.innerHTML = '';
+            mishArr = [];
+        }
+    }
+    else {
+    msgObj.classList.add('msg');
+    mainImage.classList.remove("image-adar");
+    Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
+    seconds / 10 % 3 == 0
     
-    // let i = 0;
-    // if (specifyMsg.length >= 0) {
-    //     i = seconds / 15 % specifyMsg.length;
-    //     console.log( i);
+    let i = 0;
+    if (specifyMsg.length >= 0) {
+        i = seconds / 15 % specifyMsg.length;
+        console.log( i);
 
-    // }
+    }
     let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
     let msgText = msg?.text   || MESSAGE;
     let color = msg?.color || 'black';
@@ -408,6 +413,7 @@ function setMessages(day, specifyMsg) {
     msgObj.style.color = color;
     msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
 
+}
 }
 
 
@@ -669,7 +675,7 @@ function isStartBorechOlenu() {
 }
 
 function calculateMoiladAndGetMoiladText() {
-    return "המולד יהיה בליל שישי 7:02"; //TODO remove after SHVAT
+    return "המולד היה היום בבוקר בשעה 7:46 ו-1 חלק"; //TODO remove after ADAR
     const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
     const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
     const timeOfToday = new Date().getTime();
