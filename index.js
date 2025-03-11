@@ -475,7 +475,7 @@ function isZom(date, day) {
     const tishreiZom = month == 7 && ((dayInWeek == 0 && dayInMonth == 4) || (dayInWeek != 6 && dayInMonth == 3));
     const tevetZom = month == 10 && dayInMonth == 11;
     const adar = isLeapYear ? 13 : 12;
-    const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 12) || (dayInWeek != 6 && dayInMonth == 14));
+    const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 11) || (dayInWeek != 6 && dayInMonth == 13));
     return tamuzZom || tishreiZom || tevetZom || adarZom;
 }
 
@@ -540,7 +540,7 @@ function isAlHanisim() {
     const chanucaCislev = month == 9 && chanucaDays.includes(dayInMonth);
     const chanucaTevet = month == 10 && (dayInMonth == 1 || dayInMonth == 2 || cislevSmall && dayInMonth == 3);
     const adar = isLeapYear ? 13 : 12;
-    const purim = dayInMonth == 15 && month == adar;
+    const purim = dayInMonth == 14 && month == adar;
     return chanucaCislev || chanucaTevet || purim;
 }
 
