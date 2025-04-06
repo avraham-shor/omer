@@ -576,7 +576,7 @@ function getTehilimDay() {
 
 function isStartMoridHatal() {
     if (month == 1) {
-        if (dayInMonth == 16 || (dayInMonth == 16 && hours > 10 && hours < 19)) {
+        if (dayInMonth == 16 || (dayInMonth == 15 && hours > 10 && hours < 19)) {
             return true;
         }
     }
