@@ -583,7 +583,7 @@ function isStartMoridHatal() {
 }
 
 function isStartBorchenu() {
-    if (month == 1 && (dayInMonth == 17 || dayInMonth == 18) && dayInWeek != 6) {
+    if (month == 1 && (dayInMonth == 16 || dayInMonth == 17 || dayInMonth == 18) && dayInWeek != 6) {
         return true;
     }
 }
