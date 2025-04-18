@@ -636,7 +636,7 @@ function setShtibelSetings() {
         dayDiv.style.fontSize = '3rem';
         
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '6.8rem';
+        timeElement.style.fontSize = '6.2rem';
         timeElement.style.top = '4.2vh';
     
         let middleBoxElement = document.querySelector('.middle-box');
@@ -653,7 +653,7 @@ function setShtibelSetings() {
         titleShkiahElement.style.bottom = '8.6vh';
         titleShkiahElement.style.fontSize = '3rem';
     
-        document.querySelector('.msg').style.top = '35vh';
+        document.querySelector('.msg').style.top = '33vh';
         document.querySelector('.daf').style.fontSize = '2.4rem';
         document.querySelector('.date').style.fontSize = '2.4rem';
         document.querySelector('.daf-title').style.fontSize = '1.8rem';
