@@ -601,7 +601,7 @@ function getSefira(omerDay) {
     const units = omerDay % 10;
     const tens = omerDay - units;
     const YOM = omerDay > 10 ? 'יום' : 'ימים';
-    const WEEKS = omerDay > 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
+    const WEEKS = omerDay >= 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
     const TENS_IN_OMER = omerDay > 9 ? (and + tensInOmer[tens / 10] + ' ').replace('עשר ', 'עשרה ').replace('ועשרה ', 'עשר ') : ' ';
     const UNITS_IN_OMER = unitsInOmer[units];
     const DAYS_IN_WEEK = (omerDay > 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים','יום אחד') : '';
