@@ -153,7 +153,7 @@ function refresh() {
     }
 
     if (dayInWeek == 5 && dayOrNight == 'יום ') {
-        specifyMsg.push({color: 'darkblue', text: nerot});
+        // specifyMsg.push({color: 'darkblue', text: nerot}); TODO fix it in Beitar
     }
 
     if (t(isNearToShkiah,[day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
