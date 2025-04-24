@@ -393,13 +393,7 @@ function setMessages(day, specifyMsg) {
     mainImage.classList.remove("image-adar");
     Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
     seconds / 10 % 3 == 0
-    
-    let i = 0;
-    if (specifyMsg.length >= 0) {
-        i = seconds / 15 % specifyMsg.length;
-        console.log( i);
-
-    }
+  
     let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
     let msgText = msg?.text   || MESSAGE;
     let color = msg?.color || 'black';
