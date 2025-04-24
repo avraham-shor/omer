@@ -75,7 +75,12 @@ function refresh() {
 
 
 
-    if (day.sunset() < dateLater && dateLater - day.sunset() > (22*60*1000) && dateLater - day.sunset() < (52*60*1000)) {
+    if (
+        (day.sunset() < dateLater && 
+        dateLater - day.sunset() > (22*60*1000) && 
+        dateLater - day.sunset() < (52*60*1000)) ||
+        hours == 22 && minutes > 3 && minutes < 30
+    ) {
         isStartNight = true;
     }
     else {
