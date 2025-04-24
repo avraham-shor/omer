@@ -53,7 +53,7 @@ let indexAdar = 0;
 
 
 // setMishenichnas();
-writeSize()
+// writeSize()
 
 
 
