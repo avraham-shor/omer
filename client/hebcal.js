@@ -1965,8 +1965,16 @@
 
             return me.setLocation.apply(me, HDate.defaultLocation);
         }
+        //31.70332668248921, 35.11461441971153
 
         HDate.defaultLocation = [31.92939939, 35.04511035];
+        const params = new URLSearchParams(window.location.search);
+        const paramsOfNerot = params.get('nerot');
+        if (paramsOfNerot && paramsOfNerot == '40') {
+            HDate.defaultLocation = [31.70332668248921, 35.11461441971153];
+
+        }
+
         Object.defineProperty(HDate, 'defaultCity', {
             enumerable: true,
             configurable: true,
