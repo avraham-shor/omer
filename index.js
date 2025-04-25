@@ -128,7 +128,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (+localStorage.getItem('nerotBeforeShkiah') || 30 * 60) + 150))) + '@';
+    // const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (+localStorage.getItem('nerotBeforeShkiah') || 30 * 60) + 150))) + '@';
 
 
 
