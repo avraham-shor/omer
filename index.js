@@ -2,12 +2,12 @@
 //window.location.replace("https://aoklivestrim.com/");
 //window.location.replace("https://avraham-shor-venn.github.io/avot/");
 
-const toDayNow = new Date();
-if (toDayNow.getHours() == 18 && toDayNow.getMinutes() > 30 && toDayNow.getDate() == 25 && toDayNow.getMonth() == 0) {
-    window.location.replace("https://avraham-shor-venn.github.io/avot/")
-} {
+// const toDayNow = new Date();
+// if (toDayNow.getHours() == 18 && toDayNow.getMinutes() > 30 && toDayNow.getDate() == 25 && toDayNow.getMonth() == 0) {
+//     window.location.replace("https://avraham-shor-venn.github.io/avot/")
+// } {
     
-}
+// }
 
 //Globals;
 const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
@@ -21,7 +21,6 @@ const tensInOmer = ['','עשר', 'עשרים', 'שלשים', 'ארבעים'];
 const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה', 'ששה', 'שבעה', 'שמונה', 'תשעה'];
 
 // amont time nerot before shkiah in current city.
-let nerotFromStorage;
 // getAmountTimeNerotBeforeShkiah();
 
 let dayOrNight = 'יום ';
@@ -129,7 +128,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (nerotFromStorage || 30 * 60) + 150))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (+localStorage.getItem('nerotBeforeShkiah') || 30 * 60) + 150))) + '@';
 
 
 
@@ -290,16 +289,16 @@ function setCipurMsgs(specifyMsg) {
     }
 }
 
-function getAmountTimeNerotBeforeShkiah() {
-    const seconds = localStorage.getItem('nerotBeforeShkiah');
-    if (seconds) {
-        nerotFromStorage = +seconds;
-    }
-    else {
-        nerotFromStorage = setAndGetNerotToTheStorage();
-    }
+// function getAmountTimeNerotBeforeShkiah() {
+//     const seconds = localStorage.getItem('nerotBeforeShkiah');
+//     if (seconds) {
+//         nerotFromStorage = +seconds;
+//     }
+//     else {
+//         nerotFromStorage = setAndGetNerotToTheStorage();
+//     }
     
-}
+// }
 
 function setAndGetNerotToTheStorage() {
     const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
