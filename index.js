@@ -45,6 +45,9 @@ let isNight;
 let isStartNight;
 
 setShtibelSetings();
+
+const params = new URLSearchParams(window.location.search);
+const paramsOfNerot = params.get('nerot');
 // For Adar;
 const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
 let mishArr = [];
@@ -71,8 +74,7 @@ function refresh() {
 
     day = new Hebcal.HDate();
     dayUntil12 = new Hebcal.HDate();
-
-
+    
 
     if (
         (day.sunset() < dateLater && 
@@ -128,7 +130,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    // const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - (+localStorage.getItem('nerotBeforeShkiah') || 30 * 60) + 150))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((paramsOfNerot || 30) * 60) + 150))) + '@';
 
 
 
@@ -153,7 +155,7 @@ function refresh() {
     }
 
     if (dayInWeek == 5 && dayOrNight == 'יום ') {
-        // specifyMsg.push({color: 'darkblue', text: nerot}); TODO fix it in Beitar
+        specifyMsg.push({color: 'darkblue', text: nerot});
     }
 
     if (t(isNearToShkiah,[day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
@@ -438,7 +440,7 @@ function writeSize() {
 
 function isShowZmanMoilad() {
     const currentMonth = new Hebcal.Month(month, year);
-    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 20) || (hours == 10 && minutes < 59))) {
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 10) || (hours == 10 && minutes < 59))) {
         return true;
     }
 
