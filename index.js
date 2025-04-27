@@ -47,7 +47,9 @@ let isStartNight;
 setShtibelSetings();
 
 const params = new URLSearchParams(window.location.search);
-const paramsOfNerot = params.get('nerot');
+const city = params.get('city');
+const isModiin = city && city == 'm';
+const timeOfNerot = isModiin ? 30 : 40;
 // For Adar;
 const mishMsg = 'משנכנס אדר מרבים בשמחה'.split('');
 let mishArr = [];
@@ -80,7 +82,7 @@ function refresh() {
         (day.sunset() < dateLater && 
         dateLater - day.sunset() > (22*60*1000) && 
         dateLater - day.sunset() < (52*60*1000)) ||
-        (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
+        !isModiin && (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
     ) {
         isStartNight = true;
     }
@@ -130,7 +132,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((paramsOfNerot || 30) * 60) + 150))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + 150))) + '@';
 
 
 
@@ -613,6 +615,9 @@ function getSefira(omerDay) {
 function getParsha() {
     let label = ' פרשת ';
     let parsha = dayUntil12.getParsha('h')[0] || '';
+    if (dayUntil12.getParsha('h').length > 1) {
+        parsha = dayUntil12.getParsha('h')[0] + ' ' + dayUntil12.getParsha('h')[1];
+    }
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
     }
