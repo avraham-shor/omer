@@ -1966,13 +1966,11 @@
             return me.setLocation.apply(me, HDate.defaultLocation);
         }
         //31.70332668248921, 35.11461441971153
-
-        HDate.defaultLocation = [31.92939939, 35.04511035];
+        HDate.defaultLocation = [31.70332668248921, 35.11461441971153];
         const params = new URLSearchParams(window.location.search);
-        const paramsOfNerot = params.get('nerot');
-        if (paramsOfNerot && paramsOfNerot == '40') {
-            HDate.defaultLocation = [31.70332668248921, 35.11461441971153];
-
+        const city = params.get('city');
+        if (city && city == 'm') {
+            HDate.defaultLocation = [31.92939939, 35.04511035];
         }
 
         Object.defineProperty(HDate, 'defaultCity', {
