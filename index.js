@@ -237,7 +237,7 @@ function refresh() {
         specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
     }
 
-    if (!isModiin && sofZmanTefilah) {
+    if (!isModiin) {
         specifyMsg.push({color: 'black', text: MESSAGE});
     }
 
