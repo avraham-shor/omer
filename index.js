@@ -252,7 +252,7 @@ function refresh() {
         sfiraImg.classList.add("hide");
     }
 
-    if (true || omerDay > 0 && isStartNight) {
+    if (omerDay > 0 && isStartNight) {
         // document.querySelector('#omer img').classList.add("up");
         // document.getElementById('sfira-img').classList.add("up");
         const sfiraImg = document.getElementById('sfira-img');
