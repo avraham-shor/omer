@@ -196,7 +196,7 @@
 
 .sfira-text-container {
     position: relative;
-    top: 15vh;
+    top: 17vh;
     left: 0;
     z-index: 20;
     width: 100%;
@@ -217,16 +217,16 @@
 
 .sfira-right {
     position: absolute;
-    bottom: 15vh;
-    right: 17vw;
+    bottom: 17vh;
+    right: 18vw;
     z-index: 22;
     font-size: 4.6rem;
 }
 
 .sfira-left {
     position: absolute;
-    bottom: 15vh;
-    left: 17vw;
+    bottom: 17vh;
+    left: 18vw;
     z-index: 22;
     font-size: 4.6rem;
 }
