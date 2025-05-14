@@ -43,6 +43,7 @@ let minutes;
 let seconds;
 let isNight;
 let isStartNight;
+let omerDay;
 
 setShtibelSetings();
 
@@ -111,10 +112,10 @@ function refresh() {
     hours = date.getHours();
     minutes = date.getMinutes();
     seconds = date.getSeconds();
+    omerDay = day.omer();
 
 
 
-    const omerDay = day.omer();
     const masechtaAndDafArr = day.dafyomi('h').split(" ");
     const dayOfMonth = daysInMonth[dayInMonth];
     const monthHebrew = day.getMonthName('h');
@@ -247,12 +248,24 @@ function refresh() {
         src = 'images/empty2.jpg';
         t(setMessages,[day, specifyMsg]);
         document.querySelector('#omer img').classList.remove("up");
+        const sfiraImg = document.getElementById('sfira-img');
+        sfiraImg.classList.add("hide");
     }
 
-    if (omerDay > 0 && isStartNight) {
-        document.querySelector('#omer img').classList.add("up");
+    if (true || omerDay > 0 && isStartNight) {
+        // document.querySelector('#omer img').classList.add("up");
+        // document.getElementById('sfira-img').classList.add("up");
+        const sfiraImg = document.getElementById('sfira-img');
+        sfiraImg.classList.remove("hide");
+        sfiraImg.classList.add("up");
+        const sfiraText = document.getElementById('sfira-text');
+        sfiraText.classList.remove("hide");
+        sfiraText.innerHTML = ObjectsSefira[omerDay].sfira;
         setCandles(day, dateEarlier);
-
+        const sfiraRight = document.getElementById('sfira-right');
+        sfiraRight.innerHTML = ObjectsSefira[omerDay].right;
+        const sfiraLeft = document.getElementById('sfira-midot');
+        sfiraLeft.innerHTML = ObjectsSefira[omerDay].left;
     }
 
 

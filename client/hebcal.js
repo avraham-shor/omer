@@ -1178,15 +1178,15 @@
             }
         });
 
-        if (navigator.geolocation) {
-            Hebcal.ready = false;
-            navigator.geolocation.getCurrentPosition(function(p) {
-                Hebcal.defaultLocation = [p.coords.latitude, p.coords.longitude];
-                ready();
-            }, ready);
-        } else {
+        // if (navigator.geolocation) {
+        //     Hebcal.ready = false;
+        //     navigator.geolocation.getCurrentPosition(function(p) {
+        //         Hebcal.defaultLocation = [p.coords.latitude, p.coords.longitude];
+        //         ready();
+        //     }, ready);
+        // } else {
             ready();
-        }
+        // }
 
         function ready() {
             Hebcal.ready = true;
