@@ -250,6 +250,9 @@ function refresh() {
         document.querySelector('#omer img').classList.remove("up");
         const sfiraImg = document.getElementById('sfira-img');
         sfiraImg.classList.add("hide");
+        insertIn('#sfira-text', '');
+        insertIn('#sfira-right', '');
+        insertIn('#sfira-midot', '');
     }
 
     if (omerDay > 0 && isStartNight) {
@@ -258,14 +261,10 @@ function refresh() {
         const sfiraImg = document.getElementById('sfira-img');
         sfiraImg.classList.remove("hide");
         sfiraImg.classList.add("up");
-        const sfiraText = document.getElementById('sfira-text');
-        sfiraText.classList.remove("hide");
-        sfiraText.innerHTML = ObjectsSefira[omerDay].sfira;
+        insertIn('#sfira-text', ObjectsSefira[omerDay].sfira);
         setCandles(day, dateEarlier);
-        const sfiraRight = document.getElementById('sfira-right');
-        sfiraRight.innerHTML = ObjectsSefira[omerDay].right;
-        const sfiraLeft = document.getElementById('sfira-midot');
-        sfiraLeft.innerHTML = ObjectsSefira[omerDay].left;
+        insertIn('#sfira-right', ObjectsSefira[omerDay].right);
+        insertIn('#sfira-midot', ObjectsSefira[omerDay].left);
     }
 
 
@@ -633,10 +632,7 @@ function getSefira(omerDay) {
 
 function getParsha() {
     let label = ' פרשת ';
-    let parsha = dayUntil12.getParsha('h')[0] || '';
-    if (dayUntil12.getParsha('h').length > 1) {
-        parsha = dayUntil12.getParsha('h')[0] + ' ' + dayUntil12.getParsha('h')[1];
-    }
+    let parsha = dayUntil12.getParsha('h').join(' ') || '';
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
     }
