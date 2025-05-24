@@ -169,6 +169,8 @@ function refresh() {
 
     if (t(isShowZmanMoilad)) {
         specifyMsg.push({color: 'red', text: t(calculateMoiladAndGetMoiladText)});
+        specifyMsg.push({color: 'brown', text: t(calculateMoiladAndGetMoiladText)});
+        specifyMsg.push({color: 'purple', text: t(calculateMoiladAndGetMoiladText)});
     }
 
     if (t(isHolidayOrCholHamoed)) {
@@ -699,7 +701,26 @@ function isStartBorechOlenu() {
 }
 
 function calculateMoiladAndGetMoiladText() {
-    return "המולד יהיה בליל שני 8:30 ו- 2 חלקים"; //TODO remove after SHVAT
+    switch (month) {
+        case 2:
+            return "המולד יהיה ביום שלישי 9:14 ו- 3 חלקים";
+        case 3:
+            return "המולד יהיה בליל חמישי 9:58 ו- 4 חלקים";
+        case 4:
+            return "המולד יהיה ביום שישי 10:42 ו- 5 חלקים";
+        case 5:
+            return "המולד יהיה במוצ״ש 11:26 ו- 6 חלקים";
+        case 6:
+            return "המולד יהיה ביום שני 12:10 ו- 7 חלקים";
+        case 7:
+            return "המולד יהיה בליל רביעי 12:54 ו- 8 חלקים";
+        case 8:
+            return "המולד יהיה ביום חמישי 01:38 ו- 9 חלקים";
+        case 9:
+            return "המולד היה אתמול בלילה בשעה 02:22 ו- 10 חלקים";
+        default:
+            break;
+    }
     const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
     const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
     const timeOfToday = new Date().getTime();
