@@ -187,7 +187,7 @@ function refresh() {
         specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
-    if (true || t(isStartMoridHatal)) {
+    if (t(isStartMoridHatal)) {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
@@ -537,7 +537,7 @@ function isNearToShkiah(time, now) {
 function isShowTehilim() {
     //debugger;
     if (dayInWeek != 6) {
-        if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
+        if ([6, 7, 8, 9, 17, 18, 19].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
         }
     }
@@ -568,7 +568,7 @@ function isAlHanisim() {
 
 function isSpeakTehilim() {
     if (dayInWeek != 6 && (month == 7 || (month == 6 && dayInWeek != 5))) {
-        if ([6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 19].includes(hours) || (hours == 10 && minutes < 20)) {
+        if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
         }
     }
