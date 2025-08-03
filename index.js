@@ -187,7 +187,7 @@ function refresh() {
         specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
     }
 
-    if (t(isStartMoridHatal)) {
+    if (true || t(isStartMoridHatal)) {
         specifyMsg.push({color: 'red', text: 'מוריד הטל'});
     }
 
