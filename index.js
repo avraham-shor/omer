@@ -125,7 +125,8 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + 150)));
+    const distanceInSeconds = 0; //150;
+    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
@@ -133,7 +134,7 @@ function refresh() {
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + 150))) + '@';
+    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + distanceInSeconds))) + '@';
     const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
 
 
