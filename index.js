@@ -639,8 +639,11 @@ function getParsha() {
     if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
     }
+    //TODO remove after Shabat
+    if (parsha == 'נצבים וילך') {
+        parsha = 'נצבים';
+    }
     if (parsha == 'שביעי של פסח') {
-        debugger;
         parsha = ' פסח ';
     }
 
