@@ -4133,7 +4133,7 @@
             ['Shmini Atzeret', 'Shmini Atzeres', 'שמיני עצרת']
         ]; //0
         var EOY = [
-            ['End-of-Year: Simchat-Torah, Sukkot', 'End-of-Year: Simchas-Torah, Succos', 'סופשנה: סוכות ושמחת תורה']
+            ['End-of-Year: Simchat-Torah, Sukkot', 'End-of-Year: Simchas-Torah, Succos', 'חול המועד סוכות']
         ]; //0
 
         var PESACH = [
