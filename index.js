@@ -536,7 +536,7 @@ function isNearToShkiah(time, now) {
 }
 
 function isShowTehilim() {
-    //debugger;
+    return false; //The war is over
     if (dayInWeek != 6) {
         if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
