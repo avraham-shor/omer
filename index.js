@@ -122,6 +122,7 @@ function refresh() {
     const yearNumber = day.getFullYear() - 5700;
     const sofZman1 = day.getZemanim().sof_zman_shma_A;
     const sofZman2 = day.getZemanim().sof_zman_shma;
+    const sofZmanTefilah = day.getZemanim().sof_zman_tfilla;
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
@@ -135,7 +136,7 @@ function refresh() {
     const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
     const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
     const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + distanceInSeconds))) + '@';
-    const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
+    // const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
 
 
 
@@ -219,6 +220,10 @@ function refresh() {
     if (t(isNearToSofZman,[sofZman2, date])) {
         specifyMsg.push({color: 'red', text: `%סוזק"ש ב'@%` + format_time(sofZman2)});
     }
+
+    if (t(isNearToSofZman,[sofZmanTefilah, date])) {
+        specifyMsg.push({color: 'red', text: `%סוף זמן תפילה@%` + format_time(sofZmanTefilah)});
+    }   
     
     if (omerDay > 0) {
         specifyMsg.push({color: 'black', text: getSefira(omerDay)});
