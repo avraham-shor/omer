@@ -363,7 +363,8 @@ function insertIn(divId, text) {
 }
 
 function format_time(date) {
-    return (date.getHours() % 12 || 12) + ':' + pad(date.getMinutes());
+    const hours = isModiin? date.getHours() % 12 || 12 : date.getHours();
+    return hours + ':' + pad(date.getMinutes());
 }
 
 function formatTimeWithSeconds(date) {
