@@ -126,7 +126,7 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const distanceInSeconds = 60; //150;
+    const distanceInSeconds = 160; //150;
     const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
