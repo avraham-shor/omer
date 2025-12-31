@@ -501,7 +501,7 @@ function isZom(date, day) {
     const tamuzZom = month == 4 && ((dayInWeek == 0 && dayInMonth == 18) || (dayInWeek != 6 && dayInMonth == 17));
     //     const avZom = month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9)); 
     const tishreiZom = month == 7 && ((dayInWeek == 0 && dayInMonth == 4) || (dayInWeek != 6 && dayInMonth == 3));
-    const tevetZom = month == 10 && dayInMonth == 11;
+    const tevetZom = month == 10 && dayInMonth == 10;
     const adar = isLeapYear ? 13 : 12;
     const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 11) || (dayInWeek != 6 && dayInMonth == 13));
     return tamuzZom || tishreiZom || tevetZom || adarZom;
