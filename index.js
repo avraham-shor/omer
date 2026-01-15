@@ -740,7 +740,7 @@ function calculateMoiladAndGetMoiladText() {
     const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
     const timeOfToday = new Date().getTime();
     const amount = Math.round((timeOfToday - BRACK_TIME) / ROUND_OF_MOON);
-    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount + 1));
+    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount));
     hebrewMoiladDay = new Hebcal.HDate(moiladDay);
     if (hebrewMoiladDay.sunset() < moiladDay.getTime()) {
         moiladDay.setDate(moiladDay.getDate() + 1);
