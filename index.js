@@ -6,7 +6,7 @@
 // if (toDayNow.getHours() == 18 && toDayNow.getMinutes() > 30 && toDayNow.getDate() == 25 && toDayNow.getMonth() == 0) {
 //     window.location.replace("https://avraham-shor-venn.github.io/avot/")
 // } {
-    
+
 // }
 
 //Globals;
@@ -16,7 +16,7 @@ const daysInMonth = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', '
 
 const VAL = { 0: '', 1: 'א', 2: 'ב', 3: 'ג', 4: 'ד', 5: 'ה', 6: 'ו', 7: 'ז', 8: 'ח', 9: 'ט', 10: 'י', 20: 'כ', 30: 'ל', 40: 'מ', 50: 'נ', 60: 'ס', 70: 'ע', 80: 'פ', 90: 'צ', 100: 'ק', 200: 'ר', 300: 'ש', 400: 'ת' };
 
-const tensInOmer = ['','עשר', 'עשרים', 'שלשים', 'ארבעים'];
+const tensInOmer = ['', 'עשר', 'עשרים', 'שלשים', 'ארבעים'];
 
 const unitsInOmer = ['', 'אחד', 'שני', 'שלשה', 'ארבעה', 'חמשה', 'ששה', 'שבעה', 'שמונה', 'תשעה'];
 
@@ -77,12 +77,12 @@ function refresh() {
 
     day = new Hebcal.HDate();
     dayUntil12 = new Hebcal.HDate();
-    
+
 
     if (
-        (day.sunset() < dateLater && 
-        dateLater - day.sunset() > (22*60*1000) && 
-        dateLater - day.sunset() < (52*60*1000)) ||
+        (day.sunset() < dateLater &&
+            dateLater - day.sunset() > (22 * 60 * 1000) &&
+            dateLater - day.sunset() < (52 * 60 * 1000)) ||
         !isModiin && (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
     ) {
         isStartNight = true;
@@ -94,14 +94,14 @@ function refresh() {
     if (day.sunset() < dateLater) {
         day = day.next();
         dayOrNight = 'ליל ';
-         isNight = true;
+        isNight = true;
     }
     else {
         dayOrNight = 'יום ';
         isNight = false;
     }
 
-    
+
 
     // Set globals.
 
@@ -126,7 +126,10 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    const distanceInSeconds = 160; //150;
+    let distanceInSeconds = 265; //150;
+    if (isModiin) {
+        distanceInSeconds = 165;
+    }
     const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
@@ -158,103 +161,103 @@ function refresh() {
     setIsHoliday();
 
     if (t(isSiumMasechet, [day])) {
-        specifyMsg.push({color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR});
+        specifyMsg.push({ color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR });
     }
 
     if (dayInWeek == 5 && dayOrNight == 'יום ') {
-        specifyMsg.push({color: 'darkblue', text: nerot});
+        specifyMsg.push({ color: 'darkblue', text: nerot });
     }
 
-    if (t(isNearToShkiah,[day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
-        specifyMsg.push({color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR});
+    if (t(isNearToShkiah, [day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
+        specifyMsg.push({ color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR });
     }
 
     if (t(isShowZmanMoilad)) {
-        specifyMsg.push({color: 'red', text: t(calculateMoiladAndGetMoiladText)});
-        specifyMsg.push({color: 'brown', text: t(calculateMoiladAndGetMoiladText)});
-        specifyMsg.push({color: 'purple', text: t(calculateMoiladAndGetMoiladText)});
+        specifyMsg.push({ color: 'red', text: t(calculateMoiladAndGetMoiladText) });
+        specifyMsg.push({ color: 'brown', text: t(calculateMoiladAndGetMoiladText) });
+        specifyMsg.push({ color: 'purple', text: t(calculateMoiladAndGetMoiladText) });
     }
 
     if (t(isHolidayOrCholHamoed)) {
-        specifyMsg.push({color: 'red', text: 'יעלה ויבוא'});
+        specifyMsg.push({ color: 'red', text: 'יעלה ויבוא' });
     }
 
-    if (t(isZom,[date, day])) {
-        specifyMsg.push({color: 'red', text: 'עננו'});
+    if (t(isZom, [date, day])) {
+        specifyMsg.push({ color: 'red', text: 'עננו' });
     }
 
     const isAfterNoon = date > day.getZemanim().chatzot && date < day.getZemanim().tzeit;
 
     if (isAfterNoon && month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9))) {
-        specifyMsg.push({color: 'red', text: '%נחם%@עננו@'});
+        specifyMsg.push({ color: 'red', text: '%נחם%@עננו@' });
     }
 
     if (t(isStartMoridHatal)) {
-        specifyMsg.push({color: 'red', text: 'מוריד הטל'});
+        specifyMsg.push({ color: 'red', text: 'מוריד הטל' });
     }
 
-    if (t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length ) {
-        specifyMsg.push({color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || ''});
+    if (t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length) {
+        specifyMsg.push({ color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || '' });
     }
 
     if (t(isStartAseretYemeiTeshuva)) {
-        specifyMsg.push({color: 'red', text: 'המלך'});
+        specifyMsg.push({ color: 'red', text: 'המלך' });
     }
-    
+
     if (t(isStartBorchenu)) {
-        specifyMsg.push({color: 'red', text: 'ברכנו'});
+        specifyMsg.push({ color: 'red', text: 'ברכנו' });
     }
 
     if (t(isStartMoridHageshem)) {
-        specifyMsg.push({color: 'red', text: '%משיב הרוח%@ומוריד הגשם@'});
+        specifyMsg.push({ color: 'red', text: '%משיב הרוח%@ומוריד הגשם@' });
     }
 
     if (t(isStartBorechOlenu)) {
-        specifyMsg.push({color: 'red', text: 'ברך עלינו'});
+        specifyMsg.push({ color: 'red', text: 'ברך עלינו' });
     }
 
     if (t(isAlHanisim)) {
-        specifyMsg.push({color: 'red', text: 'על הניסים'});
+        specifyMsg.push({ color: 'red', text: 'על הניסים' });
     }
 
-    if (t(isNearToSofZman,[sofZman2, date])) {
-        specifyMsg.push({color: 'red', text: `%סוזק"ש ב'@%` + format_time(sofZman2)});
+    if (t(isNearToSofZman, [sofZman2, date])) {
+        specifyMsg.push({ color: 'red', text: `%סוזק"ש ב'@%` + format_time(sofZman2) });
     }
 
-    if (t(isNearToSofZman,[sofZmanTefilah, date])) {
-        specifyMsg.push({color: 'red', text: `%סוף זמן תפילה@%` + format_time(sofZmanTefilah)});
-    }   
-    
+    if (t(isNearToSofZman, [sofZmanTefilah, date])) {
+        specifyMsg.push({ color: 'red', text: `%סוף זמן תפילה@%` + format_time(sofZmanTefilah) });
+    }
+
     if (omerDay > 0) {
-        specifyMsg.push({color: 'black', text: getSefira(omerDay)});
+        specifyMsg.push({ color: 'black', text: getSefira(omerDay) });
     }
 
-    if (t(isNearToSofZman,[sofZman1, date])) {
-        specifyMsg.push({color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1)});
+    if (t(isNearToSofZman, [sofZman1, date])) {
+        specifyMsg.push({ color: 'red', text: `%סוזק"ש א'@%` + format_time(sofZman1) });
     }
 
     t(setCipurMsgs, [specifyMsg]);
-    
+
     if (t(isSpeakTehilim)) {
         const tehilimSeder = t(getTehilimDay);
         if (tehilimSeder) {
-            specifyMsg.push({color: 'darkblue', text: `%תהלים@%` + 'סדר ' + tehilimSeder});   
+            specifyMsg.push({ color: 'darkblue', text: `%תהלים@%` + 'סדר ' + tehilimSeder });
         };
     }
 
     if (t(isEndColelim)) {
-        specifyMsg.push({color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.'});
+        specifyMsg.push({ color: 'black', text: '%לומד יקר !@% אנא, החזר את הספרים שהשתמשת בהם למקומם.' });
     }
 
     if (!isModiin) {
-        specifyMsg.push({color: 'black', text: MESSAGE});
+        specifyMsg.push({ color: 'black', text: MESSAGE });
     }
 
     let src = 'images/SfiratHaomer' + omerDay + '.jpg';
 
     if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
-        t(setMessages,[day, specifyMsg]);
+        t(setMessages, [day, specifyMsg]);
         document.querySelector('#omer img').classList.remove("up");
         const sfiraImg = document.getElementById('sfira-img');
         sfiraImg.classList.add("hide");
@@ -327,7 +330,7 @@ function setCipurMsgs(specifyMsg) {
 //     else {
 //         nerotFromStorage = setAndGetNerotToTheStorage();
 //     }
-    
+
 // }
 
 function setAndGetNerotToTheStorage() {
@@ -368,7 +371,7 @@ function insertIn(divId, text) {
 }
 
 function format_time(date) {
-    const hours = isModiin? date.getHours() % 12 || 12 : date.getHours();
+    const hours = isModiin ? date.getHours() % 12 || 12 : date.getHours();
     return hours + ':' + pad(date.getMinutes());
 }
 
@@ -385,7 +388,7 @@ function setMessages(day, specifyMsg) {
     const sunset = day.sunset();
     const date = new Date();
     // if (month == 11 && dayInMonth == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
-        if (month == 11 && dayInMonth == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
+    if (month == 11 && dayInMonth == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
 
         Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
@@ -419,29 +422,29 @@ function setMessages(day, specifyMsg) {
         }
     }
     else {
-    msgObj.classList.add('msg');
-    mainImage.classList.remove("image-adar");
-    Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
-    seconds / 10 % 3 == 0
-  
-    let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
-    let msgText = msg?.text   || MESSAGE;
-    let color = msg?.color || 'black';
-  
-    if (window.screen.height < 400 && window.screen.width < 900) {
-        sizeForAndroid = 0.5;
+        msgObj.classList.add('msg');
+        mainImage.classList.remove("image-adar");
+        Array.from(divsToHide).forEach(div => div.classList.remove('hide'));
+        seconds / 10 % 3 == 0
+
+        let msg = specifyMsg[Math.floor(seconds / 10 % specifyMsg.length)];
+        let msgText = msg?.text || MESSAGE;
+        let color = msg?.color || 'black';
+
+        if (window.screen.height < 400 && window.screen.width < 900) {
+            sizeForAndroid = 0.5;
+        }
+
+        if (window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960) {
+            sizeForAndroid = 0.55;
+            t(writeSize)
+        }
+
+        msgObj.style.fontSize = (10 - msgText.length / 10) * sizeForAndroid + 'vw';
+        msgObj.style.color = color;
+        msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
+
     }
-
-    if (window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960) {
-        sizeForAndroid = 0.55;
-        t(writeSize)
-    }
-
-    msgObj.style.fontSize = (10 - msgText.length / 10) * sizeForAndroid + 'vw';
-    msgObj.style.color = color;
-    msgObj.innerHTML = msgText.replace('%', '<div>').replace('@', '</div>').replace('%', '<div class="in-div">').replace('@', '</div>');
-
-}
 }
 
 
@@ -460,9 +463,9 @@ function writeSize() {
         const innerWidth = window.innerWidth;
         const height = window.screen.height;
         const width = window.screen.width;
-       insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width); 
+        insertIn('#size', 'innerHeight: ' + innerHeight + '; innerWidth: ' + innerWidth + '; height: ' + height + '; width: ' + width);
     } catch (error) {
-        console.log('error:', error);        
+        console.log('error:', error);
     }
 }
 
@@ -511,7 +514,7 @@ function isStartAseretYemeiTeshuva() {
     if (month == 7 && [1, 2, 3, 4].includes(dayInMonth)) {
         return true;
     }
-    
+
 }
 
 function isHolidayOrCholHamoed() {
@@ -619,23 +622,23 @@ function isStartBorchenu() {
 function isEndColelim() {
     const HH = hours;
     const MM = minutes;
-    return !isHoliday && (dayInWeek != 5 && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) || 
-            (dayInWeek == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
-);
+    return !isHoliday && (dayInWeek != 5 && (HH == 13 || HH == 19) && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1) ||
+        (dayInWeek == 5 && HH == 13 && (Math.floor(MM / 10) == 0 || Math.floor(MM / 10) == 1))
+    );
 }
 
 function getSefira(omerDay) {
-    const and = omerDay % 10 == 0 ? '': ' ו';
+    const and = omerDay % 10 == 0 ? '' : ' ו';
     const units = omerDay % 10;
     const tens = omerDay - units;
     const YOM = omerDay > 10 ? 'יום' : 'ימים';
     const WEEKS = omerDay >= 7 ? ' שהם ' + (unitsInOmer[Math.floor(omerDay / 7)] + ' שבועות').replace('אחד שבועות', 'שבוע אחד') : '';
     const TENS_IN_OMER = omerDay > 9 ? (and + tensInOmer[tens / 10] + ' ').replace('עשר ', 'עשרה ').replace('ועשרה ', 'עשר ') : ' ';
     const UNITS_IN_OMER = unitsInOmer[units];
-    const DAYS_IN_WEEK = (omerDay >= 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים','יום אחד') : '';
+    const DAYS_IN_WEEK = (omerDay >= 8 && omerDay % 7 != 0) ? ' ו' + (unitsInOmer[omerDay % 7] + ' ימים').replace('אחד ימים', 'יום אחד') : '';
     const omerDays = (UNITS_IN_OMER + TENS_IN_OMER + YOM).replace('אחד ימים', 'יום אחד').replace('י ו', 'ים ו').replace('י ע', 'ים ע');
     return "היום " + omerDays + WEEKS + DAYS_IN_WEEK + " לעומר";
-    
+
 }
 
 function getParsha() {
@@ -665,11 +668,11 @@ function setShtibelSetings() {
         let dayDiv = document.querySelector('.day');
         dayDiv.style.top = '0.5vh';
         dayDiv.style.fontSize = '3rem';
-        
+
         let timeElement = document.querySelector('.time');
         timeElement.style.fontSize = '6.2rem';
         timeElement.style.top = '4.2vh';
-    
+
         let middleBoxElement = document.querySelector('.middle-box');
         middleBoxElement.style.fontSize = '2.5rem';
         middleBoxElement.style.top = '48vh';
@@ -683,7 +686,7 @@ function setShtibelSetings() {
         let titleShkiahElement = document.querySelector('.title-shkiah');
         titleShkiahElement.style.bottom = '8.6vh';
         titleShkiahElement.style.fontSize = '3rem';
-    
+
         document.querySelector('.msg').style.top = '33vh';
         document.querySelector('.daf').style.fontSize = '2.4rem';
         document.querySelector('.date').style.fontSize = '2.4rem';
@@ -692,7 +695,7 @@ function setShtibelSetings() {
 }
 
 function isSizeOfShtibel() {
-    return  window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960;   
+    return window.innerHeight == 551 && window.innerWidth == 980 && window.screen.height == 540 && window.screen.width == 960;
 }
 
 function isStartMoridHageshem() {
@@ -747,13 +750,13 @@ function calculateMoiladAndGetMoiladText() {
     }
     const moiladDayInWords = days[moiladDay.getDay()];
     console.log("moiladDay:", moiladDay.getUTCHours(), moiladDay.getHours());
-    
+
     const dayOrNight = moiladDay.getHours() >= 6 && moiladDay.getHours() < 18 ? 'ביום ' : 'בליל ';
     const moladHours = moiladDay.getUTCHours();
     const moladMinutes = moiladDay.getUTCMinutes();
     const moladSeconds = moiladDay.getUTCSeconds();
     const totalChalakim = (moladHours * 1080) + (moladMinutes * 18) + Math.floor(moladSeconds / 3);
-    const chalakim = totalChalakim % 18;   
+    const chalakim = totalChalakim % 18;
     moiladDay.setHours(moiladDay.getUTCHours() + 2);
     let chalakimText;
     if (chalakim == 0) {
