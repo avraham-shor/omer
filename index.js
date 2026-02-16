@@ -278,25 +278,16 @@ function refresh() {
         insertIn('#sfira-midot', ObjectsSefira[omerDay].left);
     }
 
-
-    // if (false && (month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
-    //     // src = 'images/purimBG.pdf'
-
-    //     const purimSrc = 'images/purim' + Math.round(minutes / 3) % 10 + '.jpg';
-    //     const purim = document.getElementById('purim');
-    //     purim.src = purimSrc;
-    //     opacity = opacity + 10 * changeOpacity;
-    //     purim.style.opacity = opacity > -1 ? (opacity / 100) : 0;
-
-    //     if (opacity >= 150) {
-    //         changeOpacity *= -1;
-    //     }
-    //     if (opacity < -600) {
-    //         changeOpacity *= -1;
-    //     }
-
-    //     // console.log(purim.style.opacity);
-    // }
+    if ((month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
+        const purim = document.getElementById('purim');
+        if (minutes % 5 == 0) {
+            const purimSrc = 'images/purim' + (minutes / 5) + '.jpg';
+            purim.src = purimSrc;
+            purim.style.opacity = 1;
+        } else {
+            purim.style.opacity = 0;
+        }
+    }
     document.querySelector('#omer img').src = src;
 
 
