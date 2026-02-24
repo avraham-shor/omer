@@ -127,9 +127,9 @@ function refresh() {
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
-    let distanceInSeconds = 265; //150;
+    let distanceInSeconds = 205; //150;
     if (isModiin) {
-        distanceInSeconds = 165;
+        distanceInSeconds = 105;
     }
     const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds)));
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
@@ -279,7 +279,7 @@ function refresh() {
         insertIn('#sfira-midot', ObjectsSefira[omerDay].left);
     }
 
-    if ((month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
+    if (false && (month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
         const purim = document.getElementById('purim');
         if (minutes % 5 == 0) {
             const purimSrc = 'images/purim' + (minutes / 5) + '.jpg';
