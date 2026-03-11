@@ -32,13 +32,13 @@ const MESSAGE = 'משנכנס אדר מרבים בשמחה';
 
 // let changeOpacity = 1;
 
-let day;
+let hebDate;
 let dayUntil12;
 let isHoliday = false;
 let dayInWeek;
 let month;
 let year;
-let dayInMonth;
+let day;
 let hours;
 let minutes;
 let seconds;
@@ -76,14 +76,14 @@ function refresh() {
     dateEarlier = dateEarlier.setMinutes(dateEarlier.getMinutes() + 29);
     isHoliday = false;
 
-    day = new Hebcal.HDate();
+    hebDate = new Hebcal.HDate();
     dayUntil12 = new Hebcal.HDate();
 
 
     if (
-        (day.sunset() < dateLater &&
-            dateLater - day.sunset() > (22 * 60 * 1000) &&
-            dateLater - day.sunset() < (52 * 60 * 1000)) ||
+        (hebDate.sunset() < dateLater &&
+            dateLater - hebDate.sunset() > (22 * 60 * 1000) &&
+            dateLater - hebDate.sunset() < (52 * 60 * 1000)) ||
         !isModiin && (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
     ) {
         isStartNight = true;
@@ -92,8 +92,8 @@ function refresh() {
         isStartNight = false;
     }
 
-    if (day.sunset() < dateLater) {
-        day = day.next();
+    if (hebDate.sunset() < dateLater) {
+        hebDate = hebDate.next();
         dayOrNight = 'ליל ';
         isNight = true;
     }
@@ -106,24 +106,24 @@ function refresh() {
 
     // Set globals.
 
-    dayInWeek = day.getDay();
-    dayInMonth = day.day;
-    month = day.month;
-    year = day.year;
+    dayInWeek = hebDate.getDay();
+    day = hebDate.day;
+    month = hebDate.month;
+    year = hebDate.year;
     hours = date.getHours();
     minutes = date.getMinutes();
     seconds = date.getSeconds();
-    omerDay = day.omer();
+    omerDay = hebDate.omer();
 
 
 
-    const masechtaAndDafArr = day.dafyomi('h').split(" ");
-    const dayOfMonth = daysInMonth[dayInMonth];
-    const monthHebrew = day.getMonthName('h');
-    const yearNumber = day.getFullYear() - 5700;
-    const sofZman1 = day.getZemanim().sof_zman_shma_A;
-    const sofZman2 = day.getZemanim().sof_zman_shma;
-    const sofZmanTefilah = day.getZemanim().sof_zman_tfilla;
+    const masechtaAndDafArr = hebDate.dafyomi('h').split(" ");
+    const dayOfMonth = daysInMonth[day];
+    const monthHebrew = hebDate.getMonthName('h');
+    const yearNumber = hebDate.getFullYear() - 5700;
+    const sofZman1 = hebDate.getZemanim().sof_zman_shma_A;
+    const sofZman2 = hebDate.getZemanim().sof_zman_shma;
+    const sofZmanTefilah = hebDate.getZemanim().sof_zman_tfilla;
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
@@ -137,9 +137,9 @@ function refresh() {
 
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
-    const netz = 'נץ החמה: ' + format_time(day.getZemanim().neitz_hachama);
-    const mincha = 'מנחה: ' + format_time(day.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(day.sunset().setSeconds(day.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + distanceInSeconds))) + '@';
+    const netz = 'נץ החמה: ' + format_time(hebDate.getZemanim().neitz_hachama);
+    const mincha = 'מנחה: ' + format_time(hebDate.getZemanim().mincha_gedola);
+    const nerot = 'הדלקת נרות%' + format_time(new Date(hebDate.sunset().setSeconds(hebDate.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + distanceInSeconds))) + '@';
     // const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
 
 
@@ -161,7 +161,7 @@ function refresh() {
 
     setIsHoliday();
 
-    if (t(isSiumMasechet, [day])) {
+    if (t(isSiumMasechet, [hebDate])) {
         specifyMsg.push({ color: 'darkblue', text: 'הדרן עלך מסכת ' + MASECHTA_STR });
     }
 
@@ -169,7 +169,7 @@ function refresh() {
         specifyMsg.push({ color: 'darkblue', text: nerot });
     }
 
-    if (t(isNearToShkiah, [day.sunset().setMinutes(day.sunset().getMinutes() + 1), date])) {
+    if (t(isNearToShkiah, [hebDate.sunset().setMinutes(hebDate.sunset().getMinutes() + 1), date])) {
         specifyMsg.push({ color: 'black', text: "%שקיעת החמה@%" + SHKIAH_STR });
     }
 
@@ -183,13 +183,13 @@ function refresh() {
         specifyMsg.push({ color: 'red', text: 'יעלה ויבוא' });
     }
 
-    if (t(isZom, [date, day])) {
+    if (t(isZom, [date, hebDate])) {
         specifyMsg.push({ color: 'red', text: 'עננו' });
     }
 
-    const isAfterNoon = date > day.getZemanim().chatzot && date < day.getZemanim().tzeit;
+    const isAfterNoon = date > hebDate.getZemanim().chatzot && date < hebDate.getZemanim().tzeit;
 
-    if (isAfterNoon && month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9))) {
+    if (isAfterNoon && month == 5 && ((dayInWeek == 0 && day == 10) || (dayInWeek != 6 && day == 9))) {
         specifyMsg.push({ color: 'red', text: '%נחם%@עננו@' });
     }
 
@@ -197,8 +197,8 @@ function refresh() {
         specifyMsg.push({ color: 'red', text: 'מוריד הטל' });
     }
 
-    if (t(isShowTehilim) && tehilimByDays[dayInMonth] && tehilimByDays[dayInMonth].length) {
-        specifyMsg.push({ color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[dayInMonth] || '' });
+    if (t(isShowTehilim) && tehilimByDays[day] && tehilimByDays[day].length) {
+        specifyMsg.push({ color: 'darkblue', text: `%פרקי תהלים@%` + tehilimByDays[day] || '' });
     }
 
     if (t(isStartAseretYemeiTeshuva)) {
@@ -258,7 +258,7 @@ function refresh() {
 
     if (omerDay == 0 || !isStartNight) {
         src = 'images/empty2.jpg';
-        t(setMessages, [day, specifyMsg]);
+        t(setMessages, [hebDate, specifyMsg]);
         document.querySelector('#omer img').classList.remove("up");
         const sfiraImg = document.getElementById('sfira-img');
         sfiraImg.classList.add("hide");
@@ -274,12 +274,12 @@ function refresh() {
         sfiraImg.classList.remove("hide");
         sfiraImg.classList.add("up");
         insertIn('#sfira-text', ObjectsSefira[omerDay].sfira);
-        setCandles(day, dateEarlier);
+        setCandles(hebDate, dateEarlier);
         insertIn('#sfira-right', ObjectsSefira[omerDay].right);
         insertIn('#sfira-midot', ObjectsSefira[omerDay].left);
     }
 
-    if (false && (month == 12 || month == 13 || (month == 11 && dayInMonth == 30))) {
+    if (false && (month == 12 || month == 13 || (month == 11 && day == 30))) {
         const purim = document.getElementById('purim');
         if (minutes % 5 == 0) {
             const purimSrc = 'images/purim' + (minutes / 5) + '.jpg';
@@ -300,8 +300,8 @@ function refresh() {
 }
 
 function setCipurMsgs(specifyMsg) {
-    if (day.month == 7 && (day.day == 10 || day.day == 11)) {
-        if (day.day == 10) {
+    if (hebDate.month == 7 && (hebDate.day == 10 || hebDate.day == 11)) {
+        if (hebDate.day == 10) {
             specifyMsg.push({ color: 'darkblue', text: 'המלך' });
             if (hours == 17 && minutes > 30 || (hours == 18 && minutes < 30)) {
                 specifyMsg.push({ color: 'red', text: 'וחתמנו' });
@@ -334,11 +334,11 @@ function setAndGetNerotToTheStorage() {
 }
 
 function setIsHoliday() {
-    const shavuot = month == 3 && dayInMonth == 7;
-    const pesach = month == 1 && (dayInMonth == 15 || dayInMonth == 21);
-    const sucot = month == 7 && (dayInMonth == 15 || dayInMonth == 22);
-    const roshHashana = month == 7 && dayInMonth == 2;
-    const cipur = month == 7 && dayInMonth == 10;
+    const shavuot = month == 3 && day == 7;
+    const pesach = month == 1 && (day == 15 || day == 21);
+    const sucot = month == 7 && (day == 15 || day == 22);
+    const roshHashana = month == 7 && day == 2;
+    const cipur = month == 7 && day == 10;
     if (dayInWeek == 6 || shavuot || pesach || sucot || roshHashana || cipur) {
         isHoliday = true;
     }
@@ -379,8 +379,8 @@ function setMessages(day, specifyMsg) {
     const divsToHide = document.getElementsByClassName('dth');
     const sunset = day.sunset();
     const date = new Date();
-    // if (month == 11 && dayInMonth == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
-    if (month == 11 && dayInMonth == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
+    // if (month == 11 && day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
+    if (month == 11 && day == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
 
         Array.from(divsToHide).forEach(div => div.classList.add('hide'));
 
@@ -463,7 +463,7 @@ function writeSize() {
 
 function isShowZmanMoilad() {
     const currentMonth = new Hebcal.Month(month, year);
-    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 10) || (hours == 10 && minutes < 59))) {
+    if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day && ((hours == 9 && minutes > 10) || (hours == 10 && minutes < 59))) {
         return true;
     }
 
@@ -472,7 +472,7 @@ function isShowZmanMoilad() {
 // function showZmanMoilad(day, hours, minutes) {
 
 // // TODO המולד של חודשים אדר תמוז אלול לא תקינים
-//     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == dayInMonth && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
+//     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
 //         return calculateMoiladAndGetMoiladText()
 
 
@@ -493,31 +493,31 @@ function isZom(date, day) {
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
     }
-    const tamuzZom = month == 4 && ((dayInWeek == 0 && dayInMonth == 18) || (dayInWeek != 6 && dayInMonth == 17));
-    //     const avZom = month == 5 && ((dayInWeek == 0 && dayInMonth == 10) || (dayInWeek != 6 && dayInMonth == 9)); 
-    const tishreiZom = month == 7 && ((dayInWeek == 0 && dayInMonth == 4) || (dayInWeek != 6 && dayInMonth == 3));
-    const tevetZom = month == 10 && dayInMonth == 10;
+    const tamuzZom = month == 4 && ((dayInWeek == 0 && day == 18) || (dayInWeek != 6 && day == 17));
+    //     const avZom = month == 5 && ((dayInWeek == 0 && day == 10) || (dayInWeek != 6 && day == 9)); 
+    const tishreiZom = month == 7 && ((dayInWeek == 0 && day == 4) || (dayInWeek != 6 && day == 3));
+    const tevetZom = month == 10 && day == 10;
     const adar = isLeapYear ? 13 : 12;
-    const adarZom = month == adar && ((dayInWeek == 4 && dayInMonth == 11) || (dayInWeek != 6 && dayInMonth == 13));
+    const adarZom = month == adar && ((dayInWeek == 4 && day == 11) || (dayInWeek != 6 && day == 13));
     return tamuzZom || tishreiZom || tevetZom || adarZom;
 }
 
 function isStartAseretYemeiTeshuva() {
-    if (month == 7 && [1, 2, 3, 4].includes(dayInMonth)) {
+    if (month == 7 && [1, 2, 3, 4].includes(day)) {
         return true;
     }
 
 }
 
 function isHolidayOrCholHamoed() {
-    const roshChodesh = dayInMonth == 30 || dayInMonth == 1;
-    // const roshChodeshBug = month != 5 && month != 6 && dayInMonth == 2;
+    const roshChodesh = day == 30 || day == 1;
+    // const roshChodeshBug = month != 5 && month != 6 && day == 2;
     const cholHamoedDays = [15, 16, 17, 18, 19, 20, 21];
-    const pesach = month == 1 && cholHamoedDays.includes(dayInMonth);
-    const shavuot = month == 3 && dayInMonth == 6;
-    const roshHashana = month == 7 && dayInMonth == 2;
-    const cipur = month == 7 && dayInMonth == 10;
-    const sucot = month == 7 && (cholHamoedDays.includes(dayInMonth) || dayInMonth == 22);
+    const pesach = month == 1 && cholHamoedDays.includes(day);
+    const shavuot = month == 3 && day == 6;
+    const roshHashana = month == 7 && day == 2;
+    const cipur = month == 7 && day == 10;
+    const sucot = month == 7 && (cholHamoedDays.includes(day) || day == 22);
     return roshChodesh || pesach || shavuot || sucot;
 }
 
@@ -560,10 +560,10 @@ function isAlHanisim() {
     const chanucaDays = [25, 26, 27, 28, 29, 30];
     const cislevSmall = new Hebcal.HDate("כו כסלו").daysInMonth() == 29;
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
-    const chanucaCislev = month == 9 && chanucaDays.includes(dayInMonth);
-    const chanucaTevet = month == 10 && (dayInMonth == 1 || dayInMonth == 2 || cislevSmall && dayInMonth == 3);
+    const chanucaCislev = month == 9 && chanucaDays.includes(day);
+    const chanucaTevet = month == 10 && (day == 1 || day == 2 || cislevSmall && day == 3);
     const adar = isLeapYear ? 13 : 12;
-    const purim = dayInMonth == 14 && month == adar;
+    const purim = day == 14 && month == adar;
     return chanucaCislev || chanucaTevet || purim;
 }
 
@@ -589,7 +589,7 @@ function getTehilimDay() {
             console.log("seder:", seder);
             console.log("יום בשבוע:", d.getDay() + 1);
             console.log("יום בחודש:", d.day);
-            if (d.day == dayInMonth && d.month == month) {
+            if (d.day == day && d.month == month) {
                 return daysInMonth[seder];
             }
             seder++;
@@ -599,14 +599,14 @@ function getTehilimDay() {
 
 function isStartMoridHatal() {
     if (month == 1) {
-        if (dayInMonth == 16 || (dayInMonth == 15 && hours > 10 && hours < 19)) {
+        if (day == 16 || (day == 15 && hours > 10 && hours < 19)) {
             return true;
         }
     }
 }
 
 function isStartBorchenu() {
-    if (month == 1 && (dayInMonth == 16 || dayInMonth == 17 || dayInMonth == 18) && dayInWeek != 6) {
+    if (month == 1 && (day == 16 || day == 17 || day == 18) && dayInWeek != 6) {
         return true;
     }
 }
@@ -692,14 +692,14 @@ function isSizeOfShtibel() {
 
 function isStartMoridHageshem() {
     if (month == 7) {
-        if (dayInMonth == 24 || dayInMonth == 23 || (dayInMonth == 22 && hours > 10 && hours < 19)) {
+        if (day == 24 || day == 23 || (day == 22 && hours > 10 && hours < 19)) {
             return true;
         }
     }
 }
 
 function isStartBorechOlenu() {
-    if (month == 8 && (dayInMonth == 7 || dayInMonth == 8) && dayInWeek != 6) {
+    if (month == 8 && (day == 7 || day == 8) && dayInWeek != 6) {
         return true;
     }
 }
