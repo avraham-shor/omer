@@ -46,6 +46,8 @@ let isNight;
 let isStartNight;
 let omerDay;
 
+let zmanimFromApi;
+
 setShtibelSetings();
 
 const params = new URLSearchParams(window.location.search);
@@ -58,6 +60,7 @@ let mishArr = [];
 const colors = ['red', 'blue', 'yellow', 'green', 'orange', 'brown', 'black', 'purple', 'gold', 'pink', 'gray', 'turquoise', 'beige', 'maroon'];
 let indexAdar = 0;
 
+updateZmanim();
 
 // setMishenichnas();
 // writeSize()
@@ -69,7 +72,6 @@ function refresh() {
     const msgObject = [];
     // const warningMsgs = [];
     let date = new Date();
-    //let date2 = new Date();
     let dateLater = new Date();
     let dateEarlier = new Date();
     dateLater = dateLater.setMinutes(dateLater.getMinutes() - 13);
@@ -78,7 +80,6 @@ function refresh() {
 
     hebDate = new Hebcal.HDate();
     dayUntil12 = new Hebcal.HDate();
-
 
     if (
         (hebDate.sunset() < dateLater &&
@@ -116,14 +117,17 @@ function refresh() {
     omerDay = hebDate.omer();
 
 
-
+    const localZmanim = hebDate.getZemanim();
     const masechtaAndDafArr = hebDate.dafyomi('h').split(" ");
     const dayOfMonth = daysInMonth[day];
     const monthHebrew = hebDate.getMonthName('h');
     const yearNumber = hebDate.getFullYear() - 5700;
-    const sofZman1 = hebDate.getZemanim().sof_zman_shma_A;
-    const sofZman2 = hebDate.getZemanim().sof_zman_shma;
-    const sofZmanTefilah = hebDate.getZemanim().sof_zman_tfilla;
+    const sofZman1BeforeRounding = zmanimFromApi ? zmanimFromApi.sofZmanShmaMGA19Point8 : localZmanim.sof_zman_shma_A;
+    const sofZman2BeforeRounding = zmanimFromApi ? zmanimFromApi.sofZmanShma : localZmanim.sof_zman_shma;
+    const sofZmanTefilahBeforeRounding = zmanimFromApi ? zmanimFromApi.sofZmanTfilla : localZmanim.sof_zman_tfilla;
+    const sofZman1 = roundMinute(sofZman1BeforeRounding, "down");
+    const sofZman2 = roundMinute(sofZman2BeforeRounding, "down");
+    const sofZmanTefilah = roundMinute(sofZmanTefilahBeforeRounding, "down");
     const units = yearNumber % 10;
     const tens = yearNumber - units;
     const yearHebrew = 'תש' + (!units ? '"' : '') + VAL[tens] + (units ? '"' + VAL[units] : '');
@@ -131,15 +135,18 @@ function refresh() {
     if (isModiin) {
         distanceInSeconds = 105;
     }
-    const SHKIAH_STR = format_time(new Date(dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds)));
+    const sunset = dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds);
+    const shkiah = roundMinute(zmanimFromApi? zmanimFromApi.sunset : sunset);
+    const SHKIAH_STR = format_time(shkiah);
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
+    
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
-    const netz = 'נץ החמה: ' + format_time(hebDate.getZemanim().neitz_hachama);
-    const mincha = 'מנחה: ' + format_time(hebDate.getZemanim().mincha_gedola);
-    const nerot = 'הדלקת נרות%' + format_time(new Date(hebDate.sunset().setSeconds(hebDate.sunset().getSeconds() - ((timeOfNerot || 30) * 60) + distanceInSeconds))) + '@';
+    const netz = 'נץ החמה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.tzeit72min : localZmanim.neitz_hachama));
+    const mincha = 'מנחה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.minchaGedola : localZmanim.mincha_gedola, "up"));
+    const nerot = 'הדלקת נרות%' + format_time(shkiah.setMinutes(shkiah.getMinutes() - timeOfNerot)) + '@';
     // const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
 
 
@@ -152,7 +159,6 @@ function refresh() {
     insertIn('#daf', DAF_STR);
     insertIn('#shma2', SHMA_STR2);
     insertIn('#shma1', SHMA_STR1);
-    //insertIn('#date', DATE_STR);
     insertIn('#day-of-month', dayOfMonth);
     insertIn('#month', monthHebrew);
     insertIn('#year', yearHebrew);
@@ -293,7 +299,7 @@ function refresh() {
 
 
 
-    setTimeout('refresh()', 2000);
+    setTimeout(refresh, 2000);
 
 
 
@@ -314,16 +320,20 @@ function setCipurMsgs(specifyMsg) {
     }
 }
 
-// function getAmountTimeNerotBeforeShkiah() {
-//     const seconds = localStorage.getItem('nerotBeforeShkiah');
-//     if (seconds) {
-//         nerotFromStorage = +seconds;
-//     }
-//     else {
-//         nerotFromStorage = setAndGetNerotToTheStorage();
-//     }
-
-// }
+function roundMinute(date, direction) {
+    if (typeof date != 'object') {
+        date = new Date(date);
+    }
+    const interval = 60 * 1000;
+    switch (direction) {
+        case "up":
+            return new Date(Math.ceil(date.getTime() / interval) * interval);
+        case "down":
+            return new Date(Math.floor(date.getTime() / interval) * interval);
+        default:
+            return new Date(Math.round(date.getTime() / interval) * interval);
+    }
+}
 
 function setAndGetNerotToTheStorage() {
     const minutes = prompt('כמה דקות לפני השקיעה, הדלקת הנרות בעירכם?');
@@ -363,6 +373,9 @@ function insertIn(divId, text) {
 }
 
 function format_time(date) {
+    if (typeof date != 'object') {
+        date = new Date(date);
+    }
     const hours = isModiin ? date.getHours() % 12 || 12 : date.getHours();
     return hours + ':' + pad(date.getMinutes());
 }
@@ -377,7 +390,6 @@ function setMessages(day, specifyMsg) {
     const msgObj = document.querySelector('#msg');
     const mainImage = document.querySelector('#main-img');
     const divsToHide = document.getElementsByClassName('dth');
-    const sunset = day.sunset();
     const date = new Date();
     // if (month == 11 && day == 29 && day.sunset() <= date && day.sunset() - date < (1000 * 60 * 15)) {
     if (month == 11 && day == 29 && !isNight && date.getHours() == 17 && date.getMinutes() >= 39 && date.getMinutes() < 54) {
@@ -781,9 +793,47 @@ function t(func, args) {
     }
 }
 
+async function getDataFromApi(latitude, longitude, tzid, elev, sec, date) {
+    const { data } = await axios.get(
+        "https://www.hebcal.com/zmanim",
+        {
+            params: {
+                cfg: "json",
+                latitude: latitude,
+                longitude: longitude,
+                tzid: tzid,
+                ue: "on",
+                elev: elev,
+                sec: sec,
+                date: date,
+            },
+        },
+    );
+    return data;
+}
+
+function updateZmanim() {
+    const date = new Date();
+    const latitude = isModiin ? 31.92939939 : 31.70332668248921;
+    const longitude = isModiin ? 35.04511035 : 35.11461441971153;
+    const elevation = isModiin ? 300 : 600;
+    try {
+        getDataFromApi(latitude, longitude, "Asia/Jerusalem", elevation, 1, date).then((data) => {
+            zmanimFromApi = data.times;
+            console.log("zmanim", zmanimFromApi);
+        });
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
 setInterval(() => {
     insertIn('#time', (formatTimeWithSeconds(new Date())));
 }, 1000);
+
+setInterval(() => {
+    updateZmanim();
+}, 1000 * 20);
 
 Hebcal.events.on('ready', refresh());
 
