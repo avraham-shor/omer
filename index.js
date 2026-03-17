@@ -71,8 +71,6 @@ updateZmanim();
 
 function refresh() {
     let specifyMsg = [];
-    const msgObject = [];
-    // const warningMsgs = [];
     let date = new Date();
     let dateLater = new Date();
     let dateEarlier = new Date();
@@ -146,8 +144,8 @@ function refresh() {
     
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
-    const netz = 'נץ החמה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.tzeit72min : localZmanim.neitz_hachama));
-    const mincha = 'מנחה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.minchaGedola : localZmanim.mincha_gedola, "up"));
+    // const netz = 'נץ החמה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.tzeit72min : localZmanim.neitz_hachama));
+    // const mincha = 'מנחה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.minchaGedola : localZmanim.mincha_gedola, "up"));
     const nerot = 'הדלקת נרות%' + format_time(shkiah.setMinutes(shkiah.getMinutes() - timeOfNerot)) + '@';
     // const sofZmanTefilah = 'סוף זמן תפילה ' + format_time(day.getZemanim().sof_zman_tfilla);
 
@@ -298,13 +296,6 @@ function refresh() {
         }
     }
     document.querySelector('#omer img').src = src;
-
-
-
-    // setTimeout(refresh, 2000);
-
-
-
 }
 
 function setCipurMsgs(specifyMsg) {
@@ -698,8 +689,5 @@ setInterval(() => {
 setInterval(() => {
     updateZmanim();
 }, 1000 * 20);
-
-// Hebcal.events.on('ready', refresh());
-
 
 
