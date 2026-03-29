@@ -582,7 +582,7 @@ function getSefira(omerDay) {
 function getParsha() {
     let label = ' פרשת ';
     let parsha = dayUntil12.getParsha('h').join(' ') || '';
-    if (['חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
+    if (['פסח', 'חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
     }
     //TODO remove after Shabat
