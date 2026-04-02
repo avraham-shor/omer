@@ -49,16 +49,16 @@ function updateZmanim() {
 function setShtibelSetings() {
     if (isSizeOfShtibel()) {
         let boxShma = document.querySelector('.box-shma');
-        boxShma.style.fontSize = '2.3rem';
+        boxShma.style.fontSize = '2.5rem';
         boxShma.style.right = '2.5vw';
-        document.querySelector('.shkiah').style.fontSize = '2.2rem';
+        document.querySelector('.shkiah').style.fontSize = '2.5rem';
 
         let dayDiv = document.querySelector('.day');
         dayDiv.style.top = '0.5vh';
         dayDiv.style.fontSize = '3rem';
 
         let timeElement = document.querySelector('.time');
-        timeElement.style.fontSize = '6.2rem';
+        timeElement.style.fontSize = '6rem';
         timeElement.style.top = '4.2vh';
 
         let middleBoxElement = document.querySelector('.middle-box');
