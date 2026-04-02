@@ -207,12 +207,13 @@
 
 .sfira-text {
     position: relative;
-    font-size: 7vw;
+    font-size: 9vw;
     line-height: 130%;
     text-align: center;
     width: 69vw;
     z-index: 22;
     margin: 0 auto;
+    margin-top: 5vh;
 }
 
 .sfira-right {
@@ -220,7 +221,7 @@
     bottom: 17vh;
     right: 18vw;
     z-index: 22;
-    font-size: 3vw;
+    font-size: 5vw;
 }
 
 .sfira-left {
@@ -228,7 +229,7 @@
     bottom: 17vh;
     left: 18vw;
     z-index: 22;
-    font-size: 3vw;
+    font-size: 5vw;
 }
 
 .box-shma {
