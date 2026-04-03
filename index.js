@@ -272,7 +272,7 @@ function refresh() {
         insertIn('#sfira-midot', '');
     }
 
-    if (omerDay > 0 && isStartNight || true) {
+    if (omerDay > 0 && isStartNight) {
         // document.querySelector('#omer img').classList.add("up");
         // document.getElementById('sfira-img').classList.add("up");
         const sfiraImg = document.getElementById('sfira-img');
