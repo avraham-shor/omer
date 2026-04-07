@@ -278,6 +278,9 @@ function refresh() {
         const sfiraImg = document.getElementById('sfira-img');
         sfiraImg.classList.remove("hide");
         sfiraImg.classList.add("up");
+        const sfiraTextDiv = document.getElementById('sfira-text');
+        const sfiraTextLength = ObjectsSefira[omerDay].sfira.length;
+        sfiraTextDiv.style.fontSize = `${12 - sfiraTextLength / 10}vw`;
         insertIn('#sfira-text', ObjectsSefira[omerDay].sfira);
         setCandles(hebDate, dateEarlier);
         insertIn('#sfira-right', ObjectsSefira[omerDay].right);
