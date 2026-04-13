@@ -82,9 +82,9 @@ function refresh() {
 
     if (
         (hebDate.sunset() < dateLater &&
-            dateLater - hebDate.sunset() > (22 * 60 * 1000) &&
+            dateLater - hebDate.sunset() > (20 * 60 * 1000) &&
             dateLater - hebDate.sunset() < (59 * 60 * 1000)) ||
-        !isModiin && (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
+        (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
     ) {
         isStartNight = true;
     }
