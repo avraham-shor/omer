@@ -220,7 +220,7 @@
 
 .sfira-right {
     position: absolute;
-    bottom: 16vh;
+    bottom: 8vh;
     right: 16vw;
     z-index: 22;
     font-size: 4.4vw;
@@ -228,7 +228,7 @@
 
 .sfira-left {
     position: absolute;
-    bottom: 16vh;
+    bottom: 8vh;
     left: 16vw;
     z-index: 22;
     font-size: 4.4vw;
