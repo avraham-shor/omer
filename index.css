@@ -109,6 +109,7 @@
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
+    z-index: 10;
 }
 
 .day {
@@ -122,6 +123,7 @@
     display: inline-flex;
     justify-content: space-around;
     flex-direction: column;
+    z-index: 10;
 }
 
 .middle-box {
@@ -196,7 +198,7 @@
 
 .sfira-text-container {
     position: relative;
-    top: 17vh;
+    top: 32vh;
     left: 0;
     z-index: 20;
     width: 100%;
@@ -213,23 +215,23 @@
     width: 69vw;
     z-index: 22;
     margin: 0 auto;
-    margin-top: 4vh;
+    margin-top: 2vh;
 }
 
 .sfira-right {
     position: absolute;
-    bottom: 17vh;
+    bottom: 16vh;
     right: 16vw;
     z-index: 22;
-    font-size: 4.8vw;
+    font-size: 4.4vw;
 }
 
 .sfira-left {
     position: absolute;
-    bottom: 17vh;
+    bottom: 16vh;
     left: 16vw;
     z-index: 22;
-    font-size: 4.8vw;
+    font-size: 4.4vw;
 }
 
 .box-shma {
