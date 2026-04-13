@@ -83,7 +83,7 @@ function refresh() {
     if (
         (hebDate.sunset() < dateLater &&
             dateLater - hebDate.sunset() > (22 * 60 * 1000) &&
-            dateLater - hebDate.sunset() < (52 * 60 * 1000)) ||
+            dateLater - hebDate.sunset() < (59 * 60 * 1000)) ||
         !isModiin && (hours == 22 || hours == 23) && minutes > 3 && minutes < 30
     ) {
         isStartNight = true;
@@ -272,7 +272,7 @@ function refresh() {
         insertIn('#sfira-midot', '');
     }
 
-    if (omerDay > 0 && (isStartNight || true)) {
+    if (omerDay > 0 && isStartNight) {
         // document.querySelector('#omer img').classList.add("up");
         // document.getElementById('sfira-img').classList.add("up");
         const sfiraImg = document.getElementById('sfira-img');
