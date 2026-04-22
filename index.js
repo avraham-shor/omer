@@ -84,7 +84,7 @@ function refresh() {
         (hebDate.sunset() < dateLater &&
             dateLater - hebDate.sunset() > (20 * 60 * 1000) &&
             dateLater - hebDate.sunset() < (59 * 60 * 1000)) ||
-        (hours == 22 || hours == 23) && (minutes > 3 && minutes < 30) || (minutes > 33 && minutes < 55)
+        (hours == 22 || hours == 23) && ((minutes > 3 && minutes < 30) || (minutes > 33 && minutes < 55))
     ) {
         isStartNight = true;
     }
