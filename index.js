@@ -490,6 +490,7 @@ function isNearToShkiah(time, now) {
 
 function isShowTehilim() {
     //The war is again
+    return false;
     if (dayInWeek != 6) {
         if ([6, 7, 8, 9].includes(hours) || (hours == 10 && minutes < 20)) {
             return true;
