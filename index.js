@@ -135,12 +135,12 @@ function refresh() {
         distanceInSeconds = 105;
     }
     const sunset = dayUntil12.sunset().setSeconds(dayUntil12.sunset().getSeconds() + distanceInSeconds);
-    const shkiah = roundMinute(zmanimFromApi? zmanimFromApi.sunset : sunset);
+    const shkiah = roundMinute(zmanimFromApi ? zmanimFromApi.sunset : sunset);
     const SHKIAH_STR = format_time(shkiah);
     const MASECHTA_STR = masechtaAndDafArr.slice(0, masechtaAndDafArr.length - 1).join(' ');
     const DAF_STR = masechtaAndDafArr[masechtaAndDafArr.length - 1];
 
-    
+
     const SHMA_STR1 = "זמן א'  " + format_time(sofZman1);
     const SHMA_STR2 = "זמן ב'  " + format_time(sofZman2);
     // const netz = 'נץ החמה: ' + format_time(roundMinute(zmanimFromApi? zmanimFromApi.tzeit72min : localZmanim.neitz_hachama));
@@ -586,7 +586,7 @@ function getSefira(omerDay) {
 function getParsha() {
     let label = ' פרשת ';
     let parsha = dayUntil12.getParsha('h').join(' ') || '';
-    if (['פסח', 'חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
+    if (['ראש השנה', 'פסח', 'חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
     }
     //TODO remove after Shabat
