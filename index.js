@@ -84,7 +84,7 @@ function refresh() {
         (hebDate.sunset() < dateLater &&
             dateLater - hebDate.sunset() > (20 * 60 * 1000) &&
             dateLater - hebDate.sunset() < (59 * 60 * 1000)) ||
-        (hours == 22 || hours == 23) && ((minutes > 3 && minutes < 30) || (minutes > 33 && minutes < 55))
+        (hours == 21 || hours == 22 || hours == 23) && ((minutes > 3 && minutes < 30) || (minutes > 33 && minutes < 55))
     ) {
         isStartNight = true;
     }
@@ -588,10 +588,6 @@ function getParsha() {
     let parsha = dayUntil12.getParsha('h').join(' ') || '';
     if (['ראש השנה', 'פסח', 'חול המועד פסח', 'חול המועד סוכות', 'שמיני עצרת', 'יום כיפור', 'שביעי של פסח'].includes(parsha)) {
         label = ' שבוע של ';
-    }
-    //TODO remove after Shabat
-    if (parsha == 'נצבים וילך') {
-        parsha = 'נצבים';
     }
     if (parsha == 'שביעי של פסח') {
         parsha = ' פסח ';
