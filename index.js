@@ -1,4 +1,4 @@
-
+⁷
 //window.location.replace("https://aoklivestrim.com/");
 //window.location.replace("https://avraham-shor-venn.github.io/avot/");
 
@@ -442,7 +442,7 @@ function isShowZmanMoilad() {
 // }
 
 function isZom(date, day) {
-    logError("day= " + day + " " + date)
+    //logError("day= " + day + " " + date)
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
