@@ -442,7 +442,7 @@ function isShowZmanMoilad() {
 // }
 
 function isZom(date, day) {
-    writeSize("day= " + day)
+    logError("day= " + day + " " + date)
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
