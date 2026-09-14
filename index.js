@@ -1,4 +1,3 @@
-⁷
 //window.location.replace("https://aoklivestrim.com/");
 //window.location.replace("https://avraham-shor-venn.github.io/avot/");
 
