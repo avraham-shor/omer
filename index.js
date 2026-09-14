@@ -187,7 +187,7 @@ function refresh() {
         specifyMsg.push({ color: 'red', text: 'יעלה ויבוא' });
     }
 
-    if (t(isZom, [date, day])) {
+    if (t(isZom, [date])) {
         specifyMsg.push({ color: 'red', text: 'עננו' });
     }
 
@@ -440,9 +440,10 @@ function isShowZmanMoilad() {
 //     }
 // }
 
-function isZom(date, day) {
+function isZom(date) {
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
-    if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
+    const zmanim = hebDate.getZemanim();
+    if (date < zmanim.chatzot || date > zmanim.tzeit) {
         return false;
     }
     const tamuzZom = month == 4 && ((dayInWeek == 0 && day == 18) || (dayInWeek != 6 && day == 17));
