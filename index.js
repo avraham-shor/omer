@@ -187,7 +187,7 @@ function refresh() {
         specifyMsg.push({ color: 'red', text: 'יעלה ויבוא' });
     }
 
-    if (t(isZom, [date, hebDate])) {
+    if (t(isZom, [date, day])) {
         specifyMsg.push({ color: 'red', text: 'עננו' });
     }
 
@@ -441,18 +441,17 @@ function isShowZmanMoilad() {
 // }
 
 function isZom(date, day) {
-    //logError("day= " + day + " " + date)
     let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     if (date < day.getZemanim().chatzot || date > day.getZemanim().tzeit) {
         return false;
     }
     const tamuzZom = month == 4 && ((dayInWeek == 0 && day == 18) || (dayInWeek != 6 && day == 17));
-    //     const avZom = month == 5 && ((dayInWeek == 0 && day == 10) || (dayInWeek != 6 && day == 9)); 
+    const avZom = month == 5 && ((dayInWeek == 0 && day == 10) || (dayInWeek != 6 && day == 9));
     const tishreiZom = month == 7 && ((dayInWeek == 0 && day == 4) || (dayInWeek != 6 && day == 3));
     const tevetZom = month == 10 && day == 10;
     const adar = isLeapYear ? 13 : 12;
     const adarZom = month == adar && ((dayInWeek == 4 && day == 11) || (dayInWeek != 6 && day == 13));
-    return tamuzZom || tishreiZom || tevetZom || adarZom;
+    return tamuzZom || avZom || tishreiZom || tevetZom || adarZom;
 }
 
 function isStartAseretYemeiTeshuva() {
