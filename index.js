@@ -43,6 +43,7 @@ let seconds;
 let isNight;
 let isStartNight;
 let omerDay;
+let isLeapYear
 
 let zmanimFromApi;
 
@@ -113,6 +114,7 @@ function refresh() {
     minutes = date.getMinutes();
     seconds = date.getSeconds();
     omerDay = hebDate.omer();
+    isLeapYear = new Hebcal.Month(month, year).isLeapYear();
 
 
     const localZmanim = hebDate.getZemanim();
@@ -441,7 +443,6 @@ function isShowZmanMoilad() {
 // }
 
 function isZom(date) {
-    let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     const zmanim = hebDate.getZemanim();
     if (date < zmanim.chatzot || date > zmanim.tzeit) {
         return false;
@@ -509,7 +510,6 @@ function isSiumMasechet(day) {
 function isAlHanisim() {
     const chanucaDays = [25, 26, 27, 28, 29, 30];
     const cislevSmall = new Hebcal.HDate("כו כסלו").daysInMonth() == 29;
-    let isLeapYear = new Hebcal.Month(month, year).isLeapYear();
     const chanucaCislev = month == 9 && chanucaDays.includes(day);
     const chanucaTevet = month == 10 && (day == 1 || day == 2 || cislevSmall && day == 3);
     const adar = isLeapYear ? 13 : 12;
