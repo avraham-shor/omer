@@ -423,25 +423,6 @@ function isShowZmanMoilad() {
 
 }
 
-// function showZmanMoilad(day, hours, minutes) {
-
-// // TODO המולד של חודשים אדר תמוז אלול לא תקינים
-//     if (currentMonth.find('shabbat_mevarchim').length && currentMonth.find('shabbat_mevarchim')[0].day == day && ((hours == 9 && minutes > 40) || (hours == 10 && minutes < 52))) {
-//         return calculateMoiladAndGetMoiladText()
-
-
-
-// const moilad = currentMonth.next().next().molad();
-// const moiladDay = days[moilad.doy];
-// const dayOrNight = moilad.hour >= 6 && moilad.hour < 18 ? 'ביום ' : 'בליל ';
-// const moiladTime = (moilad.hour % 12 || 12) + ':' + moilad.minutes + '';
-// const moiladChalakim = moilad.chalakim;
-// // const moiladText = (' המולד יהיה ' + dayOrNight + moiladDay + ' בשעה ' + moiladTime + ' ו-' + moiladChalakim + ' חלקים');
-// const moiladText = 'המולד יהיה בליל שישי 7:02'; //TODO remove after SHVAT
-// return moiladText;
-//     }
-// }
-
 function isZom(date) {
     const zmanim = hebDate.getZemanim();
     if (date < zmanim.chatzot || date > zmanim.tzeit) {
@@ -615,64 +596,47 @@ function isStartBorechOlenu() {
 }
 
 function calculateMoiladAndGetMoiladText() {
-    // switch (month) {
-    //     case 1: 
-    //         return "המולד יהיה ביום רביעי בשעה 4:34 ו- 13 חלקים";
-    //     case 2:
-    //         return "המולד יהיה בליל שישי בשעה 5:18 ו- 14 חלקים";
-    //     case 3:
-    //         return "המולד יהיה היום בשעה 6:02 ו- 15 חלקים";
-    //     case 4:
-    //         return "המולד יהיה ביום שני בשעה 6:46 ו- 16 חלקים";
-    //     case 5:
-    //         return "המולד יהיה בליל רביעי בשעה 7:30 ו- 17 חלקים";
-    //     case 6:
-    //         return "המולד יהיה ביום חמישי בשעה 8:15 ";
-    //     case 7:
-    //         return "המולד יהיה בליל שב״ק בשעה 8:59 ו- 1 חלק";
-    //     case 8:
-    //         return "המולד יהיה ביום ראשון בשעה 9:43 ו- 2 חלקים";
-    //     case 9:
-    //         return "המולד יהיה בליל שלישי בשעה 10:27 ו- 3 חלקים";
-    //     case 10:
-    //         return "המולד יהיה ביום ראשון בשעה 03:06 ו- 11 חלקים";
-    //     case 11:
-    //         return "המולד יהיה בליל שלישי בשעה 03:50 ו- 12 חלקים";
-    //     default:
-    //         break;
-    // }
-    const ROUND_OF_MOON = 2551443000   // ((29.5 * 24 * 60 + 44) * 60 + 3) * 1000;
-    const BRACK_TIME = 591594000;  // In ms that the time started before the Moilad;
-    const timeOfToday = new Date().getTime();
-    const amount = Math.round((timeOfToday - BRACK_TIME) / ROUND_OF_MOON);
-    const moiladDay = new Date(BRACK_TIME + ROUND_OF_MOON * (amount));
-    hebrewMoiladDay = new Hebcal.HDate(moiladDay);
-    if (hebrewMoiladDay.sunset() < moiladDay.getTime()) {
-        moiladDay.setDate(moiladDay.getDate() + 1);
-    }
-    const moiladDayInWords = days[moiladDay.getDay()];
-    console.log("moiladDay:", moiladDay.getUTCHours(), moiladDay.getHours());
 
-    const dayOrNight = moiladDay.getHours() >= 6 && moiladDay.getHours() < 18 ? 'ביום ' : 'בליל ';
-    const moladHours = moiladDay.getUTCHours();
-    const moladMinutes = moiladDay.getUTCMinutes();
-    const moladSeconds = moiladDay.getUTCSeconds();
-    const totalChalakim = (moladHours * 1080) + (moladMinutes * 18) + Math.floor(moladSeconds / 3);
-    const chalakim = totalChalakim % 18;
-    moiladDay.setHours(moiladDay.getUTCHours() + 2);
+    const CHALAKIM_PER_HOUR = 1080;
+    const CHALAKIM_PER_DAY = 25920;
+    const MONTH_CHALAKIM = 765433; // length of one lunar month: 29d 12h 793 chalakim
+    const BAHARAD_CHALAKIM = CHALAKIM_PER_DAY + 5 * CHALAKIM_PER_HOUR + 204; // Molad Tohu: Monday, 5 hours, 204 chalakim
+    const isHebYearLeap = (y) => ((7 * y + 1) % 19) < 7;
+
+    // Shabbat Mevarchim always falls in the month before the one it blesses.
+    const nextMonthObj = new Hebcal.Month(month, year).next();
+    const nextMonth = nextMonthObj.month;
+    const nextYear = nextMonthObj.year;
+    const monthsSinceTishrei = nextMonth >= 7 ? nextMonth - 7 : (isHebYearLeap(nextYear) ? 6 : 5) + nextMonth;
+    const monthsElapsed = Math.floor((235 * nextYear - 234) / 19) + monthsSinceTishrei;
+
+    const totalChalakim = BAHARAD_CHALAKIM + monthsElapsed * MONTH_CHALAKIM;
+    const dayNum = Math.floor(totalChalakim / CHALAKIM_PER_DAY);
+    const chalakimInDay = totalChalakim - dayNum * CHALAKIM_PER_DAY;
+    const hourFromSunset = Math.floor(chalakimInDay / CHALAKIM_PER_HOUR); // 0-23, counted from 18:00 fixed Jerusalem time
+    const chalakimInHour = chalakimInDay - hourFromSunset * CHALAKIM_PER_HOUR;
+    const minutes = Math.floor(chalakimInHour / 18);
+    const chalakim = chalakimInHour - minutes * 18;
+
+    const moiladDayInWords = days[dayNum % 7];
+    const fixedHour = (18 + hourFromSunset) % 24; // fixed Jerusalem time - molad is never adjusted for DST
+    const dayOrNight = fixedHour >= 6 && fixedHour < 18 ? 'ביום ' : 'בליל ';
+    const displayHour = (fixedHour % 12) || 12;
+
     let chalakimText;
+    let displayMinutes = minutes;
     if (chalakim == 0) {
         chalakimText = '';
-        moiladDay.setMinutes(moiladDay.getMinutes() + 1);
+        displayMinutes += 1;
     }
     else if (chalakim == 1) {
         chalakimText = ' וחלק אחד';
     } else {
         chalakimText = ' ו-' + chalakim + ' חלקים';
     }
-    const moiladTime = format_time(moiladDay)
+
+    const moiladTime = displayHour + ':' + pad(displayMinutes);
     const moiladText = (' המולד יהיה ' + dayOrNight + moiladDayInWords + ' בשעה ' + moiladTime + chalakimText);
-    // console.log("moiladText:", moiladText );
     return moiladText;
 
 }
